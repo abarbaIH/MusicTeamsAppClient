@@ -24,7 +24,7 @@
 | :-------- | :------- | :------------------------- |
 | /salas| Venues list page |  |
 | /salas/detalles/:id | Venue details page |✅  |
-| /crear-sala/| New venue form page | ✅ |
+| /crear-sala| New venue form page | ✅ |
 | /editar-sala/:id| Edit venue form page | ✅ |
 
 
@@ -35,5 +35,5 @@
 | :-------- | :------- | :------------------------- |
 | /eventos-abiertos| Open events list page |  |
 | /eventos/detalles/:id | Event details page | ✅ |
-| /crear-evento/| New event form page | ✅ |
+| /crear-evento| New event form page | ✅ |
 | /editar-evento/:id| Edit event form page | ✅ |
