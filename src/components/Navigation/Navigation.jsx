@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Navigation = () => {
 
     return (
-        <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar bg="dark" variant="dark" expand="lg" className='mb-5'>
             <Container>
                 <Navbar.Brand href="#">MusicTeamsApp</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
