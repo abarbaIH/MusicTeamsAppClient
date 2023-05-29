@@ -14,6 +14,7 @@ import SignupPage from "../pages/AuthPages/SignupPage/SignupPage"
 import LoginPage from "../pages/AuthPages/LoginPage/LoginPage"
 import ProfilePage from "../pages/UsersPages/ProfilePage/ProfilePage"
 import EditProfilePage from "../pages/UsersPages/EditProfilePage/EditProfilePage"
+import PrivateRoute from "./PrivateRoute"
 
 const AppRoutes = () => {
     return (
@@ -31,7 +32,11 @@ const AppRoutes = () => {
             <Route path="/editar-evento/:id" element={<EditEventPage />} />
             <Route path="/registro" element={<SignupPage />} />
             <Route path="/inicio-sesion" element={<LoginPage />} />
-            <Route path="/perfil" element={<ProfilePage />} />
+
+            <Route path="/perfil" element={< PrivateRoute />}>
+                <Route path="" element={<ProfilePage />} />
+            </Route>
+
             <Route path="/perfil-editar/:id" element={<EditProfilePage />} />
             <Route path="*" element={<h1>404</h1>} />
         </Routes>
