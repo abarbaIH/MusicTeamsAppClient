@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Form, Button } from "react-bootstrap"
+import uploadServices from "../../services/upload.services"
 import authService from './../../services/auth.services'
 import { useNavigate } from "react-router-dom"
 
@@ -17,6 +18,7 @@ const SignupForm = () => {
 
     })
 
+    const [loadingImage, setLoadingImage] = useState(false)
 
     const navigate = useNavigate()
 
@@ -34,6 +36,24 @@ const SignupForm = () => {
             .catch(err => console.log(err))
     }
 
+    const handleFileUpload = e => {
+
+        setLoadingImage(true)
+
+        const formData = new FormData()
+        formData.append('imageData', e.target.files[0])
+
+        uploadServices
+            .uploadimage(formData)
+            .then(({ data }) => {
+                setSignupData({ ...signupData, avatar: data.cloudinary_url })
+                setLoadingImage(false)
+            })
+            .catch(err => {
+                console.log(err)
+                setLoadingImage(false)
+            })
+    }
 
     const { email, password, firstName, lastName, avatar, aboutMe, instrument, level } = signupData
 
@@ -61,10 +81,9 @@ const SignupForm = () => {
                 <Form.Control type="text" value={lastName} onChange={handleInputChange} name="lastName" />
             </Form.Group>
 
-            {/* TIPO IMAGE */}
             <Form.Group className="mb-3" controlId="avatar">
                 <Form.Label>Avatar</Form.Label>
-                <Form.Control type="text" value={avatar} onChange={handleInputChange} name="avatar" />
+                <Form.Control type="file" onChange={handleFileUpload} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="aboutMe">
@@ -85,7 +104,11 @@ const SignupForm = () => {
 
 
             <div className="d-grid">
-                <Button variant="dark" type="submit">Registrarme</Button>
+                <Button variant="dark" type="submit" disabled={loadingImage}>
+                    {
+                        loadingImage ? "Cargando Imagen.." : "Registrarme"
+                    }
+                </Button>
             </div>
 
         </Form>
