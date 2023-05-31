@@ -1,12 +1,13 @@
 import axios from 'axios'
 
-class AuthService {
+class VenueService {
 
     constructor() {
 
         this.api = axios.create({
-            baseURL: `${process.env.REACT_APP_API_URL}/auth`
+            baseURL: `${process.env.REACT_APP_API_URL}/venues`
         })
+
         this.api.interceptors.request.use((config) => {
 
             const storedToken = localStorage.getItem("authToken");
@@ -19,19 +20,19 @@ class AuthService {
         })
     }
 
-    signup(userData) {
-        return this.api.post('/signup', userData)
+    getAllVenues() {
+        return this.api.get('/getAllVenues')
     }
 
-    login(userData) {
-        return this.api.post('/login', userData)
+    newVenue(venueData) {
+        return this.api.post('/newVenue', venueData)
     }
 
-    verify(token) {
-        return this.api.get('/verify', { headers: { Authorization: `Bearer ${token}` } })
+    venueDetails(venue_id) {
+        return this.api.get(`/${venue_id}`)
     }
 }
 
-const authService = new AuthService()
+const venuesService = new VenueService()
 
-export default authService
+export default venuesService
