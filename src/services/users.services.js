@@ -30,7 +30,12 @@ class UserService {
     userEdit(user_id, userData) {
         return this.api.put(`/${user_id}/edit`, userData)
     }
-    // router.delete('/:user_id/delete', userDelete)
+
+    userDelete(user_id) {
+        // console.log(user_id)
+        return this.api.delete(`/${user_id}/delete`)
+    }
+
 }
 
 const usersService = new UserService()
