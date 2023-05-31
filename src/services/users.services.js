@@ -12,8 +12,17 @@ class UserService {
     getAllUsers() {
         return this.api.get('/getAllUsers')
     }
+
+    userDetails(user_id) {
+        return this.api.get(`/${user_id}`)
+    }
+
+    userEdit(user_id, userData) {
+        return this.api.put(`/${user_id}/edit`, userData)
+    }
+    // router.delete('/:user_id/delete', userDelete)
 }
 
-
 const usersService = new UserService()
+
 export default usersService

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row } from 'react-bootstrap'
 import usersService from '../../../services/users.services'
-import UserCard from '../../../components/UserCard/UserCard'
+import UsersList from '../../../components/UsersList/UsersList'
 
 
 
@@ -19,18 +19,15 @@ const UsersListPage = () => {
 
     return (
         <Container>
-
             <h1>USER LIST PAGEEEE</h1>
             <hr />
             <Row>
                 {
-                    users.map(user => {
-                        return (
-                            <Col md={{ span: 3 }} key={user._id} lg={{ span: 4 }}>
-                                <UserCard {...user} />
-                            </Col>
-                        )
-                    })
+                    !users
+                        ?
+                        <h1>CARGANDO...</h1>
+                        :
+                        <UsersList users={users} />
                 }
             </Row>
         </Container>
