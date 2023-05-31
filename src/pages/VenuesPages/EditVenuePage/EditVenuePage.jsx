@@ -1,7 +1,19 @@
+import React from 'react'
+import { Container } from 'react-bootstrap'
+import EditVenueForm from '../../../components/EditVenueForm/EditVenueForm'
+
+
 const EditVenuePage = () => {
+
     return (
 
-        <div>EDIT VENUE PAGEEEE</div>
+        <Container>
+            <h1>Editar Sala</h1>
+            <hr />
+            <EditVenueForm />
+
+
+        </Container>
 
     )
 }

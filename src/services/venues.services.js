@@ -31,6 +31,14 @@ class VenueService {
     venueDetails(venue_id) {
         return this.api.get(`/${venue_id}`)
     }
+
+    venueEdit(venue_id, venueData) {
+        return this.api.put(`/${venue_id}/edit`, venueData)
+    }
+
+    venueDelete(venue_id) {
+        return this.api.delete(`/${venue_id}/delete`)
+    }
 }
 
 const venuesService = new VenueService()
