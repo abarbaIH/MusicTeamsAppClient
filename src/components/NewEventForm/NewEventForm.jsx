@@ -1,31 +1,42 @@
-import { useState } from "react"
-import { Form, Button, Row, Col, FormSelect } from "react-bootstrap"
+import { useState, useEffect, useContext } from "react"
+import { Form, Button, Row, Col } from "react-bootstrap"
 import eventsService from "../../services/event.services"
 // import uploadServices from "../../services/upload.services"
+import venuesService from './../../services/venues.services'
+import { AuthContext } from './../../contexts/auth.context'
 
-// PARÁMETROS UPDATELIST
-const NewEventForm = ({ closeModal, updateList }) => {
-
+const NewEventForm = ({ fireFinalActions, venueId }) => {
+    const { user } = useContext(AuthContext)
     const [eventData, setEventData] = useState({
         name: '',
         musicStyle: '',
         requiredExperience: '',
-        venueEvent: '',
+        venueEvent: venueId ? venueId : '',
         eventDate: '',
-        assistants: "",
+        assistants: '',
+        maxPlaces: ''
     })
 
-    // const [loadingImage, setLoadingImage] = useState(false)
+    const [venues, setVenues] = useState([])
+
+    useEffect(() => {
+        loadVenues()
+    }, [])
+
+    const loadVenues = () => {
+        venuesService
+            .getAllVenues()
+            .then(({ data }) => setVenues(data))
+            .catch(err => console.log(err))
+    }
+
 
     const handleInputChange = e => {
         const { name, value } = e.target
         setEventData({ ...eventData, [name]: value })
     }
 
-    // const handle venueEventChange = e => {
-    //     const selectedVenueEvent = Array.from(e.target.selectedOptions, option => option.value)
-    //     setEventData({ ...eventData,  venueEvent: selectedVenueEvent })
-    // }
+    const getVenueFromId = (venueId) => venues.find(venue => venue._id == venueId)
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -33,41 +44,15 @@ const NewEventForm = ({ closeModal, updateList }) => {
         eventsService
             .newEvent(eventData)
             .then(() => {
-                closeModal()
-                updateList()
+                fireFinalActions()
             })
             .catch(err => console.log(err))
     }
 
-    // const handleFileUpload = e => {
-
-    //     setLoadingImage(true)
-
-    //     const formData = new FormData()
-    //     formData.append('imageData', e.target.files[0])
-
-    //     uploadServices
-    //         .uploadimage(formData)
-    //         .then(({ data }) => {
-    //             setVenueData({ ...venueData, venueImg: data.cloudinary_url })
-    //             setLoadingImage(false)
-    //         })
-    //         .catch(err => {
-    //             console.log(err)
-    //             setLoadingImage(false)
-    //         })
-    // }
-
-    //     name: '',
-    // musicStyle: '',
-    // requiredExperience: '',
-    // venueEvent: '',
-    // eventDate: '',
-    // assistants: []
-
-    const { name, musicStyle, requiredExperience, venueEvent, eventDate, assistants } = eventData
+    const { name, musicStyle, requiredExperience, venueEvent, eventDate, assistants, maxPlaces } = eventData
 
     return (
+
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="name">
                 <Form.Label>Dale un nombre a tu Ensayo</Form.Label>
@@ -75,23 +60,56 @@ const NewEventForm = ({ closeModal, updateList }) => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="musicStyle">
-                <Form.Label>Estilo Musical</Form.Label>
-                <Form.Control type="text" value={musicStyle} onChange={handleInputChange} name="musicStyle" />
+                <Form.Label>Estilo de música del ensayo</Form.Label>
+                <Form.Select value={musicStyle} onChange={handleInputChange} name="musicStyle">
+                    <option disabled value="">
+                        Seleccione un estilo musical
+                    </option>
+                    <option value="Rock">Rock</option>
+                    <option value="Blues">Blues</option>
+                    <option value="Flamenco">Flamenco</option>
+                    <option value="Latin">Latin</option>
+                    <option value="Jazz">Jazz</option>
+                    <option value="Pop">Pop</option>
+                </Form.Select>
             </Form.Group>
 
             <Row>
                 <Col>
                     <Form.Group className="mb-3" controlId="requiredExperience">
-                        <Form.Label>Experiencia Requerida para el evento</Form.Label>
-                        <Form.Control type="text" value={requiredExperience} onChange={handleInputChange} name="requiredExperience" />
+                        <Form.Label>Experiencia Requerida</Form.Label>
+                        <Form.Select value={requiredExperience} onChange={handleInputChange} name="requiredExperience">
+                            <option disabled value="">
+                                Seleccione un nivel
+                            </option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </Form.Select>
                     </Form.Group>
-
                 </Col>
 
                 <Col>
+
                     <Form.Group className="mb-3" controlId="venueEvent">
-                        <Form.Label>Sala del evento</Form.Label>
-                        <Form.Control type="text" value={venueEvent} onChange={handleInputChange} name="venueEvent" />
+                        <Form.Label>Sala del Ensayo</Form.Label>
+
+                        {venueId
+                            ?
+                            <Form.Select value={venueEvent} onChange={handleInputChange} name="venueEvent" disabled>
+                                <option key={getVenueFromId(venueId)?._id} value={getVenueFromId(venueId)?._id}>{getVenueFromId(venueId)?.name}</option>
+                            </Form.Select>
+
+                            :
+
+                            <Form.Select value={venueEvent} onChange={handleInputChange} name="venueEvent">
+                                {
+                                    venues.map(venue => <option key={venue._id} value={venue._id}>{venue.name}</option>)
+                                }
+                            </Form.Select>
+                        }
                     </Form.Group>
 
                 </Col>
@@ -102,40 +120,25 @@ const NewEventForm = ({ closeModal, updateList }) => {
                         <Form.Control type="date" value={eventDate} onChange={handleInputChange} name="eventDate" />
                     </Form.Group>
                 </Col>
+
                 <Col>
                     <Form.Group className="mb-3" controlId="assistants">
-                        <Form.Label>Asistentes</Form.Label>
+                        <Form.Label>Participantes</Form.Label>
                         <Form.Control type="text" value={assistants} onChange={handleInputChange} name="assistants" />
                     </Form.Group>
                 </Col>
             </Row>
-
-            {/* <Form.Group className="mb-3" controlId="venueImg">
-                <Form.Label>Imagen de la Sala</Form.Label>
-                <Form.Control type="file" onChange={handleFileUpload} />
+            <Form.Group className="mb-3" controlId="maxPlaces" >
+                <Form.Label>Nº Máximo de Participantes</Form.Label>
+                <Form.Control type="text" value={getVenueFromId(eventData.venueEvent)?.capacity} onChange={handleInputChange} name="maxPlaces" disabled />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="features">
-                <Form.Label>Características de la Sala</Form.Label>
-                <Form.Select multiple value={features} onChange={handleFeaturesChange} name="features">
-                    <option value="Parking">Parking</option>
-                    <option value="Aire Acondicionado">Aire Acondicionado</option>
-                    <option value="Alquiler de material">Alquiler de material</option>
-                    <option value="Microfonía">Microfonía</option>
-                    <option value="Amplificadores">Amplificadores</option>
-                    <option value="Wifi">Wifi</option>
-                    <option value="Almacén">Almacén</option>
-                    <option value="Cafetería">Cafetería</option>
-                    <option value="Batería">Batería</option>
-                    <option value="Estudio de Grabación">Estudio de Grabación</option>
-                </Form.Select>
-            </Form.Group> */}
-
-
             <div className="d-grid">
-                <Button variant="dark" style={{ marginBottom: '30px' }} type="submit"> Crear Evento</Button>
+                <Button variant="dark" style={{ marginBottom: '30px' }} type="submit">Crear Evento</Button>
             </div>
+
         </Form>
+
     )
 }
 

@@ -92,14 +92,30 @@ const SignupForm = () => {
             </Form.Group>
 
             {/* SELECT */}
+
             <Form.Group className="mb-3" controlId="instrument">
                 <Form.Label>Instrumento</Form.Label>
-                <Form.Control type="text" value={instrument} onChange={handleInputChange} name="instrument" />
+                <Form.Select value={instrument} onChange={handleInputChange} name="instrument">
+                    <option value="Guitarra">Guitarra</option>
+                    <option value="Bajo">Bajo</option>
+                    <option value="Violín">Violín</option>
+                    <option value="Piano">Piano</option>
+                    <option value="Batería">Batería</option>
+                    <option value="Saxofón">Saxofón</option>
+                    <option value="Trompeta">Trompeta</option>
+                    <option value="Percusión">Percusión</option>
+                </Form.Select>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="level">
-                <Form.Label>Level</Form.Label>
-                <Form.Control type="string" value={level} onChange={handleInputChange} name="level" />
+                <Form.Label>Nivel de Experiencia</Form.Label>
+                <Form.Select value={level} onChange={handleInputChange} name="level">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </Form.Select>
             </Form.Group>
 
 

@@ -1,79 +1,152 @@
-// import { useEffect, useState, useContext } from 'react'
-// import { useParams, useNavigate } from 'react-router-dom'
-// import { Container, Form, Button } from 'react-bootstrap'
+// import React from 'react'
+import { useEffect, useState, React } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { Form, Button } from 'react-bootstrap'
 
-// import { UserContext } from "../../contexts/user.context"
+import usersService from './../../services/users.services'
+import uploadServices from './../../services/upload.services'
 
-// const EditProfilePage = () => {
+const UserEditForm = () => {
 
-//     const { id } = useParams()
-//     const navigate = useNavigate()
-//     // const { userEdit, userDetails } = useContext(UserContext)
+    const { id } = useParams()
+    const navigate = useNavigate()
 
-//     const [userData, setUserData] = useState({
+    const [userEdit, setUserEdit] = useState({
 
-//         firstName: '',
-//         // lastName: '',
-//         // avatar: '',
-//         // aboutMe: '',
-//         // instrument: '',
-//         // level: '',
-//         // venueFavorites: '',
-//         // friends: '',
-//         email: ''
-//         // role: '',
+        firstName: '',
+        lastName: '',
+        avatar: '',
+        aboutMe: '',
+        instrument: '',
+        level: '',
+        venueFavorites: '',
+        friends: '',
+        email: '',
+        role: '',
 
-//     })
+    })
 
-//     const { firstName, email } = userData
+    const [loadingImage, setLoadingImage] = useState(false)
 
-//     useEffect(() => {
-//         userDetails(id)
-//             .then(({ data }) => {
-//                 const {
-//                     firstName, email
-//                 } = data
-//                 const userEdit = {
-//                     firstName, email
-//                 }
-//                 setUserData(userEdit)
 
-//             })
-//             .catch(err => console.log(err))
-//     }, [])
+    const { email, role, firstName, lastName, avatar, aboutMe, instrument, level, venueFavorites, friends } = userEdit
+    useEffect(() => {
+        loadUser()
+    }, [])
 
-//     const handleInputChange = e => {
-//         const { name, value } = e.target
-//         setUserData({ ...userData, [name]: value })
-//     }
-//     const handleSubmit = e => {
-//         e.preventDefaul()
-//         userEdit(id, userData)
-//         navigate('/profile')
-//     }
+    const loadUser = () => {
+        usersService
+            .userEdit(id)
+            .then(({ data }) => {
+                const updateUser = data
+                setUserEdit(updateUser)
+            })
+            .catch(err => console.log(err))
+    }
 
-//     return (
-//         <Container>
+    const handleInputChange = e => {
+        const { value, name } = e.target
+        setUserEdit({ ...userEdit, [name]: value })
+    }
 
-//             < div > EDaqui es====???</div >
-//             <Form onSubmit={handleSubmit}>
-//                 <Form.Group className="mb-3" controlId="fis">
-//                     <Form.Label>Name</Form.Label>
-//                     <Form.Control type="text" value={firstName} onChange={handleInputChange} name="firstName" />
-//                 </Form.Group>
+    const handleSubmit = e => {
+        e.preventDefault()
+        usersService
+            .userEdit(id, userEdit)
+            .then(() => navigate(`/usuarios/detalles/${id}`))
+            .catch(err => console.log(err))
+    }
 
-//                 <Form.Group className="mb-3" controlId="fis">
-//                     <Form.Label>Name</Form.Label>
-//                     <Form.Control type="email" value={email} onChange={handleInputChange} name="email" />
-//                 </Form.Group>
+    const handleFileUpload = e => {
 
-//                 <div className="d-grid">
-//                     <Button variant="dark" type="submit">Guardar cambios editados</Button>
-//                 </div>
-//             </Form>
-//         </Container>
-//     )
+        setLoadingImage(true)
 
-// }
+        const formData = new FormData()
+        formData.append('imageData', e.target.files[0])
 
-// export default EditProfilePage
+        uploadServices
+            .uploadimage(formData)
+            .then(({ data }) => {
+                setUserEdit({ ...userEdit, avatar: data.cloudinary_url })
+                setLoadingImage(false)
+            })
+            .catch(err => {
+                console.log(err)
+                setLoadingImage(false)
+            })
+    }
+
+    return (
+
+        <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="fis">
+                <Form.Label>Nombre</Form.Label>
+                <Form.Control type="text" value={firstName} onChange={handleInputChange} name="firstName" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="fis">
+                <Form.Label>Apellido</Form.Label>
+                <Form.Control type="text" value={lastName} onChange={handleInputChange} name="lastName" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="fis">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" value={email} onChange={handleInputChange} name="email" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="avatar">
+                <Form.Label>Avatar</Form.Label>
+                <Form.Control type="file" onChange={handleFileUpload} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="fis">
+                <Form.Label>Sobre mi</Form.Label>
+                <Form.Control type="text" value={aboutMe} onChange={handleInputChange} name="aboutMe" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="instrument">
+                <Form.Label>Instrumento</Form.Label>
+                <Form.Select value={instrument} onChange={handleInputChange} name="instrument">
+                    <option value="Guitarra">Guitarra</option>
+                    <option value="Bajo">Bajo</option>
+                    <option value="Violín">Violín</option>
+                    <option value="Piano">Piano</option>
+                    <option value="Batería">Batería</option>
+                    <option value="Saxofón">Saxofón</option>
+                    <option value="Trompeta">Trompeta</option>
+                    <option value="Percusión">Percusión</option>
+                </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="level">
+                <Form.Label>Nivel de Experiencia</Form.Label>
+                <Form.Select value={level} onChange={handleInputChange} name="level">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="fis">
+                <Form.Label>Salas favoritas</Form.Label>
+                <Form.Control type="text" value={venueFavorites} onChange={handleInputChange} name="venueFavorites" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="fis">
+                <Form.Label>Mis amigos</Form.Label>
+                <Form.Control type="text" value={friends} onChange={handleInputChange} name="friends" />
+            </Form.Group>
+            {/* <div className="d-grid">
+                    <Button variant="dark" type="submit">Guardar cambios editados</Button>
+                </div> */}
+
+            <div className="d-grid">
+                <Button variant="dark" style={{ marginBottom: '30px' }} disabled={loadingImage} type="submit">
+
+                    {
+                        loadingImage ? "Cargando Imagen.." : "Guardar cambios"
+                    }
+
+                </Button>
+            </div>
+
+        </Form>
+    )
+
+}
+
+export default UserEditForm

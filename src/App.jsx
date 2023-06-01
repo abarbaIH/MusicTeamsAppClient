@@ -8,7 +8,6 @@ import AppRoutes from './routes/AppRouters';
 function App() {
   return (
     <div className="App">
-
       <Navigation />
       <AppRoutes />
       <Footer />

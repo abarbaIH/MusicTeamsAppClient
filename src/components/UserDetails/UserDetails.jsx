@@ -2,7 +2,7 @@ import { Button, Card, Row, Col, Form } from "react-bootstrap"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import usersService from './../../services/users.services'
 
-const UserDetails = ({ user }) => {
+const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument, aboutMe, level, friends, venueFavorites }) => {
 
     const { id } = useParams()
     const navigate = useNavigate()
@@ -11,7 +11,6 @@ const UserDetails = ({ user }) => {
 
         e.preventDefault()
 
-        console.log(id)
         usersService
             .userDelete(id)
             .then(() => navigate('/usuarios'))
@@ -20,22 +19,22 @@ const UserDetails = ({ user }) => {
     return (
 
         <>
-            <h1> {user.firstName}</h1>
+            <h1> {firstName}</h1>
             <Card className="mb-3 UserCard" md={{ span: 6 }} >
                 <Row>
                     <Col>
-                        <Card.Img md={{ span: 5 }} variant="top" src={user.avatar} style={{ width: '100%' }} />
+                        <Card.Img md={{ span: 5 }} variant="top" src={avatar} style={{ width: '100%' }} />
                     </Col>
                     <Col>
                         <Card.Title>Datos personales</Card.Title>
                         <ul>
-                            <li>Nombre: <strong>{user.firstName}</strong></li>
-                            <li>Apellido: <strong>{user.lastName}</strong></li>
-                            <li>Email: <strong>{user.email}</strong></li>
-                            <li>Rol: <strong>{user.role}</strong></li>
-                            <li>Instrumento: <strong>{user.instrument}</strong><p>Nivel: <strong>{user.level}</strong></p></li>
+                            <li>Nombre: <strong>{firstName}</strong></li>
+                            <li>Apellido: <strong>{lastName}</strong></li>
+                            <li>Email: <strong>{email}</strong></li>
+                            <li>Rol: <strong>{role}</strong></li>
+                            <li>Instrumento: <strong>{instrument}</strong><p>Nivel: <strong>{level}</strong></p></li>
                         </ul>
-                        <p>Sobre mí: {user.aboutMe}</p>
+                        <p>Sobre mí: {aboutMe}</p>
                     </Col>
                 </Row>
                 <Card>
@@ -45,20 +44,20 @@ const UserDetails = ({ user }) => {
                         <p>Instrumento:{user.instrument}</p>
                         <p>Nivel:{user.level}</p>
                         <p>Mis eventos creados:{user.firstName}</p>
-                        <p>Mis amigos:{user.favorites}</p>
+                        <p>Mis amigos:{friends}</p>
 
 
 
                         <p>Nivel:{user.level}</p>
                         <p>Mis eventos creados:{user.firstName}</p>
-                        <p>Mis amigos:{user.favorites}</p>
+                        <p>Mis amigos:{friends}</p>
                     </Row> */}
                     <Card>
                         <Row>
                             <Col>
                                 <Card.Img style={{ width: '10%', height: '10%' }} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqResG0Hteqj7GC0T34B3aIf9K2GMyuhq9SA&usqp=CAU" />
                                 <Card.Title>Mis amigos</Card.Title>
-                                {/* <p>{user.favorites.map(f => {
+                                {/* <p>{friends.map(f => {
                                     return (
                                         <li key={f}>
                                             {f}
@@ -91,7 +90,7 @@ const UserDetails = ({ user }) => {
                                 })}</p> */}
                             </Col>
                             <Button as="span" variant="dark">
-                                <Link to={`/perfil-editar/${user._id}`}>Editar</Link>
+                                <Link to={`/perfil-editar/${_id}`}>Editar</Link>
                             </Button>
                         </Row>
                     </Card>
@@ -99,7 +98,7 @@ const UserDetails = ({ user }) => {
 
                     <div className="d-grid">
                         <Button as="span" variant="dark">
-                            <Link to={`/perfil-editar/${user._id}`}>Editar</Link>
+                            <Link to={`/perfil-editar/${_id}`}>Editar</Link>
                         </Button>
                         <Form onSubmit={handleSubmit}>
                             <Button variant="danger" type="submit">Eliminar perfil</Button>

@@ -39,6 +39,7 @@ class VenueService {
     venueDelete(venue_id) {
         return this.api.delete(`/${venue_id}/delete`)
     }
+
 }
 
 const venuesService = new VenueService()

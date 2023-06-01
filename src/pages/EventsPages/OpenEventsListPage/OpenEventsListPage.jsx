@@ -48,7 +48,10 @@ const OpenEventListPage = () => {
                     <Modal.Title>Nuevo Evento</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <NewEventForm closeModal={() => setShowModal(false)} updateList={loadEvents} />
+                    <NewEventForm fireFinalActions={() => {
+                        loadEvents()
+                        setShowModal(false)
+                    }} />
                 </Modal.Body>
             </Modal>
 

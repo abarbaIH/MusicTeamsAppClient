@@ -1,10 +1,9 @@
 import { useState } from "react"
-import { Form, Button, Row, Col, FormSelect } from "react-bootstrap"
+import { Form, Button, Row, Col } from "react-bootstrap"
 import venuesService from "./../../services/venues.services"
 import uploadServices from "../../services/upload.services"
 
-// PARÁMETROS UPDATELIST
-const NewVenueForm = ({ closeModal, updateList }) => {
+const NewVenueForm = ({ fireFinalActions }) => {
 
     const [venueData, setVenueData] = useState({
         name: '',
@@ -35,8 +34,7 @@ const NewVenueForm = ({ closeModal, updateList }) => {
         venuesService
             .newVenue(venueData)
             .then(() => {
-                closeModal()
-                updateList()
+                fireFinalActions()
             })
             .catch(err => console.log(err))
     }
@@ -106,6 +104,7 @@ const NewVenueForm = ({ closeModal, updateList }) => {
 
             <Form.Group className="mb-3" controlId="features">
                 <Form.Label>Características de la Sala</Form.Label>
+                {/* TODO A FUTURO: CREAR COLECCIÓN SALAS */}
                 <Form.Select multiple value={features} onChange={handleFeaturesChange} name="features">
                     <option value="Parking">Parking</option>
                     <option value="Aire Acondicionado">Aire Acondicionado</option>

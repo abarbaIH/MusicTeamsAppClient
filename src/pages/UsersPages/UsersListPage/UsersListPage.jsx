@@ -11,11 +11,16 @@ const UsersListPage = () => {
     const [users, setUsers] = useState([])
 
     useEffect(() => {
+        loadUsers()
+    }, [])
+
+    const loadUsers = () => {
         usersService
             .getAllUsers()
             .then(({ data }) => setUsers(data))
             .catch(error => console.log(error))
-    }, [])
+    }
+
 
     return (
         <Container>
