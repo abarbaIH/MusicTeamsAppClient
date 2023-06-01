@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import usersService from "../../../services/users.services"
 import { Container } from "react-bootstrap"
+import usersService from "../../../services/users.services"
 import UserDetails from "../../../components/UserDetails/UserDetails"
 
 
@@ -24,7 +24,7 @@ const UserDetailsPage = () => {
                 ?
                 <h1>CARGANDO...</h1>
                 :
-                <UserDetails user={user} />
+                <UserDetails {...user} />
             }
         </Container >
     )

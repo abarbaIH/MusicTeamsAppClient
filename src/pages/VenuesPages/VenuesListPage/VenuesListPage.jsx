@@ -48,7 +48,10 @@ const VenuesListPage = () => {
                     <Modal.Title>Nueva Sala</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <NewVenueForm closeModal={() => setShowModal(false)} updateList={loadVenues} />
+                    <NewVenueForm fireFinalActions={() => {
+                        loadVenues()
+                        setShowModal(false)
+                    }} />
                 </Modal.Body>
             </Modal>
 

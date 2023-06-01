@@ -22,15 +22,7 @@ const Navigation = () => {
                         </Nav.Link>
 
                         <Nav.Link as="span">
-                            <Link to="/usuarios/detalles/:id">Detalles de usuarios</Link>
-                        </Nav.Link>
-
-                        <Nav.Link as="span">
                             <Link to="/salas">Lista de salas</Link>
-                        </Nav.Link>
-
-                        <Nav.Link as="span">
-                            <Link to="/salas/detalles/:id">Detalles sala</Link>
                         </Nav.Link>
 
                         <Nav.Link as="span">
@@ -38,23 +30,11 @@ const Navigation = () => {
                         </Nav.Link>
 
                         <Nav.Link as="span">
-                            <Link to="/editar-sala/:id">Editar Sala</Link>
-                        </Nav.Link>
-
-                        <Nav.Link as="span">
                             <Link to="/eventos-abiertos">Eventos Abiertos</Link>
                         </Nav.Link>
 
                         <Nav.Link as="span">
-                            <Link to="/eventos/detalles/:id">Detalles Evento</Link>
-                        </Nav.Link>
-
-                        <Nav.Link as="span">
                             <Link to="/crear-evento">Crear Evento</Link>
-                        </Nav.Link>
-
-                        <Nav.Link as="span">
-                            <Link to="/editar-evento/:id">Editar Evento</Link>
                         </Nav.Link>
 
                         {
@@ -92,10 +72,7 @@ const Navigation = () => {
                                         <Link to="/inicio-sesion">Inicio sesión</Link>
                                     </Nav.Link>
                                 </>
-
-
                         }
-
 
                     </Nav>
                 </Navbar.Collapse>

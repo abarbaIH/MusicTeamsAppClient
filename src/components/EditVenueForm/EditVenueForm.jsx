@@ -11,7 +11,6 @@ const EditVenueForm = () => {
     const navigate = useNavigate()
 
     const [venueEdit, setVenueEdit] = useState({
-
         name: '',
         address: '',
         phone: '',
@@ -28,24 +27,23 @@ const EditVenueForm = () => {
     const { name, address, phone, openingHours, features, capacity, description, venueImg } = venueEdit
 
     useEffect(() => {
+        loadVenues()
+    }, [])
+
+    const loadVenues = () => {
         venuesService
             .venueEdit(id)
             .then(({ data }) => {
-                const { name, address, phone, openingHours, features, capacity, description, venueImg } = data
-                const updateVenue = { name, address, phone, openingHours, features, capacity, description, venueImg }
+                const updateVenue = data
                 setVenueEdit(updateVenue)
             })
             .catch(err => console.log(err))
-    }, [])
+    }
 
     const handleInputChange = e => {
         const { value, name } = e.target
-        if (name === "features") {
-            const selectedFeatures = Array.from(e.target.selectedOptions, option => option.value)
-            setVenueEdit({ ...venueEdit, [name]: selectedFeatures })
-        } else {
-            setVenueEdit({ ...venueEdit, [name]: value })
-        }
+        const selectedFeatures = name === "features" ? Array.from(e.target.selectedOptions, option => option.value) : value
+        setVenueEdit({ ...venueEdit, [name]: selectedFeatures })
     }
 
     const handleSubmit = e => {
