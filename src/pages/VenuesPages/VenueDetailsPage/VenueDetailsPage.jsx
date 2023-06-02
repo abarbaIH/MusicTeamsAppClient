@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { Container, Row, Col, Button, Form } from "react-bootstrap"
 import venuesService from "./../../../services/venues.services"
 import Loader from "./../../../components/Loader/Loader"
+import usersService from './../../../services/users.services'
+import { AuthContext } from "../../../contexts/auth.context"
 
 const VenueDetailsPage = () => {
     const { id } = useParams()
     const [venue, setVenue] = useState()
     const navigate = useNavigate()
+    const { user } = useContext(AuthContext)
 
     useEffect(() => {
         loadVenue()
@@ -27,7 +30,15 @@ const VenueDetailsPage = () => {
             .then(() => navigate('/salas'))
             .catch(err => console.log(err))
     }
-    console.log({ venue })
+
+    const handleSubmitFavorites = e => {
+        e.preventDefault()
+        usersService
+            .userAddVenue(user._id, id)
+            .then(() => navigate('/salas'))
+            .catch(err => console.log(err))
+    }
+
     return (
         <Container>
             {
@@ -81,6 +92,11 @@ const VenueDetailsPage = () => {
                                     <Col md={{ span: 4 }}>
                                         <Form onSubmit={handleSubmit}>
                                             <Button variant="danger" type="submit">Eliminar Sala</Button>
+                                        </Form>
+                                    </Col>
+                                    <Col md={{ span: 4 }}>
+                                        <Form onSubmit={handleSubmitFavorites}>
+                                            <Button variant="dark" type="submit">Añadir Sala a Favoritas</Button>
                                         </Form>
                                     </Col>
 

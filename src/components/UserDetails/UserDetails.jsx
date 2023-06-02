@@ -1,10 +1,15 @@
 import { Button, Card, Row, Col, Form } from "react-bootstrap"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import usersService from './../../services/users.services'
+import { useContext, useState, useEffect } from "react"
+import { AuthContext } from "./../../contexts/auth.context"
+import Loader from './../../components/Loader/Loader'
 
-const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument, aboutMe, level, friends, venueFavorites }) => {
+const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument, aboutMe, level, friends, venueFavorites, eventsAssisted }) => {
 
+    const { user } = useContext(AuthContext)
     const { id } = useParams()
+
     const navigate = useNavigate()
 
     const handleSubmit = e => {
@@ -16,6 +21,15 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
             .then(() => navigate('/usuarios'))
             .catch(err => console.log(err))
     }
+
+    const handleSubmitFavorites = e => {
+        e.preventDefault()
+        usersService
+            .userAddFriend(user._id, id)
+            .then(() => navigate('/perfil'))
+            .catch(err => console.log(err))
+    }
+
     return (
 
         <>
@@ -57,37 +71,60 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                             <Col>
                                 <Card.Img style={{ width: '10%', height: '10%' }} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqResG0Hteqj7GC0T34B3aIf9K2GMyuhq9SA&usqp=CAU" />
                                 <Card.Title>Mis amigos</Card.Title>
-                                {/* <p>{friends.map(f => {
-                                    return (
-                                        <li key={f}>
-                                            {f}
-                                        </li>
-                                    )
-                                })}</p> */}
+
+                                {
+                                    !friends
+                                        ?
+                                        <Loader />
+                                        :
+                                        friends?.map(f => {
+                                            return (
+                                                <li key={f._id}>
+                                                    {f.firstName}
+                                                </li>
+                                            )
+                                        })
+                                }
 
                             </Col>
                             <Col>
                                 <Card.Img style={{ width: '10%', height: '10%' }} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqResG0Hteqj7GC0T34B3aIf9K2GMyuhq9SA&usqp=CAU" />
-                                <Card.Title>Mis ensayos</Card.Title>
-                                {/* <p>{user.eventsAssisted.map(ev => {
-                                    return (
-                                        <li key={ev}>
-                                            {ev}
-                                        </li>
-                                    )
-                                })}</p> */}
+                                <Card.Title>Mis Salas favoritas</Card.Title>
+
+                                {
+                                    !venueFavorites
+                                        ?
+                                        <Loader />
+                                        :
+                                        venueFavorites?.map(v => {
+                                            return (
+                                                <li key={v._id}>
+                                                    {v.name}
+                                                </li>
+                                            )
+                                        })
+                                }
+
 
                             </Col>
                             <Col>
                                 <Card.Img style={{ width: '10%', height: '10%' }} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqResG0Hteqj7GC0T34B3aIf9K2GMyuhq9SA&usqp=CAU" />
-                                <Card.Title>Mis salas favoritas</Card.Title>
-                                {/* <p>{user.venueFavorites.map(v => {
-                                    return (
-                                        <li key={v}>
-                                            {v}
-                                        </li>
-                                    )
-                                })}</p> */}
+                                <Card.Title>Mis eventos</Card.Title>
+
+                                {
+                                    !eventsAssisted
+                                        ?
+                                        <Loader />
+                                        :
+                                        eventsAssisted?.map(e => {
+                                            return (
+                                                <li key={e._id}>
+                                                    {e.name}
+                                                </li>
+                                            )
+                                        })
+                                }
+
                             </Col>
                             <Button as="span" variant="dark">
                                 <Link to={`/perfil-editar/${_id}`}>Editar</Link>
@@ -105,6 +142,11 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                         </Form>
                         {/* además botón para el admin cambiar role */}
                         <Button variant="primary">Cambiar rol</Button>
+
+
+                        <Form onSubmit={handleSubmitFavorites}>
+                            <Button variant="dark" type="submit">Añadir a Amigos</Button>
+                        </Form>
 
                     </div>
 

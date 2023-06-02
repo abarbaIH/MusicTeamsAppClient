@@ -32,8 +32,15 @@ class UserService {
     }
 
     userDelete(user_id) {
-        // console.log(user_id)
         return this.api.delete(`/${user_id}/delete`)
+    }
+
+    userAddVenue(user_id, venue_id) {
+        return this.api.put(`/${user_id}/addVenueFavorite/${venue_id}`)
+    }
+
+    userAddFriend(user_id, friend_id) {
+        return this.api.put(`/${user_id}/addFriend/${friend_id}`)
     }
 
 }

@@ -42,6 +42,10 @@ class EventService {
         return this.api.delete(`/${event_id}/delete`)
     }
 
+    eventAddAssistants(event_id, user_id) {
+        return this.api.put(`/${event_id}/edit/${user_id}`)
+    }
+
 }
 
 const eventsService = new EventService()

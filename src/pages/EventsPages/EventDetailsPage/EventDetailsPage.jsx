@@ -1,14 +1,19 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { Container, Row, Col, Button, Form } from "react-bootstrap"
 import eventsService from "./../../../services/event.services"
 import Loader from "./../../../components/Loader/Loader"
+import { AuthContext } from "./../../../contexts/auth.context"
+
+
 
 const EventDetailsPage = () => {
 
     const { id } = useParams()
     const [event, setEvent] = useState()
     const navigate = useNavigate()
+    const { user } = useContext(AuthContext)
+
 
     useEffect(() => {
         loadEvent()
@@ -28,6 +33,15 @@ const EventDetailsPage = () => {
             .then(() => navigate('/eventos-abiertos'))
             .catch(err => console.log(err))
     }
+
+    const handleSubmitAddAssistans = e => {
+        e.preventDefault()
+        eventsService
+            .eventAddAssistants(id, user._id)
+            .then(() => navigate('/perfil'))
+            .catch(err => console.log(err))
+    }
+
 
     return (
         <Container>
@@ -71,6 +85,14 @@ const EventDetailsPage = () => {
                                         <Link to={`/editar-evento/${id}`}>
                                             <Button variant="dark" >Editar Evento</Button>
                                         </Link>
+
+                                        <Col>
+                                            <Form onSubmit={handleSubmitAddAssistans}>
+                                                <Button variant="dark" type="submit">Apuntarme al Ensayo</Button>
+                                            </Form>
+
+                                        </Col>
+
                                     </Col>
 
                                     <Col md={{ span: 4 }}>

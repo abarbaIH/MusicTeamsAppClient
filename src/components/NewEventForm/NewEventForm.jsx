@@ -6,15 +6,18 @@ import venuesService from './../../services/venues.services'
 import { AuthContext } from './../../contexts/auth.context'
 
 const NewEventForm = ({ fireFinalActions, venueId }) => {
+
     const { user } = useContext(AuthContext)
+
     const [eventData, setEventData] = useState({
         name: '',
         musicStyle: '',
         requiredExperience: '',
         venueEvent: venueId ? venueId : '',
         eventDate: '',
-        assistants: '',
-        maxPlaces: ''
+        assistants: user._id,
+        maxPlaces: '',
+        venueName: ''
     })
 
     const [venues, setVenues] = useState([])
@@ -23,6 +26,15 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
         loadVenues()
     }, [])
 
+    useEffect(() => {
+        venueId && venues.length && loadVenueInfo()
+    }, [venues])
+
+    const loadVenueInfo = () => {
+        const currentVenue = venues.find(venue => venue._id == venueId)
+        setEventData({ ...eventData, maxPlaces: currentVenue.capacity, venueName: currentVenue.name })
+    }
+
     const loadVenues = () => {
         venuesService
             .getAllVenues()
@@ -30,13 +42,16 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
             .catch(err => console.log(err))
     }
 
-
     const handleInputChange = e => {
         const { name, value } = e.target
         setEventData({ ...eventData, [name]: value })
+
+        if (name === 'venueEvent') {
+            const currentVenue = venues.find(venue => venue._id == value)
+            setEventData({ ...eventData, maxPlaces: currentVenue.capacity, venueEvent: value })
+        }
     }
 
-    const getVenueFromId = (venueId) => venues.find(venue => venue._id == venueId)
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -49,7 +64,7 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
             .catch(err => console.log(err))
     }
 
-    const { name, musicStyle, requiredExperience, venueEvent, eventDate, assistants, maxPlaces } = eventData
+    const { name, musicStyle, requiredExperience, venueEvent, eventDate, assistants, maxPlaces, venueName } = eventData
 
     return (
 
@@ -99,7 +114,7 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
                         {venueId
                             ?
                             <Form.Select value={venueEvent} onChange={handleInputChange} name="venueEvent" disabled>
-                                <option key={getVenueFromId(venueId)?._id} value={getVenueFromId(venueId)?._id}>{getVenueFromId(venueId)?.name}</option>
+                                <option key={venueEvent} value={venueEvent}>{venueName}</option>
                             </Form.Select>
 
                             :
@@ -121,16 +136,16 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
                     </Form.Group>
                 </Col>
 
-                <Col>
+                {/* <Col>
                     <Form.Group className="mb-3" controlId="assistants">
                         <Form.Label>Participantes</Form.Label>
                         <Form.Control type="text" value={assistants} onChange={handleInputChange} name="assistants" />
                     </Form.Group>
-                </Col>
+                </Col> */}
             </Row>
             <Form.Group className="mb-3" controlId="maxPlaces" >
                 <Form.Label>Nº Máximo de Participantes</Form.Label>
-                <Form.Control type="text" value={getVenueFromId(eventData.venueEvent)?.capacity} onChange={handleInputChange} name="maxPlaces" disabled />
+                <Form.Control type="text" value={maxPlaces} onChange={handleInputChange} name="maxPlaces" disabled />
             </Form.Group>
 
             <div className="d-grid">
