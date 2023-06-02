@@ -1,4 +1,4 @@
-import { Button, Card, Row, Col, Form, Container } from "react-bootstrap"
+import { Button, Card, Row, Col, Form } from "react-bootstrap"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import usersService from './../../services/users.services'
 
@@ -52,8 +52,7 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                         <p>Mis eventos creados:{user.firstName}</p>
                         <p>Mis amigos:{friends}</p>
                     </Row> */}
-
-                    <Container>
+                    <Card>
                         <Row>
                             <Col>
                                 <Card.Img style={{ width: '10%', height: '10%' }} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqResG0Hteqj7GC0T34B3aIf9K2GMyuhq9SA&usqp=CAU" />
@@ -65,10 +64,9 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                                         </li>
                                     )
                                 })}</p> */}
-                            </Card>
-                        </Col>
-                        <Col>
-                            <Card>
+
+                            </Col>
+                            <Col>
                                 <Card.Img style={{ width: '10%', height: '10%' }} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqResG0Hteqj7GC0T34B3aIf9K2GMyuhq9SA&usqp=CAU" />
                                 <Card.Title>Mis ensayos</Card.Title>
                                 {/* <p>{user.eventsAssisted.map(ev => {
@@ -78,10 +76,9 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                                         </li>
                                     )
                                 })}</p> */}
-                            </Card>
-                        </Col>
-                        <Col>
-                            <Card>
+
+                            </Col>
+                            <Col>
                                 <Card.Img style={{ width: '10%', height: '10%' }} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqResG0Hteqj7GC0T34B3aIf9K2GMyuhq9SA&usqp=CAU" />
                                 <Card.Title>Mis salas favoritas</Card.Title>
                                 {/* <p>{user.venueFavorites.map(v => {
@@ -91,30 +88,30 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                                         </li>
                                     )
                                 })}</p> */}
-                            </Card>
-                        </Col>
-                        <Button as="span" variant="dark">
-                            <Link to={`/perfil-editar/${_id}`}>Editar</Link>
-                        </Button>
-                    </Row>
+                            </Col>
+                            <Button as="span" variant="dark">
+                                <Link to={`/perfil-editar/${_id}`}>Editar</Link>
+                            </Button>
+                        </Row>
+                    </Card>
 
 
                     <div className="d-grid">
                         <Button as="span" variant="dark">
                             <Link to={`/perfil-editar/${_id}`}>Editar</Link>
                         </Button>
-                    </Col>
-                    <Col><Form onSubmit={handleSubmit}>
-                        <Button variant="danger" type="submit">Eliminar perfil</Button>
-                    </Form>
-                    </Col>
-                    <Col>
+                        <Form onSubmit={handleSubmit}>
+                            <Button variant="danger" type="submit">Eliminar perfil</Button>
+                        </Form>
                         {/* además botón para el admin cambiar role */}
-                        <Button variant="dark">Cambiar rol</Button>
-                    </Col>
-                </Row>
-            </Card>
-        </Card >
+                        <Button variant="primary">Cambiar rol</Button>
+
+                    </div>
+
+
+
+                </Card>
+            </Card >
         </>
 
     )
