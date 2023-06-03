@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from "react"
 import { Form, Button, Row, Col } from "react-bootstrap"
 import eventsService from "../../services/event.services"
-// import uploadServices from "../../services/upload.services"
 import venuesService from './../../services/venues.services'
 import { AuthContext } from './../../contexts/auth.context'
+import FormError from "../FormError/FormError"
 
 const NewEventForm = ({ fireFinalActions, venueId }) => {
 
@@ -19,6 +19,8 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
         maxPlaces: '',
         venueName: ''
     })
+
+    const [errors, setErrors] = useState([])
 
     const [venues, setVenues] = useState([])
 
@@ -61,7 +63,7 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
             .then(() => {
                 fireFinalActions()
             })
-            .catch(err => console.log(err))
+            .catch(err => setErrors(err.response.data.errorMessages))
     }
 
     const { name, musicStyle, requiredExperience, venueEvent, eventDate, assistants, maxPlaces, venueName } = eventData
@@ -120,6 +122,9 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
                             :
 
                             <Form.Select value={venueEvent} onChange={handleInputChange} name="venueEvent">
+                                <option disabled value="">
+                                    Selecciona Sala de ensayo
+                                </option>
                                 {
                                     venues.map(venue => <option key={venue._id} value={venue._id}>{venue.name}</option>)
                                 }
@@ -135,13 +140,7 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
                         <Form.Control type="date" value={eventDate} onChange={handleInputChange} name="eventDate" />
                     </Form.Group>
                 </Col>
-
-                {/* <Col>
-                    <Form.Group className="mb-3" controlId="assistants">
-                        <Form.Label>Participantes</Form.Label>
-                        <Form.Control type="text" value={assistants} onChange={handleInputChange} name="assistants" />
-                    </Form.Group>
-                </Col> */}
+                {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
             </Row>
             <Form.Group className="mb-3" controlId="maxPlaces" >
                 <Form.Label>Nº Máximo de Participantes</Form.Label>

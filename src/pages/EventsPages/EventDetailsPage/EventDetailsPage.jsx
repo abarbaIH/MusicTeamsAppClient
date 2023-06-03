@@ -4,8 +4,7 @@ import { Container, Row, Col, Button, Form } from "react-bootstrap"
 import eventsService from "./../../../services/event.services"
 import Loader from "./../../../components/Loader/Loader"
 import { AuthContext } from "./../../../contexts/auth.context"
-
-
+import { formatDate } from './../../../utils/date-format'
 
 const EventDetailsPage = () => {
 
@@ -13,7 +12,6 @@ const EventDetailsPage = () => {
     const [event, setEvent] = useState()
     const navigate = useNavigate()
     const { user } = useContext(AuthContext)
-
 
     useEffect(() => {
         loadEvent()
@@ -42,7 +40,6 @@ const EventDetailsPage = () => {
             .catch(err => console.log(err))
     }
 
-
     return (
         <Container>
             {
@@ -59,18 +56,40 @@ const EventDetailsPage = () => {
                                 <p>{event.musicStyle}</p>
                                 <h4><strong>Experiencia Requerida</strong></h4>
                                 <p>{event.requiredExperience}</p>
-                                <p>{event.venueEvent}</p>
-                                <p>Fecha{event.eventDate}</p>
-                                <p>Organizado por {event.planner}</p>
+                                <p>Fecha{formatDate(event.eventDate)}</p>
+
+                                <p>Organizado por:
+                                    {!event.planner
+                                        ?
+                                        <Loader />
+                                        :
+                                        event.planner.firstName
+                                    }
+                                </p>
+                                <p>En la sala:
+                                    {!event.venueEvent
+                                        ?
+                                        <Loader />
+                                        :
+                                        event.venueEvent.name
+                                    }
+                                </p>
+
                                 <h4> <strong>Asistentes al Evento</strong></h4>
+
                                 <ul>
-                                    {event.assistants.map(f => {
-                                        return (
-                                            <li key={f}>
-                                                {f}
-                                            </li>
-                                        )
-                                    })}
+                                    {!event.assistants
+                                        ?
+                                        <Loader />
+                                        :
+                                        event.assistants.map(a => {
+                                            return (
+                                                <li key={a._id}>
+                                                    {a.firstName}
+                                                </li>
+                                            )
+                                        })
+                                    }
                                 </ul>
 
                                 <hr />
@@ -90,7 +109,6 @@ const EventDetailsPage = () => {
                                             <Form onSubmit={handleSubmitAddAssistans}>
                                                 <Button variant="dark" type="submit">Apuntarme al Ensayo</Button>
                                             </Form>
-
                                         </Col>
 
                                     </Col>

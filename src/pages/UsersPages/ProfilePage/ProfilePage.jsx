@@ -6,7 +6,6 @@ import usersService from "../../../services/users.services";
 
 const ProfilePage = () => {
     const { user } = useContext(AuthContext);
-    console.log("hola", user)
     const navigate = useNavigate()
 
     const handleSubmit = e => {

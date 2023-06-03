@@ -43,8 +43,14 @@ class UserService {
         return this.api.put(`/${user_id}/addFriend/${friend_id}`)
     }
 
-}
+    userAssitEvent(user_id, event_id) {
+        return this.api.put(`/${user_id}/assitEvent/${event_id}`)
+    }
 
+    userChangeRole(user_id, role) {
+        return this.api.put(`/${user_id}/changeRole`, { role })
+    }
+}
 const usersService = new UserService()
 
 export default usersService

@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Form, Button } from "react-bootstrap"
 import uploadServices from "../../services/upload.services"
 import authService from './../../services/auth.services'
 import { useNavigate } from "react-router-dom"
+import FormError from "./../../components/FormError/FormError"
 
 const SignupForm = () => {
 
@@ -17,6 +18,7 @@ const SignupForm = () => {
         level: ''
 
     })
+    const [errors, setErrors] = useState([])
 
     const [loadingImage, setLoadingImage] = useState(false)
 
@@ -32,8 +34,10 @@ const SignupForm = () => {
 
         authService
             .signup(signupData)
-            .then(({ data }) => navigate('/usuarios'))
-            .catch(err => console.log(err))
+            .then(({ data }) => { //poner data
+                navigate('/usuarios')
+            })
+            .catch(err => setErrors(err.response.data.errorMessages))
     }
 
     const handleFileUpload = e => {
@@ -96,6 +100,9 @@ const SignupForm = () => {
             <Form.Group className="mb-3" controlId="instrument">
                 <Form.Label>Instrumento</Form.Label>
                 <Form.Select value={instrument} onChange={handleInputChange} name="instrument">
+                    <option disabled value="">
+                        Selecciona el instrumento que tocas
+                    </option>
                     <option value="Guitarra">Guitarra</option>
                     <option value="Bajo">Bajo</option>
                     <option value="Violín">Violín</option>
@@ -110,6 +117,9 @@ const SignupForm = () => {
             <Form.Group className="mb-3" controlId="level">
                 <Form.Label>Nivel de Experiencia</Form.Label>
                 <Form.Select value={level} onChange={handleInputChange} name="level">
+                    <option disabled value="">
+                        Selecciona tu nivel de Experiencia con el instrumento
+                    </option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -118,7 +128,7 @@ const SignupForm = () => {
                 </Form.Select>
             </Form.Group>
 
-
+            {/* {console.log(errors)} */}
             <div className="d-grid">
                 <Button variant="dark" type="submit" disabled={loadingImage}>
                     {
@@ -126,6 +136,9 @@ const SignupForm = () => {
                     }
                 </Button>
             </div>
+
+
+            {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 
         </Form>
     )

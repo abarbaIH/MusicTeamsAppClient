@@ -58,6 +58,15 @@ const VenueDetailsPage = () => {
                                 <p>{venue.description}</p>
                                 <h4><strong>Dirección</strong></h4>
                                 <p>{venue.address}</p>
+                                <h4><strong>Manager de la sala</strong></h4>
+                                <>
+                                    {!venue.manager
+                                        ?
+                                        <Loader />
+                                        :
+                                        <p>{venue.manager.firstName}</p>
+                                    }
+                                </>
                                 <h4> <strong> Características de la Sala</strong></h4>
                                 <ul>
                                     <li> <strong>Capacidad:  </strong>{venue.capacity} personas</li>

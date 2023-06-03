@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap"
 import authService from './../../services/auth.services'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from "../../contexts/auth.context"
+import FormError from "./../../components/FormError/FormError"
 
 const LoginForm = () => {
 
@@ -12,6 +13,8 @@ const LoginForm = () => {
     })
 
     const navigate = useNavigate()
+
+    const [errors, setErrors] = useState([])
 
     const { authenticateUser, storeToken } = useContext(AuthContext)
 
@@ -32,7 +35,7 @@ const LoginForm = () => {
                 navigate('/')
             }
             )
-            .catch(err => console.log(err))
+            .catch(err => setErrors(err.response.data.errorMessages))
     }
 
 
@@ -56,7 +59,7 @@ const LoginForm = () => {
             <div className="d-grid">
                 <Button variant="dark" type="submit">Acceder</Button>
             </div>
-
+            {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
         </Form>
     )
 }

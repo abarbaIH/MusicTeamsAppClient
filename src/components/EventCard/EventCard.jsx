@@ -1,6 +1,8 @@
 import { Button, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './EventCard.css'
+import Loader from '../Loader/Loader'
+import { formatDate } from '../../utils/date-format'
 
 const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, eventDate, planner, assistants }) => {
     return (
@@ -9,29 +11,54 @@ const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, even
             <Card.Body>
                 <Card.Title>{name}</Card.Title>
                 <Card.Text>
-                    {musicStyle}
+                    Estilo musical:{musicStyle}
                 </Card.Text>
+
                 <Card.Text>
-                    {assistants.map(a => {
-                        return (
-                            <li key={a}>
-                                {a}
-                            </li>
-                        )
-                    })}
+                    {!planner
+                        ?
+                        <Loader />
+                        :
+                        <p>Organizado por:{planner.firstName}</p>
+                    }
                 </Card.Text>
+
                 <Card.Text>
-                    {venueEvent}
+
+                    {
+                        !venueEvent
+                            ?
+                            <Loader />
+                            :
+                            <p>En la sala:{venueEvent.name}</p>
+                    }
                 </Card.Text>
+
                 <Card.Text>
-                    {planner}
+                    {
+                        !assistants
+                            ?
+                            <Loader />
+                            :
+                            assistants?.map(a => {
+                                return (
+                                    <li key={a._id}>
+                                        {a.firstName}
+                                    </li>
+                                )
+                            })
+                    }
                 </Card.Text>
+
+
                 <Card.Text>
                     {requiredExperience}
                 </Card.Text>
+
                 <Card.Text>
-                    {eventDate}
+                    {formatDate(eventDate)}
                 </Card.Text>
+
                 <Button as="span" variant="dark">
                     <Link to={`/eventos/detalles/${_id}`}>Detalles</Link>
                 </Button>
@@ -39,5 +66,10 @@ const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, even
         </Card>
     )
 }
+
+// let date = new Date("2018-01-01T00:00:00");
+// /* Date format you have */
+// let dateMDY = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+// /* Date converted to MM-DD-YYYY format */
 
 export default EventCard

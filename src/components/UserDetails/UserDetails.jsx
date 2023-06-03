@@ -30,6 +30,16 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
             .catch(err => console.log(err))
     }
 
+    const handleSubmitRole = e => {
+        e.preventDefault()
+
+        const updatedRole = role === "MUSICIAN" ? "MANAGER" : "MUSICIAN";
+        usersService
+            .userChangeRole(id, updatedRole)
+            .then(() => navigate('/usuarios'))
+            .catch(err => console.log(err))
+    }
+
     return (
 
         <>
@@ -126,23 +136,47 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                                 }
 
                             </Col>
-                            <Button as="span" variant="dark">
-                                <Link to={`/perfil-editar/${_id}`}>Editar</Link>
-                            </Button>
+
                         </Row>
                     </Card>
 
-
-                    <div className="d-grid">
+                    <div>
                         <Button as="span" variant="dark">
                             <Link to={`/perfil-editar/${_id}`}>Editar</Link>
                         </Button>
-                        <Form onSubmit={handleSubmit}>
-                            <Button variant="danger" type="submit">Eliminar perfil</Button>
-                        </Form>
-                        {/* además botón para el admin cambiar role */}
-                        <Button variant="primary">Cambiar rol</Button>
 
+                        {
+                            user.role === "ADMIN"
+                                ?
+                                <Form onSubmit={handleSubmit}>
+                                    <Button variant="danger" type="submit">Eliminar perfil</Button>
+                                </Form>
+                                :
+                                <></>
+                        }
+
+                        {
+                            user.role === "ADMIN"
+                                ?
+                                <>
+
+                                    {
+                                        role === "MANAGER"
+                                            ?
+
+                                            <Form onSubmit={handleSubmitRole}>
+                                                <Button variant="success" type="submit">Cambiar rol a Músico</Button>
+                                            </Form>
+                                            :
+                                            <Form onSubmit={handleSubmitRole}>
+                                                <Button variant="danger" type="submit">Cambiar rol a Manager</Button>
+                                            </Form>
+                                    }
+
+                                </>
+                                :
+                                <></>
+                        }
 
                         <Form onSubmit={handleSubmitFavorites}>
                             <Button variant="dark" type="submit">Añadir a Amigos</Button>

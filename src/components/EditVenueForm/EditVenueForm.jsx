@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import uploadServices from './../../services/upload.services'
 import venuesService from './../../services/venues.services'
+import FormError from '../FormError/FormError'
 
 const EditVenueForm = () => {
 
@@ -21,6 +22,8 @@ const EditVenueForm = () => {
         description: '',
         venueImg: '',
     })
+
+    const [errors, setErrors] = useState([])
 
     const [loadingImage, setLoadingImage] = useState(false)
 
@@ -51,7 +54,7 @@ const EditVenueForm = () => {
         venuesService
             .venueEdit(id, venueEdit)
             .then(() => navigate('/salas'))
-            .catch(err => console.log(err))
+            .catch(err => setErrors(err.response.data.errorMessages))
     }
 
     const handleFileUpload = e => {
@@ -126,6 +129,9 @@ const EditVenueForm = () => {
                 <Form.Label>Descripción</Form.Label>
                 <Form.Control type="text" value={description} onChange={handleInputChange} name="description" />
             </Form.Group>
+
+            {console.log(errors)}
+            {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 
             <div className="d-grid">
                 <Button variant="dark" style={{ marginBottom: '30px' }} disabled={loadingImage} type="submit">

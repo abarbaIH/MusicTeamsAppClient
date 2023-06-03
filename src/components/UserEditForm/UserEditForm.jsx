@@ -19,8 +19,6 @@ const UserEditForm = () => {
         aboutMe: '',
         instrument: '',
         level: '',
-        venueFavorites: '',
-        friends: '',
         email: '',
         role: '',
 
@@ -29,7 +27,7 @@ const UserEditForm = () => {
     const [loadingImage, setLoadingImage] = useState(false)
 
 
-    const { email, role, firstName, lastName, avatar, aboutMe, instrument, level, venueFavorites, friends } = userEdit
+    const { email, role, firstName, lastName, avatar, aboutMe, instrument, level } = userEdit
     useEffect(() => {
         loadUser()
     }, [])
@@ -102,6 +100,9 @@ const UserEditForm = () => {
             <Form.Group className="mb-3" controlId="instrument">
                 <Form.Label>Instrumento</Form.Label>
                 <Form.Select value={instrument} onChange={handleInputChange} name="instrument">
+                    <option disabled value="">
+                        Seleccione el instumento que tocas
+                    </option>
                     <option value="Guitarra">Guitarra</option>
                     <option value="Bajo">Bajo</option>
                     <option value="Violín">Violín</option>
@@ -115,6 +116,9 @@ const UserEditForm = () => {
             <Form.Group className="mb-3" controlId="level">
                 <Form.Label>Nivel de Experiencia</Form.Label>
                 <Form.Select value={level} onChange={handleInputChange} name="level">
+                    <option disabled value="">
+                        Selecciona nivel de Experiencia
+                    </option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -122,17 +126,6 @@ const UserEditForm = () => {
                     <option value="5">5</option>
                 </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="fis">
-                <Form.Label>Salas favoritas</Form.Label>
-                <Form.Control type="text" value={venueFavorites} onChange={handleInputChange} name="venueFavorites" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="fis">
-                <Form.Label>Mis amigos</Form.Label>
-                <Form.Control type="text" value={friends} onChange={handleInputChange} name="friends" />
-            </Form.Group>
-            {/* <div className="d-grid">
-                    <Button variant="dark" type="submit">Guardar cambios editados</Button>
-                </div> */}
 
             <div className="d-grid">
                 <Button variant="dark" style={{ marginBottom: '30px' }} disabled={loadingImage} type="submit">

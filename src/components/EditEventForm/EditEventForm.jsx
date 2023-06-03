@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 // import uploadServices from './../../services/upload.services'
 import eventsService from '../../services/event.services'
+import FormError from '../FormError/FormError'
 
 const EditEventForm = () => {
 
@@ -15,10 +16,12 @@ const EditEventForm = () => {
         name: '',
         musicStyle: '',
         requiredExperience: '',
-        venueEvent: '',
+        // venueEvent: '',
         eventDate: '',
-        assistants: "",
+        // assistants: "",
     })
+
+    const [errors, setErrors] = useState([])
 
     const { name, musicStyle, requiredExperience, venueEvent, eventDate, assistants } = eventEdit
 
@@ -49,7 +52,7 @@ const EditEventForm = () => {
         eventsService
             .eventEdit(id, eventEdit)
             .then(() => navigate('/eventos-abiertos'))
-            .catch(err => console.log(err))
+            .catch(err => setErrors(err.response.data.errorMessages))
     }
 
     return (
@@ -83,20 +86,20 @@ const EditEventForm = () => {
                 </Form.Select>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="venueEvent">
+            {/* <Form.Group className="mb-3" controlId="venueEvent">
                 <Form.Label>Sala del ensayo</Form.Label>
                 <Form.Control type="text" value={venueEvent} onChange={handleInputChange} name="venueEvent" />
-            </Form.Group>
+            </Form.Group> */}
             <Form.Group className="mb-3" controlId="eventDate">
                 <Form.Label>Fecha del ensayo</Form.Label>
                 <Form.Control type="date" value={eventDate} onChange={handleInputChange} name="eventDate" />
             </Form.Group>
-
+            {/* 
             <Form.Group className="mb-3" controlId="assistants">
                 <Form.Label>Asistentes</Form.Label>
                 <Form.Control type="text" value={assistants} onChange={handleInputChange} name="assistants" />
-            </Form.Group>
-
+            </Form.Group> */}
+            {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
             <div className="d-grid">
                 <Button variant="dark" style={{ marginBottom: '30px' }} type="submit">Editar Evento</Button>
             </div>
