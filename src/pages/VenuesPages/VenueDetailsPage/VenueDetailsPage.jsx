@@ -1,10 +1,11 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState, React } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { Container, Row, Col, Button, Form } from "react-bootstrap"
 import venuesService from "./../../../services/venues.services"
 import Loader from "./../../../components/Loader/Loader"
 import usersService from './../../../services/users.services'
 import { AuthContext } from "../../../contexts/auth.context"
+import Maps from "../../../components/Maps/Maps"
 
 const VenueDetailsPage = () => {
     const { id } = useParams()
@@ -122,6 +123,14 @@ const VenueDetailsPage = () => {
                         <Link to={`/crear-evento?venue_id=${venue._id}`}>
                             <Button variant="dark" style={{ marginBottom: '30px' }} type="submit"> Crear Evento</Button>
                         </Link>
+                        {/* {console.log(venue.location.coordinates[0])} */}
+
+                        <div>
+
+                        </div>
+                        <div>
+                            <Maps latitud={venue.location.coordinates[0]} longitud={venue.location.coordinates[1]} />
+                        </div>
                     </>
             }
 

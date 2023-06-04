@@ -1,8 +1,10 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Form, Button, Row, Col } from "react-bootstrap"
 import venuesService from "./../../services/venues.services"
 import uploadServices from "../../services/upload.services"
 import FormError from "../FormError/FormError"
+import { GoogleMap, LoadScript } from 'react-google-maps';
+
 
 const NewVenueForm = ({ fireFinalActions }) => {
 
@@ -14,16 +16,28 @@ const NewVenueForm = ({ fireFinalActions }) => {
         venueImg: '',
         features: [],
         capacity: '',
-        description: ''
+        description: '',
+        latitud: '',
+        longitud: ''
+
     })
     const [errors, setErrors] = useState([])
-
     const [loadingImage, setLoadingImage] = useState(false)
+    // const [selectedPlace, setSelectedPlace] = useState(null);
 
     const handleInputChange = e => {
         const { name, value } = e.target
         setVenueData({ ...venueData, [name]: value })
+        // if (name === 'address') {
+        //     setSelectedPlace(null)
+        // }
     }
+    // useEffect(() => {
+    //     if (selectedPlace && selectedPlace.geometry && selectedPlace.geometry.location) {
+    //         const { lat, lng } = selectedPlace.geometry.location;
+    //         setVenueData({ ...venueData, latitud: lat(), longitud: lng() });
+    //     }
+    // }, [selectedPlace]);
 
     const handleFeaturesChange = e => {
         const selectedFeatures = Array.from(e.target.selectedOptions, option => option.value)
@@ -60,10 +74,13 @@ const NewVenueForm = ({ fireFinalActions }) => {
             })
     }
 
-    const { name, address, phone, openingHours, venueImg, features, capacity, description } = venueData
+    const { name, address, phone, openingHours, venueImg, features, capacity, description, latitud, longitud } = venueData
 
     return (
         <Form onSubmit={handleSubmit}>
+
+
+
             <Form.Group className="mb-3" controlId="name">
                 <Form.Label>Nombre de la Sala</Form.Label>
                 <Form.Control type="text" value={name} onChange={handleInputChange} name="name" />
@@ -73,6 +90,30 @@ const NewVenueForm = ({ fireFinalActions }) => {
                 <Form.Label>Dirección</Form.Label>
                 <Form.Control type="text" value={address} onChange={handleInputChange} name="address" />
             </Form.Group>
+
+            <Form.Group className="mb-3" controlId="latitud">
+                <Form.Label>Latitud</Form.Label>
+                <Form.Control type="text" value={latitud} onChange={handleInputChange} name="latitud" />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="longitud">
+                <Form.Label>Longitud</Form.Label>
+                <Form.Control type="text" value={longitud} onChange={handleInputChange} name="longitud" />
+            </Form.Group>
+
+            {/* <Form.Group className="mb-3" controlId="address">
+                <Form.Label>Dirección</Form.Label>
+                <Autocomplete
+                    onLoad={autocomplete => {
+                        setSelectedPlace(autocomplete.getPlace());
+                    }}
+                    onPlaceChanged={() => {
+                        setSelectedPlace(autocomplete.getPlace());
+                    }}
+                >
+                    <Form.Control type="text" value={address} onChange={handleInputChange} name="address" />
+                </Autocomplete>
+            </Form.Group> */}
 
             <Row>
                 <Col>
