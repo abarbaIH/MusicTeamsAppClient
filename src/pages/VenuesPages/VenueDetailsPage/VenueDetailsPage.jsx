@@ -8,10 +8,23 @@ import { AuthContext } from "../../../contexts/auth.context"
 import Maps from "../../../components/Maps/Maps"
 
 const VenueDetailsPage = () => {
+
     const { id } = useParams()
     const [venue, setVenue] = useState()
     const navigate = useNavigate()
     const { user } = useContext(AuthContext)
+    const [userView, setUserView] = useState()
+
+    useEffect(() => {
+        loadUserView()
+    }, [user])
+
+    const loadUserView = () => {
+        usersService
+            .userDetails(user._id)
+            .then(({ data }) => setUserView(data))
+            .catch(err => console.log(err))
+    }
 
     useEffect(() => {
         loadVenue()
@@ -35,16 +48,26 @@ const VenueDetailsPage = () => {
     const handleSubmitFavorites = e => {
         e.preventDefault()
         usersService
-            .userAddVenue(user._id, id)
-            .then(() => navigate('/salas'))
+            .userAddVenue(userView._id, id)
+            .then(({ data }) => {
+                const updateUser = data
+                setUserView(updateUser)
+            })
             .catch(err => console.log(err))
     }
 
     const handleSubmitDeleteFavorites = e => {
         e.preventDefault()
         usersService
-            .userDeleteVenue(user._id, id)
-            .then(() => navigate('/salas'))
+            .userDeleteVenue(userView._id, id)
+            .then(({ data }) => {
+                const updateUser = data
+                setUserView(updateUser)
+                // .then(() => {
+                //     loadVenue()
+                // })
+
+            })
             .catch(err => console.log(err))
     }
 
@@ -102,18 +125,22 @@ const VenueDetailsPage = () => {
                                         </Link>
                                     </Col>
                                     <Col md={{ span: 4 }}>
-
                                         {
-                                            user.venueFavorites.includes(id)
+                                            !userView
                                                 ?
-                                                <Form onSubmit={handleSubmitDeleteFavorites}>
-                                                    <Button variant="danger" type="submit">Quitar de Favoritas</Button>
-                                                </Form>
-
+                                                <Loader />
                                                 :
-                                                <Form onSubmit={handleSubmitFavorites}>
-                                                    <Button variant="success" type="submit">Añadir a Favoritas</Button>
-                                                </Form>
+                                                userView.venueFavorites.includes(id)
+                                                    ?
+                                                    <Form onSubmit={handleSubmitDeleteFavorites}>
+                                                        <Button variant="danger" type="submit">Quitar de Favoritas</Button>
+                                                    </Form>
+
+                                                    :
+
+                                                    <Form onSubmit={handleSubmitFavorites}>
+                                                        <Button variant="success" type="submit">Añadir a Favoritas</Button>
+                                                    </Form>
                                         }
 
                                     </Col>
@@ -125,7 +152,6 @@ const VenueDetailsPage = () => {
                                     </Col>
 
                                 </Row>
-
 
                                 <Row className="mb-5">
                                     <Col md={{ span: 6 }}>

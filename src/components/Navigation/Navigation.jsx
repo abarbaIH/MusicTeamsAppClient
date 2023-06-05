@@ -9,7 +9,7 @@ const Navigation = () => {
     const { user, logout } = useContext(AuthContext)
     return (
 
-        < Navbar bg="dark" variant="dark" expand="lg" className='mb-5' >
+        < Navbar bg="dark" variant="dark" expand="lg"  >
             <Container>
                 <Navbar.Brand href="/">
                     <img src={logo} style={{ width: "40px", borderRadius: "50%", marginRight: "20px" }} alt="" />
