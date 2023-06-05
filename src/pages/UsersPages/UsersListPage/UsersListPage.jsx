@@ -24,7 +24,7 @@ const UsersListPage = () => {
 
     return (
         <Container>
-            <h1>USER LIST PAGEEEE</h1>
+            <h1>TODOS LOS MÚSICOS</h1>
             <hr />
             <Row>
                 {

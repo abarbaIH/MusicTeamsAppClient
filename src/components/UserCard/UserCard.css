@@ -1,4 +1,23 @@
+/* #D90416
+#D9BF71
+#BF8845
+#F20505
+#0D0D0D */
+
+.UserCard {
+    background-color: #0D0D0D;
+
+}
+
 .UserCard img {
     height: 250px;
     object-fit: cover;
+
+}
+
+.button-card {
+    background-color: #BF8845;
+    display: flex;
+    justify-content: center;
+
 }
