@@ -6,6 +6,7 @@ import Loader from "./../../../components/Loader/Loader"
 import { AuthContext } from "./../../../contexts/auth.context"
 import { formatDate } from './../../../utils/date-format'
 
+
 const EventDetailsPage = () => {
 
     const { id } = useParams()
@@ -52,11 +53,14 @@ const EventDetailsPage = () => {
                         <hr />
                         <Row>
                             <Col md={{ span: 6 }}>
+
                                 <h4><strong>Estilo Musical</strong></h4>
                                 <p>{event.musicStyle}</p>
+
                                 <h4><strong>Experiencia Requerida</strong></h4>
                                 <p>{event.requiredExperience}</p>
-                                <p>Fecha{formatDate(event.eventDate)}</p>
+                                <h4><strong>Fecha del Ensayo:</strong></h4>
+                                <p>{formatDate(event.eventDate)}</p>
 
                                 <p>Organizado por:
                                     {!event.planner
@@ -64,14 +68,6 @@ const EventDetailsPage = () => {
                                         <Loader />
                                         :
                                         event.planner.firstName
-                                    }
-                                </p>
-                                <p>En la sala:
-                                    {!event.venueEvent
-                                        ?
-                                        <Loader />
-                                        :
-                                        event.venueEvent.name
                                     }
                                 </p>
 
@@ -93,39 +89,66 @@ const EventDetailsPage = () => {
                                 </ul>
 
                                 <hr />
-                                <Row>
-                                    <Col md={{ span: 4 }}>
-                                        <Link to="/eventos-abiertos">
-                                            <Button variant="dark" >Volver al listado</Button>
-                                        </Link>
-                                    </Col>
 
-                                    <Col md={{ span: 4 }}>
-                                        <Link to={`/editar-evento/${id}`}>
-                                            <Button variant="dark" >Editar Evento</Button>
-                                        </Link>
-
-                                        <Col>
-                                            <Form onSubmit={handleSubmitAddAssistans}>
-                                                <Button variant="dark" type="submit">Apuntarme al Ensayo</Button>
-                                            </Form>
-                                        </Col>
-
-                                    </Col>
-
-                                    <Col md={{ span: 4 }}>
-                                        <Form onSubmit={handleSubmit}>
-                                            <Button variant="danger" type="submit">Eliminar Evento</Button>
-                                        </Form>
-                                    </Col>
-                                </Row>
                             </Col>
+                            <Col md={{ span: 6 }}>
+                                <h4><strong>Info de la Sala:</strong></h4>
+
+                                {!event.venueEvent
+                                    ?
+                                    <Loader />
+                                    :
+                                    <>
+                                        <h5> <strong>Nombre:</strong> </h5> <p>{event.venueEvent.name}</p>
+                                        <h5> <strong>Horario de Apertura:</strong> </h5> <p>{event.venueEvent.openingHours}</p>
+                                        <h5> <strong>Dirección:</strong> </h5> <p>{event.venueEvent.address}</p>
+                                        <h5> <strong>Características: </strong> </h5>
+
+                                        {
+                                            event.venueEvent.features.map(feature => {
+                                                return (
+                                                    <li key={feature}>
+                                                        {feature}
+                                                    </li>
+                                                )
+
+                                            })
+                                        }
+                                    </>
+                                }
+
+                            </Col>
+                        </Row>
+                        <Row className="mt-4 mb-4">
+                            <Col md={{ span: 3 }}>
+                                <Link to="/eventos-abiertos">
+                                    <Button variant="dark" >Volver al listado</Button>
+                                </Link>
+                            </Col>
+
+                            <Col md={{ span: 3 }}>
+                                <Link to={`/editar-evento/${id}`}>
+                                    <Button variant="dark" >Editar Evento</Button>
+                                </Link>
+                            </Col>
+
+                            <Col md={{ span: 3 }}>
+                                <Form onSubmit={handleSubmitAddAssistans}>
+                                    <Button variant="dark" type="submit">Apuntarme al Ensayo</Button>
+                                </Form>
+                            </Col>
+
+                            <Col className="mb-5" md={{ span: 3 }}>
+                                <Form onSubmit={handleSubmit}>
+                                    <Button variant="danger" type="submit">Eliminar Evento</Button>
+                                </Form>
+                            </Col>
+
                         </Row>
                     </>
             }
         </Container>
     )
-
 }
 
 export default EventDetailsPage

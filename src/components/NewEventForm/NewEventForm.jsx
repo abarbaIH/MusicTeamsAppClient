@@ -54,7 +54,6 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
         }
     }
 
-
     const handleSubmit = e => {
         e.preventDefault()
 

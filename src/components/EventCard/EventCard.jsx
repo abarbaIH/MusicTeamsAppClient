@@ -1,75 +1,123 @@
-import { Button, Card } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Button, Card, Row, Col, Form } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
 import './EventCard.css'
 import Loader from '../Loader/Loader'
 import { formatDate } from '../../utils/date-format'
+import assitEvent from './../../assets/BotonApuntarEvento.png'
+import { AuthContext } from "./../../contexts/auth.context"
+import eventsService from "./../../services/event.services"
+import { useContext } from "react"
 
-const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, eventDate, planner, assistants }) => {
+const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, eventDate, planner, assistants, maxPlaces }) => {
+
+    const navigate = useNavigate()
+    const { user } = useContext(AuthContext)
+
+    const handleSubmitAddAssistans = e => {
+        e.preventDefault()
+        eventsService
+            .eventAddAssistants(_id, user._id)
+            .then(() => navigate('/perfil'))
+            .catch(err => console.log(err))
+    }
+
+    const renderPlaces = () => {
+        const places = []
+        const numAssistants = assistants ? assistants.length : 0;
+        const remainingPlaces = maxPlaces - numAssistants;
+
+        for (let i = 0; i < numAssistants; i++) {
+            const assistant = assistants[i];
+            const avatar = assistant ? assistant.avatar : null;
+            places.push(
+                <div key={i} className="place-item">
+                    <img src={avatar} alt={`Asistente ${i + 1}`} className="assistant-avatar" />
+                    <p className="assistant-name mt-3"> <strong>{assistant.firstName}</strong></p>
+                    <p className="assistant-instrument font-italic">{assistant.instrument}</p>
+                </div>
+            );
+        }
+
+        for (let i = 0; i < remainingPlaces; i++) {
+            places.push(
+                <div key={i + numAssistants} className="place-item">
+                    <Form onSubmit={handleSubmitAddAssistans}>
+                        <Button className='assit-button' >
+                            <img src={assitEvent} alt={`Hueco ${numAssistants + i + 1}`} />
+                        </Button>
+                    </Form>
+
+                    <p className="free-place mt-3">Libre</p>
+                </div>
+            );
+        }
+        return places
+    }
+
     return (
-        <Card className="mb-3 EventCard" style={{ width: '18rem' }}>
-            {/* <Card.Img variant="top" src={venueImg} /> */}
+        <Card className="mb-3 w-100 EventCard" style={{ width: '18rem' }}>
+
             <Card.Body>
-                <Card.Title>{name}</Card.Title>
-                <Card.Text>
-                    Estilo musical:{musicStyle}
-                </Card.Text>
 
-                <Card.Text>
-                    {!planner
-                        ?
+                <Card.Title className="mb-5">
+
+                    {!venueEvent ? (
                         <Loader />
-                        :
-                        <p>Organizado por:{planner.firstName}</p>
-                    }
-                </Card.Text>
+                    ) : (
 
-                <Card.Text>
+                        <Row className="justify-content-between">
+                            <Col><p><strong>{name}</strong></p></Col>
+                            <Col><p><strong>{venueEvent.name}</strong></p></Col>
+                            <Col>
+                                <Button as="span" variant="dark">
+                                    <Link to={`/eventos/detalles/${_id}`}>Más detalles</Link>
+                                </Button>
+                            </Col>
+                        </Row>
 
-                    {
-                        !venueEvent
-                            ?
-                            <Loader />
-                            :
-                            <p>En la sala:{venueEvent.name}</p>
-                    }
-                </Card.Text>
+                    )}
+                </Card.Title>
 
-                <Card.Text>
-                    {
-                        !assistants
-                            ?
-                            <Loader />
-                            :
-                            assistants?.map(a => {
-                                return (
-                                    <li key={a._id}>
-                                        {a.firstName}
-                                    </li>
-                                )
-                            })
-                    }
-                </Card.Text>
+                <Row>
+                    <Col>
+                        <div className="places-container w-100">{renderPlaces()}</div>
+                    </Col>
+                </Row>
 
+                <Row>
+                    <Col>
+                        <Card.Text>
+                            <strong>Estilo musical: </strong> <p font-italic>{musicStyle}</p>
+                        </Card.Text>
+                    </Col>
 
-                <Card.Text>
-                    {requiredExperience}
-                </Card.Text>
+                    <Col>
+                        <Card.Text>
+                            {!planner ? (
+                                <Loader />
+                            ) : (<>
+                                <strong>Organizado por: </strong> <p font-italic>{planner.firstName}</p>
+                            </>
+                            )}
+                        </Card.Text>
+                    </Col>
 
-                <Card.Text>
-                    {formatDate(eventDate)}
-                </Card.Text>
+                    <Col>
+                        <Card.Text>
+                            <strong>Experiencia recomendada: </strong> <p font-italic>{requiredExperience}</p>
+                        </Card.Text>
+                    </Col>
 
-                <Button as="span" variant="dark">
-                    <Link to={`/eventos/detalles/${_id}`}>Detalles</Link>
-                </Button>
+                    <Col>
+                        <Card.Text>
+                            <strong>Fecha de Ensayo: </strong> <p font-italic>{formatDate(eventDate)}</p>
+                        </Card.Text>
+                    </Col>
+                </Row>
+
             </Card.Body>
-        </Card>
+        </Card >
     )
 }
-
-// let date = new Date("2018-01-01T00:00:00");
-// /* Date format you have */
-// let dateMDY = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-// /* Date converted to MM-DD-YYYY format */
 
 export default EventCard
