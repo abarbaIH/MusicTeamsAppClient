@@ -1,5 +1,5 @@
 import { Button, Card, Row, Col, Form } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import './EventCard.css'
 import Loader from '../Loader/Loader'
 import { formatDate } from '../../utils/date-format'
@@ -13,7 +13,9 @@ const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, even
     const navigate = useNavigate()
     const { user } = useContext(AuthContext)
 
+
     const handleSubmitAddAssistans = e => {
+        console.log(_id)
         e.preventDefault()
         eventsService
             .eventAddAssistants(_id, user._id)
@@ -30,7 +32,7 @@ const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, even
             const assistant = assistants[i];
             const avatar = assistant ? assistant.avatar : null;
             places.push(
-                <div key={i} className="place-item">
+                <div key={_id} className="place-item">
                     <img src={avatar} alt={`Asistente ${i + 1}`} className="assistant-avatar" />
                     <p className="assistant-name mt-3"> <strong>{assistant.firstName}</strong></p>
                     <p className="assistant-instrument font-italic">{assistant.instrument}</p>
@@ -40,13 +42,12 @@ const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, even
 
         for (let i = 0; i < remainingPlaces; i++) {
             places.push(
-                <div key={i + numAssistants} className="place-item">
-                    <Form onSubmit={handleSubmitAddAssistans}>
-                        <Button className='assit-button' >
-                            <img src={assitEvent} alt={`Hueco ${numAssistants + i + 1}`} />
+                <div className="place-item">
+                    <Form>
+                        <Button onClick={handleSubmitAddAssistans} key={_id} className='assit-button' >
+                            <img src={assitEvent} alt='plazas vacías' />
                         </Button>
                     </Form>
-
                     <p className="free-place mt-3">Libre</p>
                 </div>
             );

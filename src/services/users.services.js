@@ -47,6 +47,10 @@ class UserService {
         return this.api.put(`/${user_id}/addFriend/${friend_id}`)
     }
 
+    userDeleteFriend(user_id, friend_id) {
+        return this.api.put(`/${user_id}/deleteFriend/${friend_id}`)
+    }
+
     userAssitEvent(user_id, event_id) {
         return this.api.put(`/${user_id}/assitEvent/${event_id}`)
     }

@@ -1,6 +1,7 @@
 .App {
   font-family: sans-serif;
-  background: linear-gradient(#D90416, #D9BF71, #BF8845, #F20505, #0D0D0D)
+  background-color: linear-gradient(#F0AD21 #FEF098 #FFDD58 #FFE787 #F4C048);
+
 }
 
 a {

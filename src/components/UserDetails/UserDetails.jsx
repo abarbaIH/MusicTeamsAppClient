@@ -1,7 +1,7 @@
 import { Button, Card, Row, Col, Form } from "react-bootstrap"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import usersService from './../../services/users.services'
-import { useContext, useState, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "./../../contexts/auth.context"
 import Loader from './../../components/Loader/Loader'
 
@@ -9,8 +9,19 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
 
     const { user } = useContext(AuthContext)
     const { id } = useParams()
-
+    const [userView, setUserView] = useState()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        loadUserView()
+    }, [user])
+
+    const loadUserView = () => {
+        usersService
+            .userDetails(user._id)
+            .then(({ data }) => setUserView(data))
+            .catch(err => console.log(err))
+    }
 
     const handleSubmit = e => {
 
@@ -26,7 +37,21 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
         e.preventDefault()
         usersService
             .userAddFriend(user._id, id)
-            .then(() => navigate('/perfil'))
+            .then(({ data }) => {
+                const updateUser = data
+                setUserView(updateUser)
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handleSubmitDeleteFriend = e => {
+        e.preventDefault()
+        usersService
+            .userDeleteFriend(user._id, id)
+            .then(({ data }) => {
+                const updateUser = data
+                setUserView(updateUser)
+            })
             .catch(err => console.log(err))
     }
 
@@ -178,9 +203,27 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                                 <></>
                         }
 
-                        <Form onSubmit={handleSubmitFavorites}>
+                        {/* <Form onSubmit={handleSubmitFavorites}>
                             <Button variant="dark" type="submit">Añadir a Amigos</Button>
-                        </Form>
+                        </Form> */}
+
+                        {
+                            !userView
+                                ?
+                                <Loader />
+                                :
+                                userView.friends.includes(id)
+                                    ?
+
+                                    <Form onSubmit={handleSubmitDeleteFriend}>
+                                        <Button variant="danger" type="submit">Eliminar de Amigos</Button>
+                                    </Form>
+                                    :
+
+                                    <Form onSubmit={handleSubmitFavorites}>
+                                        <Button variant="success" type="submit">Añadir a Amigos</Button>
+                                    </Form>
+                        }
 
                     </div>
 
