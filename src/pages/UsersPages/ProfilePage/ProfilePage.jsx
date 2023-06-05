@@ -14,6 +14,7 @@ const ProfilePage = () => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate()
 
+    // TODO: HACER LLAMADA A ENPOINT DE API QUE RECIBA EL ID DEL USUARIO Y RETORNE JSOIN CON TODFOS SU DATOS INCLUIDOS AMIGOS POIPULADOS
     const handleSubmit = e => {
 
         e.preventDefault()
@@ -132,9 +133,9 @@ const ProfilePage = () => {
             </Row>
             <hr />
 
-            {/* <Card>
+            <Card>
                 <Row>
-                    <Col>
+                    {/* <Col>
                         <Card.Img style={{ width: '10%', height: '10%' }} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqResG0Hteqj7GC0T34B3aIf9K2GMyuhq9SA&usqp=CAU" />
                         <Card.Title>Mis amigos</Card.Title>
 
@@ -152,8 +153,8 @@ const ProfilePage = () => {
                                 })
                         }
 
-                    </Col>
-                    <Col>
+                    </Col> */}
+                    {/* <Col>
                         <Card.Img style={{ width: '10%', height: '10%' }} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqResG0Hteqj7GC0T34B3aIf9K2GMyuhq9SA&usqp=CAU" />
                         <Card.Title>Mis Salas favoritas</Card.Title>
 
@@ -191,10 +192,10 @@ const ProfilePage = () => {
                                 })
                         }
 
-                    </Col>
+                    </Col> */}
 
                 </Row>
-            </Card> */}
+            </Card>
             <Row>
                 <Col md={{ span: 2 }}>
                     <Link to="/salas">
