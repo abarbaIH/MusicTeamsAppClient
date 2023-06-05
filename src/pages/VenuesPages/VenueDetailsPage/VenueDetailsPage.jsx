@@ -40,6 +40,14 @@ const VenueDetailsPage = () => {
             .catch(err => console.log(err))
     }
 
+    const handleSubmitDeleteFavorites = e => {
+        e.preventDefault()
+        usersService
+            .userDeleteVenue(user._id, id)
+            .then(() => navigate('/salas'))
+            .catch(err => console.log(err))
+    }
+
     return (
         <Container>
             {
@@ -86,51 +94,69 @@ const VenueDetailsPage = () => {
 
                                 </ul>
                                 <hr />
+
                                 <Row>
                                     <Col md={{ span: 4 }}>
                                         <Link to="/salas">
                                             <Button variant="dark" >Volver al listado</Button>
                                         </Link>
                                     </Col>
-
                                     <Col md={{ span: 4 }}>
-                                        <Link to={`/editar-sala/${id}`}>
-                                            <Button variant="dark" >Editar Sala</Button>
+
+                                        {
+                                            user.venueFavorites.includes(id)
+                                                ?
+                                                <Form onSubmit={handleSubmitDeleteFavorites}>
+                                                    <Button variant="danger" type="submit">Quitar de Favoritas</Button>
+                                                </Form>
+
+                                                :
+                                                <Form onSubmit={handleSubmitFavorites}>
+                                                    <Button variant="success" type="submit">Añadir a Favoritas</Button>
+                                                </Form>
+                                        }
+
+                                    </Col>
+                                    <Col md={{ span: 4 }}>
+                                        <Link to={`/crear-evento?venue_id=${venue._id}`}>
+                                            <Button variant="dark" style={{ marginBottom: '30px' }} type="submit"> Crear Evento</Button>
                                         </Link>
-                                    </Col>
 
-                                    <Col md={{ span: 4 }}>
-                                        <Form onSubmit={handleSubmit}>
-                                            <Button variant="danger" type="submit">Eliminar Sala</Button>
-                                        </Form>
-                                    </Col>
-                                    <Col md={{ span: 4 }}>
-                                        <Form onSubmit={handleSubmitFavorites}>
-                                            <Button variant="dark" type="submit">Añadir Sala a Favoritas</Button>
-                                        </Form>
                                     </Col>
 
                                 </Row>
 
 
+                                <Row className="mb-5">
+                                    <Col md={{ span: 6 }}>
+                                        <Link to={`/editar-sala/${id}`}>
+                                            <Button variant="dark" >Editar Sala</Button>
+                                        </Link>
+                                    </Col>
+                                    <Col md={{ span: 6 }}>
+                                        <Form onSubmit={handleSubmit}>
+                                            <Button variant="danger" type="submit">Eliminar Sala</Button>
+                                        </Form>
+                                    </Col>
+
+                                </Row>
+
                             </Col>
 
                             <Col md={{ span: 6 }}>
-                                <img src={venue.venueImg} style={{ width: '100%' }} />
+                                <Col className="mb-5">
+                                    <img src={venue.venueImg} style={{ width: '75% ' }} />
+                                </Col>
+
+                                <Col>
+                                    <Maps latitud={venue.location.coordinates[0]} longitud={venue.location.coordinates[1]} />
+
+                                </Col>
+
                             </Col>
 
                         </Row>
-                        <Link to={`/crear-evento?venue_id=${venue._id}`}>
-                            <Button variant="dark" style={{ marginBottom: '30px' }} type="submit"> Crear Evento</Button>
-                        </Link>
-                        {/* {console.log(venue.location.coordinates[0])} */}
 
-                        <div>
-
-                        </div>
-                        <div>
-                            <Maps latitud={venue.location.coordinates[0]} longitud={venue.location.coordinates[1]} />
-                        </div>
                     </>
             }
 

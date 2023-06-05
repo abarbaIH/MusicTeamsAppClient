@@ -9,7 +9,7 @@ const MapContainer = (props) => {
         <Map
             google={props.google}
             zoom={15}
-            style={{ width: '500px', height: '500px' }}
+            style={{ width: '400px', height: '200px' }}
             initialCenter={markerPosition}
         >
             <Marker position={markerPosition} />

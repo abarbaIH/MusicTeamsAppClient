@@ -6,9 +6,12 @@ const EventsList = ({ events }) => {
     return (
         events.map(event => {
             return (
-                <Col md={{ span: 3 }} key={event._id} lg={{ span: 4 }}>
-                    <EventCard {...event} />
-                </Col>
+                <>
+                    <Col md={{ span: 10 }} key={event._id} lg={{ span: 10 }}>
+                        <EventCard {...event} />
+                    </Col>
+                </>
+
             )
         })
     )

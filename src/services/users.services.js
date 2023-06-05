@@ -39,6 +39,10 @@ class UserService {
         return this.api.put(`/${user_id}/addVenueFavorite/${venue_id}`)
     }
 
+    userDeleteVenue(user_id, venue_id) {
+        return this.api.put(`/${user_id}/deleteVenueFavorite/${venue_id}`)
+    }
+
     userAddFriend(user_id, friend_id) {
         return this.api.put(`/${user_id}/addFriend/${friend_id}`)
     }

@@ -2,6 +2,8 @@ import { useContext } from 'react'
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
+import logo from './../../assets/MusicTeamsAppLogo.png'
+import './Navigation.css'
 
 const Navigation = () => {
     const { user, logout } = useContext(AuthContext)
@@ -9,7 +11,10 @@ const Navigation = () => {
 
         < Navbar bg="dark" variant="dark" expand="lg" className='mb-5' >
             <Container>
-                <Navbar.Brand href="#">MusicTeamsApp</Navbar.Brand>
+                <Navbar.Brand href="/">
+                    <img src={logo} style={{ width: "40px", borderRadius: "50%", marginRight: "20px" }} alt="" />
+
+                    MusicTeamsApp</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
@@ -43,10 +48,11 @@ const Navigation = () => {
                                 <>
                                     <Nav.Link as="span">
                                         <Link to="/perfil">
-                                            <img src={user.avatar} style={{ height: "20px" }} alt="" />
-                                            ¡Hola, {user.firstName}!
+                                            <img src={user.avatar} style={{ width: "30px", borderRadius: "50%", marginRight: "20px" }} alt="" />
+                                            ¡Hola, <strong>{user.firstName}! </strong>
                                         </Link>
                                     </Nav.Link>
+
                                     <NavDropdown>
                                         <NavDropdown.Item as="span">
                                             <Link to="/perfil">Perfil</Link>
