@@ -8,9 +8,7 @@ const VenueCard = ({ _id, venueImg, name, openingHours, description, features })
             <Card.Img variant="top" src={venueImg} />
             <Card.Body>
                 <Card.Title>{name}</Card.Title>
-                <Card.Text>
-                    {description}
-                </Card.Text>
+
                 <Card.Text>
                     {features.map(f => {
                         return (
