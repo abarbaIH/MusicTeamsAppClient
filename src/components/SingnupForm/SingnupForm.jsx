@@ -34,7 +34,7 @@ const SignupForm = () => {
 
         authService
             .signup(signupData)
-            .then(({ data }) => { //poner data
+            .then(({ data }) => {
                 navigate('/usuarios')
             })
             .catch(err => setErrors(err.response.data.errorMessages))
@@ -95,8 +95,6 @@ const SignupForm = () => {
                 <Form.Control type="text" value={aboutMe} onChange={handleInputChange} name="aboutMe" />
             </Form.Group>
 
-            {/* SELECT */}
-
             <Form.Group className="mb-3" controlId="instrument">
                 <Form.Label>Instrumento</Form.Label>
                 <Form.Select value={instrument} onChange={handleInputChange} name="instrument">
@@ -128,7 +126,6 @@ const SignupForm = () => {
                 </Form.Select>
             </Form.Group>
 
-            {/* {console.log(errors)} */}
             <div className="d-grid">
                 <Button variant="dark" type="submit" disabled={loadingImage}>
                     {

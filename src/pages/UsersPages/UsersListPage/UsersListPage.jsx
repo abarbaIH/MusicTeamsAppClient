@@ -4,8 +4,6 @@ import usersService from '../../../services/users.services'
 import UsersList from '../../../components/UsersList/UsersList'
 
 
-
-
 const UsersListPage = () => {
 
     const [users, setUsers] = useState([])
@@ -20,7 +18,6 @@ const UsersListPage = () => {
             .then(({ data }) => setUsers(data))
             .catch(error => console.log(error))
     }
-
 
     return (
         <Container>

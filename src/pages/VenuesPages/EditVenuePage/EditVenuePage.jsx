@@ -10,8 +10,8 @@ const EditVenuePage = () => {
         <Container>
             <h1>Editar Sala</h1>
             <hr />
-            <EditVenueForm />
 
+            <EditVenueForm />
 
         </Container>
 

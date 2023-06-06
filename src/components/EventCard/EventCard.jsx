@@ -13,9 +13,7 @@ const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, even
     const navigate = useNavigate()
     const { user } = useContext(AuthContext)
 
-
     const handleSubmitAddAssistans = e => {
-        console.log(_id)
         e.preventDefault()
         eventsService
             .eventAddAssistants(_id, user._id)

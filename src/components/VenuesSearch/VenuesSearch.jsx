@@ -6,7 +6,7 @@ const VenuesSearch = ({ filterVenuesByName }) => {
 
     const handleQueryChange = e => {
         const inputValue = e.target.value
-        setNameQuery(inputValue)               // OJO las actualizaciones de estado son asincronas, no bloqueantes
+        setNameQuery(inputValue)
         filterVenuesByName(inputValue)
     }
 

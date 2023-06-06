@@ -2,7 +2,6 @@ import React from 'react'
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
-// import uploadServices from './../../services/upload.services'
 import eventsService from '../../services/event.services'
 import FormError from '../FormError/FormError'
 
@@ -16,9 +15,7 @@ const EditEventForm = () => {
         name: '',
         musicStyle: '',
         requiredExperience: '',
-        // venueEvent: '',
         eventDate: '',
-        // assistants: "",
     })
 
     const [errors, setErrors] = useState([])
@@ -39,13 +36,10 @@ const EditEventForm = () => {
             .catch(err => console.log(err))
     }
 
-
     const handleInputChange = e => {
         const { value, name } = e.target
-
         setEventEdit({ ...eventEdit, [name]: value })
     }
-
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -86,19 +80,11 @@ const EditEventForm = () => {
                 </Form.Select>
             </Form.Group>
 
-            {/* <Form.Group className="mb-3" controlId="venueEvent">
-                <Form.Label>Sala del ensayo</Form.Label>
-                <Form.Control type="text" value={venueEvent} onChange={handleInputChange} name="venueEvent" />
-            </Form.Group> */}
             <Form.Group className="mb-3" controlId="eventDate">
                 <Form.Label>Fecha del ensayo</Form.Label>
                 <Form.Control type="date" value={eventDate} onChange={handleInputChange} name="eventDate" />
             </Form.Group>
-            {/* 
-            <Form.Group className="mb-3" controlId="assistants">
-                <Form.Label>Asistentes</Form.Label>
-                <Form.Control type="text" value={assistants} onChange={handleInputChange} name="assistants" />
-            </Form.Group> */}
+
             {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
             <div className="d-grid">
                 <Button variant="dark" style={{ marginBottom: '30px' }} type="submit">Editar Evento</Button>

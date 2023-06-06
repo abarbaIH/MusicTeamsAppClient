@@ -11,20 +11,18 @@ Rosita claro: #E2B0A5
     height: 6vh;
     color: green;
     text-decoration: none;
-
 }
 
 .profilePage {
-    height: 100vh;
+    height: 105vh;
 }
 
 .profileTab {
 
     background: #F2E4ED;
-    padding: 1vh;
+    padding: 4vh;
     color: inherit;
     text-decoration: none;
-
 }
 
 .profileButton {
@@ -45,7 +43,6 @@ img {
 }
 
 hr {
-
-    height: 1vh;
+    height: 0.5vh;
     background-color: #461B37;
 }

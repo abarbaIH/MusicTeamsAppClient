@@ -6,8 +6,8 @@ const VenuesCapacitySearch = ({ filterVenuesByCapacity }) => {
 
     const handleQueryChange = e => {
         const inputValue = e.target.value
-        setCapacityQuery(inputValue)               // OJO las actualizaciones de estado son asincronas, no bloqueantes
-        filterVenuesByCapacity(parseInt(inputValue)) // Convertir el valor a un número entero antes de filtrar
+        setCapacityQuery(inputValue)
+        filterVenuesByCapacity(parseInt(inputValue))
     }
 
     return (

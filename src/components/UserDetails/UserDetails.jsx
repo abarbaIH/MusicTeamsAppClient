@@ -1,12 +1,15 @@
-import { Button, Card, Row, Col, Form } from "react-bootstrap"
+import { Button, Card, Row, Col, Form, Image, Container } from "react-bootstrap"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import usersService from './../../services/users.services'
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "./../../contexts/auth.context"
 import Loader from './../../components/Loader/Loader'
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import './UserDetails.css'
 
 const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument, aboutMe, level, friends, venueFavorites, eventsAssisted }) => {
-
+    console.log(friends)
     const { user } = useContext(AuthContext)
     const { id } = useParams()
     const [userView, setUserView] = useState()
@@ -59,6 +62,7 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
         e.preventDefault()
 
         const updatedRole = role === "MUSICIAN" ? "MANAGER" : "MUSICIAN";
+
         usersService
             .userChangeRole(id, updatedRole)
             .then(() => navigate('/usuarios'))
@@ -67,175 +71,145 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
 
     return (
 
-        <>
-            <h1> {firstName}</h1>
-            <Card className="mb-3 UserCard" md={{ span: 6 }} >
+        <Container className="userDetails">
+            <Card className=" mt-5 UserCard" md={{ span: 12 }} >
                 <Row>
-                    <Col>
-                        <Card.Img md={{ span: 5 }} variant="top" src={avatar} style={{ width: '100%' }} />
+                    <Col className="userImg" md={{ span: 3, offset: 1 }}  >
+                        <div className="avatar-container">
+                            <img className="avatar" src={avatar} alt="Avatar" />
+                        </div>
                     </Col>
-                    <Col>
-                        <Card.Title>Datos personales</Card.Title>
+                    <Col className="userData" md={{ span: 5 }}>
+                        <Card.Title className="mt-4"> Datos personales</Card.Title>
                         <ul>
                             <li>Nombre: <strong>{firstName}</strong></li>
                             <li>Apellido: <strong>{lastName}</strong></li>
                             <li>Email: <strong>{email}</strong></li>
                             <li>Rol: <strong>{role}</strong></li>
-                            <li>Instrumento: <strong>{instrument}</strong><p>Nivel: <strong>{level}</strong></p></li>
+                            <li>Instrumento: <strong>{instrument} </strong>Nivel: <strong>{level}</strong></li>
                         </ul>
-                        <p>Sobre mí: {aboutMe}</p>
+                        <Card.Title > Sobre mi: </Card.Title>
+                        <ul>
+                            {aboutMe}
+                        </ul>
                     </Col>
-                </Row>
-                <Card>
-                    {/* <Row>
-                        <p>Nombre:{user.firstName}</p>
-                        <p>Apellido:{user.lastName}</p>
-                        <p>Instrumento:{user.instrument}</p>
-                        <p>Nivel:{user.level}</p>
-                        <p>Mis eventos creados:{user.firstName}</p>
-                        <p>Mis amigos:{friends}</p>
-
-
-
-                        <p>Nivel:{user.level}</p>
-                        <p>Mis eventos creados:{user.firstName}</p>
-                        <p>Mis amigos:{friends}</p>
-                    </Row> */}
-                    <Card>
-                        <Row>
-                            <Col>
-                                <Card.Img style={{ width: '10%', height: '10%' }} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqResG0Hteqj7GC0T34B3aIf9K2GMyuhq9SA&usqp=CAU" />
-                                <Card.Title>Mis amigos</Card.Title>
-
-                                {
-                                    !friends
-                                        ?
-                                        <Loader />
-                                        :
-                                        friends?.map(f => {
-                                            return (
-                                                <li key={f._id}>
-                                                    {f.firstName}
-                                                </li>
-                                            )
-                                        })
-                                }
-
-                            </Col>
-                            <Col>
-                                <Card.Img style={{ width: '10%', height: '10%' }} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqResG0Hteqj7GC0T34B3aIf9K2GMyuhq9SA&usqp=CAU" />
-                                <Card.Title>Mis Salas favoritas</Card.Title>
-
-                                {
-                                    !venueFavorites
-                                        ?
-                                        <Loader />
-                                        :
-                                        venueFavorites?.map(v => {
-                                            return (
-                                                <li key={v._id}>
-                                                    {v.name}
-                                                </li>
-                                            )
-                                        })
-                                }
-
-
-                            </Col>
-                            <Col>
-                                <Card.Img style={{ width: '10%', height: '10%' }} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqResG0Hteqj7GC0T34B3aIf9K2GMyuhq9SA&usqp=CAU" />
-                                <Card.Title>Mis eventos</Card.Title>
-
-                                {
-                                    !eventsAssisted
-                                        ?
-                                        <Loader />
-                                        :
-                                        eventsAssisted?.map(e => {
-                                            return (
-                                                <li key={e._id}>
-                                                    {e.name}
-                                                </li>
-                                            )
-                                        })
-                                }
-
-                            </Col>
-
-                        </Row>
-                    </Card>
-
-                    <div>
-                        <Button as="span" variant="dark">
-                            <Link to={`/perfil-editar/${_id}`}>Editar</Link>
-                        </Button>
-
-                        {
-                            user.role === "ADMIN"
-                                ?
-                                <Form onSubmit={handleSubmit}>
-                                    <Button variant="danger" type="submit">Eliminar perfil</Button>
-                                </Form>
-                                :
-                                <></>
-                        }
-
-                        {
-                            user.role === "ADMIN"
-                                ?
+                    <Col md={{ span: 3 }}>
+                        <div>
+                            {
+                                user.role === "ADMIN"
+                                &&
                                 <>
-
+                                    <Button className="profileButton" as="span" variant="dark" type="submit">
+                                        <Link to={`/perfil-editar/${_id}`}>Editar</Link>
+                                    </Button>
+                                    <Form onSubmit={handleSubmit}>
+                                        <Button className="profileButton" variant="dark" type="submit">Eliminar perfil</Button>
+                                    </Form>
                                     {
                                         role === "MANAGER"
-                                            ?
-
-                                            <Form onSubmit={handleSubmitRole}>
-                                                <Button variant="success" type="submit">Cambiar rol a Músico</Button>
+                                            ? <Form onSubmit={handleSubmitRole}>
+                                                <Button className="profileButton" variant="dark" type="submit">Cambiar rol a Músico</Button>
                                             </Form>
-                                            :
-                                            <Form onSubmit={handleSubmitRole}>
-                                                <Button variant="danger" type="submit">Cambiar rol a Manager</Button>
+                                            : <Form onSubmit={handleSubmitRole}>
+                                                <Button className="profileButton" variant="dark" type="submit">Cambiar rol a Manager</Button>
                                             </Form>
                                     }
 
                                 </>
-                                :
-                                <></>
-                        }
 
-                        {/* <Form onSubmit={handleSubmitFavorites}>
-                            <Button variant="dark" type="submit">Añadir a Amigos</Button>
-                        </Form> */}
 
-                        {
-                            !userView
-                                ?
-                                <Loader />
-                                :
-                                userView.friends.includes(id)
+                            }
+
+                            {
+                                !userView
+                                    ? <Loader />
+                                    : userView.friends.includes(id)
+                                        ? <Form onSubmit={handleSubmitDeleteFriend}>
+                                            <Button className="profileButton" variant="dark" type="submit">Eliminar de Amigos</Button>
+                                        </Form>
+                                        : <Form onSubmit={handleSubmitFavorites}>
+                                            <Button className="profileButton" variant="dark" type="submit">Añadir a Amigos</Button>
+                                        </Form>
+                            }
+                        </div>
+
+                    </Col>
+                </Row>
+
+                <Tabs
+                    defaultActiveKey="friends"
+                    id="profile"
+                    className="profileTabs"
+                    fill
+
+                >
+
+                    <Tab className="profileTab" eventKey="friends" title="Amigos????">
+                        {!friends ? (
+                            <Loader />
+                        ) : (
+                            <Row>
+                                {/* TODO: DESCAOPLAR CONTENIDO DE TABS */}
+                                {friends.map((f) => (
+                                    <Col className="userImg" md={{ span: 3 }} key={f._id}>
+                                        <div className="avatar-container">
+                                            <Link to={`/usuarios/detalles/${f._id}`}>
+                                                <img className="avatar" src={f.avatar} alt="Avatar" />
+                                            </Link>
+                                        </div>
+                                    </Col>
+                                ))}
+                            </Row>
+                        )}
+                    </Tab>
+
+
+                    <Tab className="profileTab  horizontal-scroll" eventKey="venueFavorites" title="Salas">
+                        {!venueFavorites ? (
+                            <Loader />
+                        ) : (
+
+                            <Row>
+                                {venueFavorites.map((v) => (
+                                    <Col className="userImg" md={{ span: 3 }} key={v._id}>
+                                        <div className="avatar-container">
+                                            <Link to={`/salas/detalles/${v._id}`}>
+                                                <img className="avatar" src={v.venueImg} alt="VenueImage" />
+                                            </Link>
+                                        </div>
+                                    </Col>
+                                ))}
+                            </Row>
+
+                        )}
+                    </Tab>
+
+
+                    <Tab className="profileTab" eventKey="eventsAssisted" title="Ensayos">
+
+                        <>
+                            {!userView ? <Loader /> :
+                                !eventsAssisted
                                     ?
-
-                                    <Form onSubmit={handleSubmitDeleteFriend}>
-                                        <Button variant="danger" type="submit">Eliminar de Amigos</Button>
-                                    </Form>
+                                    <Loader />
                                     :
+                                    eventsAssisted?.map(e => {
+                                        return (
+                                            <li key={e._id}>
+                                                <Link to={`/eventos/detalles/${e._id}`}>
+                                                    {e.name}
+                                                </Link>
+                                            </li>
+                                        )
+                                    })
+                            }
+                        </>
+                    </Tab>
 
-                                    <Form onSubmit={handleSubmitFavorites}>
-                                        <Button variant="success" type="submit">Añadir a Amigos</Button>
-                                    </Form>
-                        }
-
-                    </div>
-
-
-
-                </Card>
+                </Tabs>
             </Card >
-        </>
-
+        </Container>
     )
-
-
 }
 
 export default UserDetails

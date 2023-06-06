@@ -40,6 +40,17 @@ class VenueService {
         return this.api.delete(`/${venue_id}/delete`)
     }
 
+    checkAvailability(venue_id, requested_date) {
+        return this.api.get(`/${venue_id}/checkAvailability/${requested_date}`)
+    }
+
+    // checkAvailability(venue_id, requested_date) {
+    //     return this.api.get(`/${venue_id}/checkAvailability`, { data: { requested_date } })
+    // }
+
+
+
+
 }
 
 const venuesService = new VenueService()

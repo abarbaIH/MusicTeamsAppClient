@@ -9,7 +9,7 @@ const EditProfilePage = () => {
 
     return (
         <Container>
-            <h1>EDIT PROFILE PAGEEEE</h1>
+            <h1>EDITAR PERFIL</h1>
             <hr />
             <UserEditForm />
         </Container>

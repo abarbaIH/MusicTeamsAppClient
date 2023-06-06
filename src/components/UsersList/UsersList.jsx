@@ -6,7 +6,7 @@ const UsersList = ({ users }) => {
     return (
         users.map(user => {
             return (
-                <Col md={{ span: 3 }} lg={{ span: 4 }} key={user._id}>
+                <Col md={{ span: 6 }} lg={{ span: 6 }} key={user._id}>
                     <UserCard {...user} />
                 </Col>
             )

@@ -151,6 +151,7 @@ const VenueDetailsPage = () => {
 
                                                     :
                                                     <>
+                                                        {/* TODO: ELIMINAR FORMULARIOS */}
                                                         <p>Añadir a Favoritos</p>
                                                         <Form onSubmit={handleSubmitFavorites}>
                                                             <Button className="likeButton" type="submit">
@@ -162,11 +163,6 @@ const VenueDetailsPage = () => {
                                         }
 
                                     </Col>
-                                    {/* <Col md={{ span: 4 }}>
-                                        <Link to={`/crear-evento?venue_id=${venue._id}`}>
-                                            <Button variant="dark" style={{ marginBottom: '30px' }} type="submit"> Crear Evento</Button>
-                                        </Link>
-                                    </Col> */}
 
                                     <Col md={{ span: 4 }}>
                                         <p>Crear evento</p>
@@ -178,20 +174,6 @@ const VenueDetailsPage = () => {
                                     </Col>
 
                                 </Row>
-
-                                {/* <Row className="mb-5">
-                                    <Col md={{ span: 6 }}>
-                                        <Link to={`/editar-sala/${id}`}>
-                                            <Button variant="dark" >Editar Sala</Button>
-                                        </Link>
-                                    </Col>
-                                    <Col md={{ span: 6 }}>
-                                        <Form onSubmit={handleSubmit}>
-                                            <Button variant="danger" type="submit">Eliminar Sala</Button>
-                                        </Form>
-                                    </Col>
-
-                                </Row> */}
 
                             </Col>
 

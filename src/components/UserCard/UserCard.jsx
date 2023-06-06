@@ -1,25 +1,26 @@
-import { Button, Card } from 'react-bootstrap'
+import { Image, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './UserCard.css'
 
-const UserCard = ({ _id, avatar, firstName, lastName, aboutMe, instrument }) => {
+const UserCard = ({ _id, avatar, firstName, lastName, level, aboutMe, instrument }) => {
     return (
-        <Card className="mb-3 UserCard" style={{ width: '20rem', border: " #4A3459" }} >
-            <Card.Img variant="top" src={avatar} />
-            <Card.Body>
-                <Card.Title>{firstName} {lastName}</Card.Title>
-                <Card.Text>
-                    {aboutMe}
-                </Card.Text>
-                <Card.Text>
-                    {instrument}
-                </Card.Text>
-                <Button as="span" className='button-card' variant="dark">
-                    <Link to={`/usuarios/detalles/${_id}`}>Detalles</Link>
-                </Button>
-            </Card.Body>
-        </Card>
+        <Row className="justify-content-center">
+            <Col md={{ span: 6 }} className="d-flex flex-column align-items-center text-center mb-4">
+                <Link to={`/usuarios/detalles/${_id}`}>
+                    <div className="user-image">
+                        <Image src={avatar} />
+                    </div>
+                </Link>
+                <h1 className="user-name mt-2">{firstName} {lastName}</h1>
+
+                <Row>
+                    <Col><p className="user-info" >{instrument} Nivel: {level}</p></Col>
+                </Row>
+
+            </Col>
+        </Row>
     )
 }
 
 export default UserCard
+

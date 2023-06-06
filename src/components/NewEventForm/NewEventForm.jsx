@@ -20,9 +20,23 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
         venueName: ''
     })
 
+    // const [isUnavailable, setIsUnavailable] = useState()
+
     const [errors, setErrors] = useState([])
 
     const [venues, setVenues] = useState([])
+
+    // useEffect(() => {
+    //     loadAvailable()
+    // })
+    // const loadAvailable = () => {
+    //     venuesService
+    //         .checkAvailability(venueEvent, { requested_date: eventDate })
+    //         .then(({ data }) => setIsUnavailable(data))
+    //         .catch(err => console.log(err))
+
+    // }
+
 
     useEffect(() => {
         loadVenues()
@@ -36,6 +50,8 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
         const currentVenue = venues.find(venue => venue._id == venueId)
         setEventData({ ...eventData, maxPlaces: currentVenue.capacity, venueName: currentVenue.name })
     }
+
+
 
     const loadVenues = () => {
         venuesService

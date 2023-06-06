@@ -31,6 +31,7 @@ const VenuesListPage = () => {
             .catch(err => console.log(err))
     }
 
+    // TODO: FILTRAR EN API
     const filterVenuesByName = name => {
         const filteredVenues = venues.filter(venue => venue.name.includes(name))
         setFilteredVenues(filteredVenues)

@@ -27,9 +27,7 @@ const ProfilePage = () => {
     }
 
     const handleSubmit = e => {
-
         e.preventDefault()
-
         usersService
             .userDelete(userView._id)
             .then(() => navigate('/registro'))
@@ -38,7 +36,8 @@ const ProfilePage = () => {
 
 
     return (
-        <Container className="profilePage" style={{ backgroundImage: "red" }}>
+
+        <Container className="profilePage">
 
 
             {!userView
@@ -50,6 +49,7 @@ const ProfilePage = () => {
 
                     <hr />
                     <Row>
+
                         <Col xs={4} md={2}>
                             <img src={userView.avatar} />
                         </Col>
@@ -59,9 +59,8 @@ const ProfilePage = () => {
                                 defaultActiveKey="profile"
                                 id="profile"
                                 className="profileTabs"
-                                fill
+                                fill>
 
-                            >
                                 <Tab className="profileTab" eventKey="profile" title="Mis datos">
                                     <Row><Col> <h4><strong>Nombre</strong></h4>
                                         <p>{userView.firstName}</p>
@@ -87,6 +86,7 @@ const ProfilePage = () => {
                                     </Col>
                                     </Row>
                                 </Tab>
+
                                 <Tab className="profileTab" eventKey="friends" title="Mis amigos">
                                     Mis amigos
                                     <>  {
@@ -105,6 +105,7 @@ const ProfilePage = () => {
 
                                     </>
                                 </Tab>
+
                                 <Tab className="profileTab" eventKey="venueFavorites" title="Mis salas favoritas">
                                     Mis salas favoritas
                                     <>  {
@@ -123,6 +124,7 @@ const ProfilePage = () => {
 
                                     </>
                                 </Tab>
+
                                 <Tab className="profileTab" eventKey="eventsAssisted" title="Mis ensayos">
                                     Mis ensayos
                                     <>
@@ -141,13 +143,10 @@ const ProfilePage = () => {
                                         }
                                     </>
                                 </Tab>
-
                             </Tabs>
                         </Col>
                     </Row>
-
                 </>
-
             }
 
             <hr />

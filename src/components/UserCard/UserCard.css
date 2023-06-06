@@ -1,17 +1,31 @@
 .UserCard {
     background: #F2E4ED;
-    /* border: #4A3459; */
 }
 
-.UserCard img {
+.user-image {
+    width: 250px;
     height: 250px;
-    object-fit: cover;
-
-}
-
-.button-card {
-    background-color: #4A3459;
-    align-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
     justify-content: center;
     align-items: center;
+    border: solid white 10px
+}
+
+.user-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.user-name {
+    color: white;
+    font-size: 4vh;
+}
+
+.user-info {
+    color: white;
+    font-size: 3vh;
 }

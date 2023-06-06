@@ -23,21 +23,12 @@ const NewVenueForm = ({ fireFinalActions }) => {
     })
     const [errors, setErrors] = useState([])
     const [loadingImage, setLoadingImage] = useState(false)
-    // const [selectedPlace, setSelectedPlace] = useState(null);
 
     const handleInputChange = e => {
         const { name, value } = e.target
         setVenueData({ ...venueData, [name]: value })
-        // if (name === 'address') {
-        //     setSelectedPlace(null)
-        // }
     }
-    // useEffect(() => {
-    //     if (selectedPlace && selectedPlace.geometry && selectedPlace.geometry.location) {
-    //         const { lat, lng } = selectedPlace.geometry.location;
-    //         setVenueData({ ...venueData, latitud: lat(), longitud: lng() });
-    //     }
-    // }, [selectedPlace]);
+
 
     const handleFeaturesChange = e => {
         const selectedFeatures = Array.from(e.target.selectedOptions, option => option.value)
@@ -100,20 +91,6 @@ const NewVenueForm = ({ fireFinalActions }) => {
                 <Form.Label>Longitud</Form.Label>
                 <Form.Control type="text" value={longitud} onChange={handleInputChange} name="longitud" />
             </Form.Group>
-
-            {/* <Form.Group className="mb-3" controlId="address">
-                <Form.Label>Dirección</Form.Label>
-                <Autocomplete
-                    onLoad={autocomplete => {
-                        setSelectedPlace(autocomplete.getPlace());
-                    }}
-                    onPlaceChanged={() => {
-                        setSelectedPlace(autocomplete.getPlace());
-                    }}
-                >
-                    <Form.Control type="text" value={address} onChange={handleInputChange} name="address" />
-                </Autocomplete>
-            </Form.Group> */}
 
             <Row>
                 <Col>
