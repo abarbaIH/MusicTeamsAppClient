@@ -26,7 +26,6 @@ const ProfilePage = () => {
             .catch(err => console.log(err))
     }
 
-    // TODO: HACER LLAMADA A ENPOINT DE API QUE RECIBA EL ID DEL USUARIO Y RETORNE JSOIN CON TODFOS SU DATOS INCLUIDOS AMIGOS POIPULADOS
     const handleSubmit = e => {
 
         e.preventDefault()
@@ -51,16 +50,17 @@ const ProfilePage = () => {
 
                     <hr />
                     <Row>
-                        {/* <Col xs={6} md={6}>
+                        <Col xs={4} md={2}>
                             <img src={userView.avatar} />
-                        </Col> */}
+                        </Col>
 
-                        <Col xs={6} md={6}>
+                        <Col className="tabCol" xs={8} md={10}>
                             <Tabs
                                 defaultActiveKey="profile"
                                 id="profile"
                                 className="profileTabs"
                                 fill
+
                             >
                                 <Tab className="profileTab" eventKey="profile" title="Mis datos">
                                     <Row><Col> <h4><strong>Nombre</strong></h4>
@@ -87,7 +87,7 @@ const ProfilePage = () => {
                                     </Col>
                                     </Row>
                                 </Tab>
-                                <Tab eventKey="friends" title="Mis amigos">
+                                <Tab className="profileTab" eventKey="friends" title="Mis amigos">
                                     Mis amigos
                                     <>  {
                                         !userView.friends
@@ -105,7 +105,7 @@ const ProfilePage = () => {
 
                                     </>
                                 </Tab>
-                                <Tab eventKey="venueFavorites" title="Mis salas favoritas">
+                                <Tab className="profileTab" eventKey="venueFavorites" title="Mis salas favoritas">
                                     Mis salas favoritas
                                     <>  {
                                         !userView.venueFavorites
@@ -123,7 +123,7 @@ const ProfilePage = () => {
 
                                     </>
                                 </Tab>
-                                <Tab eventKey="eventsAssisted" title="Mis ensayos">
+                                <Tab className="profileTab" eventKey="eventsAssisted" title="Mis ensayos">
                                     Mis ensayos
                                     <>
                                         {
@@ -152,21 +152,21 @@ const ProfilePage = () => {
 
             <hr />
 
-            <Row>
+            <Row xs={4} md={12}>
                 <Col md={{ span: 2 }}>
                     <Link to="/salas">
-                        <Button className="profileButton" >Cambiar rol</Button>
+                        <Button className="profileButton" variant="dark">Cambiar rol</Button>
                     </Link>
                 </Col>
                 <Col md={{ span: 2 }}>
                     <Form onSubmit={handleSubmit}>
-                        <Button className="profileButton" type="dark">Eliminar perfil</Button>
+                        <Button className="profileButton" variant="dark">Eliminar perfil</Button>
                     </Form>
                 </Col>
                 <Col md={{ span: 2 }}>
                     <Link to={`/perfil-editar/${user.id}`}>
                         <Form onSubmit={handleSubmit}>
-                            <Button className="profileButton" type="dark">Editar perfil</Button>
+                            <Button className="profileButton" variant="dark">Editar perfil</Button>
                         </Form>
                     </Link>
                 </Col>

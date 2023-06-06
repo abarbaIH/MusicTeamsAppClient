@@ -1,44 +1,51 @@
-/* #D90416
-#D9BF71
-#BF8845
-#F20505
-#0D0D0D
-
-#F0AD21
-#FEF098
-#FFDD58
-#FFE787
-#F4C048
+/*
+Malva claro: #F2E4ED 
+Morado oscuro: #4A3459 
+Berenjena: #461B37 
+Beige : #C5B3A5 
+Rosita claro: #E2B0A5
 */
 
-/* Gradient in Hex
-linear-gradient(to right, #F0AD21 0%, 12.221189591078067%, #FEF098 24.442379182156134%, 37.87174721189591%, #FFDD58 51.301115241635685%, 65.56087110787075%, #FFE787 79.82062697410583%, 89.91031348705292%, #F4C048 100%);
+.profileTabs {
+    background-color: #E2B0A5;
+    height: 6vh;
+    color: green;
+    text-decoration: none;
 
-Gradient in RGBA
-linear-gradient(to right, rgba(240, 173, 33, 1) 0%, 12.221189591078067%, rgba(254, 240, 152, 1) 24.442379182156134%, 37.87174721189591%, rgba(255, 221, 88, 1) 51.301115241635685%, 65.56087110787075%, rgba(255, 231, 135, 1) 79.82062697410583%, 89.91031348705292%, rgba(244, 192, 72, 1) 100%); */
+}
 
 .profilePage {
-    /* /background-color: #BF8845; */
-    /* background-image: url="./../../../../assets2/hands.jpg"; */
-
-    background-color: linear-gradient(#F0AD21 #FEF098 #FFDD58 #FFE787 #F4C048);
     height: 100vh;
-
-
 }
 
 .profileTab {
 
-    background: #D9BF71;
+    background: #F2E4ED;
+    padding: 1vh;
+    color: inherit;
+    text-decoration: none;
 
 }
 
 .profileButton {
-    background: #0D0D0D;
-    border: #BF8845;
-    color: white
+    background: #461B37;
+    height: 6vh;
+    width: 20vh;
+    color: white;
+    border-bottom: white;
 }
 
-.profileTabs {
-    color: black
+p {
+    color: inherit;
+    font-size: 3.5vh;
+}
+
+img {
+    width: 100%;
+}
+
+hr {
+
+    height: 1vh;
+    background-color: #461B37;
 }

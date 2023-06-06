@@ -4,7 +4,7 @@ import './UserCard.css'
 
 const UserCard = ({ _id, avatar, firstName, lastName, aboutMe, instrument }) => {
     return (
-        <Card className="mb-3 UserCard" style={{ width: '18rem', background: '#D9BF71' }} bg='#D9BF71' >
+        <Card className="mb-3 UserCard" style={{ width: '20rem', border: " #4A3459" }} >
             <Card.Img variant="top" src={avatar} />
             <Card.Body>
                 <Card.Title>{firstName} {lastName}</Card.Title>

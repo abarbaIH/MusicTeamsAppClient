@@ -9,7 +9,7 @@ const HomePage = () => {
     return (
         <div>
             <Carousel className="home-page" >
-                <Carousel.Item>
+                <Carousel.Item className="carousel">
                     <img
                         className="d-block w-100"
                         src="../../../assets2/carousel1.jpg"
@@ -19,7 +19,7 @@ const HomePage = () => {
                         <Link to="/usuarios"><h3>Descubre a otros músicos</h3> </Link>
                     </Carousel.Caption>
                 </Carousel.Item>
-                <Carousel.Item>
+                <Carousel.Item className="carousel">
                     <img
                         className="d-block w-100"
                         src="../../../assets2/carousel2.jpg"
@@ -28,8 +28,8 @@ const HomePage = () => {
                     <Carousel.Caption>
                         <Link to="/salas"><h3>Encuentra las mejores salas de ensayo</h3></Link>
                     </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
+                </Carousel.Item >
+                <Carousel.Item className="carousel">
                     <img
                         className="d-block w-100"
                         src="../../../assets2/carousel3.jpg"

@@ -1,0 +1,24 @@
+.navbar {
+    background: #461B37;
+    height: 8vh;
+}
+
+.navbar .nav-link {
+    color: white;
+    font-size: 1.7vh;
+
+}
+
+.nav-text {
+    color: white;
+    font-size: 2.1vh;
+}
+
+.nav-dropdown {
+    background-color: #E2B0A5;
+}
+
+.dropdown-menu {
+    background-color: #E2B0A5;
+    font-size: 2vh;
+}

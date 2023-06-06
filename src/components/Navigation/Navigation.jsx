@@ -9,9 +9,9 @@ const Navigation = () => {
     const { user, logout } = useContext(AuthContext)
     return (
 
-        < Navbar bg="dark" variant="dark" expand="lg"  >
+        < Navbar className='navbar' expand="lg"  >
             <Container>
-                <Navbar.Brand href="/">
+                <Navbar.Brand className='nav-text' href="/">
                     <img src={logo} style={{ width: "40px", borderRadius: "50%", marginRight: "20px" }} alt="" />
 
                     MusicTeamsApp</Navbar.Brand>
@@ -53,28 +53,28 @@ const Navigation = () => {
                                         </Link>
                                     </Nav.Link>
 
-                                    <NavDropdown>
-                                        <NavDropdown.Item as="span">
+                                    <NavDropdown >
+                                        <NavDropdown.Item as="span" className='nav-dropdown'>
                                             <Link to="/perfil">Perfil</Link>
                                         </NavDropdown.Item>
-                                        <NavDropdown.Item as="span">
+                                        <NavDropdown.Item as="span" className='nav-dropdown'>
                                             <Link to="/perfil-editar/:id">Editar Perfil</Link>
                                         </NavDropdown.Item>
 
-                                        <NavDropdown.Divider />
+                                        <NavDropdown.Divider className='nav-dropdown-divider' />
 
-                                        <NavDropdown.Item as="span" onClick={logout}>
-                                            <Link to="/">Cerrar Sesion</Link>
+                                        <NavDropdown.Item as="span" onClick={logout} className='nav-dropdown'>
+                                            <Link to="/" className='nav-dropdown'> Cerrar Sesion</Link>
                                         </NavDropdown.Item>
                                     </NavDropdown>
                                 </>
                                 :
                                 <>
-                                    <Nav.Link as="span">
+                                    <Nav.Link as="span" className='nav-dropdown'>
                                         <Link to="/registro">Registro</Link>
                                     </Nav.Link>
 
-                                    <Nav.Link as="span">
+                                    <Nav.Link as="span" className='nav-dropdown'>
                                         <Link to="/inicio-sesion">Inicio sesión</Link>
                                     </Nav.Link>
                                 </>
