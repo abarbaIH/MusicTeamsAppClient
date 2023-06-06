@@ -1,14 +1,19 @@
 import { useContext, useEffect, useState } from "react"
-import { Container, Row, Modal, Button } from "react-bootstrap"
+import { Container, Row, Modal, Button, Col } from "react-bootstrap"
 import venuesService from "./../../../services/venues.services"
 import VenuesList from "./../../../components/VenuesList/VenuesList"
 import NewVenueForm from "./../../../components/NewVenueForm/NewVenueForm"
 import Loader from "./../../../components/Loader/Loader"
 import { AuthContext } from "./../../../contexts/auth.context"
+import './VenuesListPage.css'
+import VenuesSearch from './../../../components/VenuesSearch/VenuesSearch'
+import VenuesCapacitySearch from './../../../components/VenuesCapacitySearch/VenuesCapacitySearch'
+import VenuesFeatureSearch from '../../../components/VenuesFeatureSearch/VenuesFeatureSearch'
 
 const VenuesListPage = () => {
 
-    const [venues, setVenues] = useState()
+    const [venues, setVenues] = useState([])
+    const [filteredVenues, setFilteredVenues] = useState([])
     const [showModal, setShowModal] = useState(false)
     const { user } = useContext(AuthContext)
 
@@ -19,28 +24,63 @@ const VenuesListPage = () => {
     const loadVenues = () => {
         venuesService
             .getAllVenues()
-            .then(({ data }) => setVenues(data))
+            .then(({ data }) => {
+                setVenues(data)
+                setFilteredVenues(data)
+            })
             .catch(err => console.log(err))
     }
 
+    const filterVenuesByName = name => {
+        const filteredVenues = venues.filter(venue => venue.name.includes(name))
+        setFilteredVenues(filteredVenues)
+    }
+
+    const filterVenuesByCapacity = capacity => {
+        const filteredVenues = venues.filter(venue => venue.capacity === capacity)
+        setFilteredVenues(filteredVenues)
+    }
+
+    const filterVenuesByFeature = feature => {
+        const filteredVenues = venues.filter(venue => {
+            return venue.features.some(f => f === feature);
+        });
+        setFilteredVenues(filteredVenues);
+    };
+
     return (
-        <Container>
+        <Container className="VenuesListPage">
 
             <h1>Listado de Salas</h1>
+            <Row>
+                <Col>
+                    <VenuesSearch filterVenuesByName={filterVenuesByName} />
 
-            {
-                user && <Button variant="dark" size="sm" onClick={() => setShowModal(true)}>Crear Sala</Button>
-            }
+                </Col>
+                <Col>
+                    <VenuesCapacitySearch filterVenuesByCapacity={filterVenuesByCapacity} />
+
+                </Col>
+                <Col>
+                    <VenuesFeatureSearch filterVenuesByFeature={filterVenuesByFeature} />
+
+                </Col>
+            </Row>
+
+
+            {user && (
+                <Button variant="dark" size="sm" onClick={() => setShowModal(true)}>
+                    Crear Sala
+                </Button>
+            )}
 
             <hr />
             <Row>
-                {
-                    !venues
-                        ?
-                        <Loader />
-                        :
-                        <VenuesList venues={venues} />
-                }
+                {venues.length === 0 ? (
+                    <Loader />
+                ) : (
+                    <VenuesList venues={filteredVenues} />
+                )}
             </Row>
 
             <Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -60,3 +100,4 @@ const VenuesListPage = () => {
 }
 
 export default VenuesListPage
+
