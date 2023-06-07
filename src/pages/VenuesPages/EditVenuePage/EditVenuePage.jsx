@@ -8,7 +8,7 @@ const EditVenuePage = () => {
     return (
 
         <Container>
-            <h1>Editar Sala</h1>
+            <h1>EDITAR SALA</h1>
             <hr />
 
             <EditVenueForm />

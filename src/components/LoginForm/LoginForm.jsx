@@ -1,9 +1,10 @@
 import { useContext, useState } from "react"
-import { Form, Button } from "react-bootstrap"
+import { Form, Button, Container } from "react-bootstrap"
 import authService from './../../services/auth.services'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from "../../contexts/auth.context"
 import FormError from "./../../components/FormError/FormError"
+import './LoginForm.css'
 
 const LoginForm = () => {
 
@@ -43,24 +44,27 @@ const LoginForm = () => {
 
     return (
 
-        <Form onSubmit={handleSubmit}>
+        <Container className='loginForm'>
+
+            <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="email">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" value={email} onChange={handleInputChange} name="email" />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="password">
+                    <Form.Label>Contraseña</Form.Label>
+                    <Form.Control type="password" value={password} onChange={handleInputChange} name="password" />
+                </Form.Group>
+
+                <div className="d-grid">
+                    <Button variant="dark" type="submit">Acceder</Button>
+                </div>
+                {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
+            </Form>
+        </Container>
 
 
-            <Form.Group className="mb-3" controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" value={email} onChange={handleInputChange} name="email" />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="password">
-                <Form.Label>Contraseña</Form.Label>
-                <Form.Control type="password" value={password} onChange={handleInputChange} name="password" />
-            </Form.Group>
-
-            <div className="d-grid">
-                <Button variant="dark" type="submit">Acceder</Button>
-            </div>
-            {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
-        </Form>
     )
 }
 

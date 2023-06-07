@@ -92,7 +92,7 @@ const EventDetailsPage = () => {
 
                             </Col>
                             <Col md={{ span: 6 }}>
-                                <h4><strong>Info de la Sala:</strong></h4>
+                                <h4><strong>Información de la Sala:</strong></h4>
 
                                 {!event.venueEvent
                                     ?

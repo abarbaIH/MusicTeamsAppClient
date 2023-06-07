@@ -73,7 +73,7 @@ const VenueDetailsPage = () => {
     }
 
     return (
-        <Container>
+        <Container className="venueDetailsPage">
             {
                 !venue
                     ?
@@ -81,120 +81,138 @@ const VenueDetailsPage = () => {
                     :
                     <>
                         <h1 className="mt-4"><strong>{venue.name}</strong></h1>
-
                         <hr />
 
+                        <Container className="venueDetails">
+                            <Row>
+                                <Col className="venueInfo">
+                                    <Row className="infoText">
 
-                        <Row>
+                                        <h4> <strong> Características de la Sala:</strong></h4>
+                                        <ul>
+                                            <li> <strong>Capacidad:  </strong>{venue.capacity} personas</li>
+                                            <li><strong>Horario de apertura:  </strong> {venue.openingHours}</li>
+                                            <li><strong>Equipamiento de la sala: </strong></li>
+                                            <ul>
+                                                {venue.features.map(f => {
+                                                    return (
+                                                        <li key={f}>
+                                                            {f}
+                                                        </li>
+                                                    )
+                                                })}
+                                            </ul>
 
-                            <Col md={{ span: 6 }}>
-                                <h4><strong>Descripcion</strong></h4>
-                                <p>{venue.description}</p>
-                                <h4><strong>Dirección</strong></h4>
-                                <p>{venue.address}</p>
-                                <h4><strong>Manager de la sala</strong></h4>
-                                <>
-                                    {!venue.manager
-                                        ?
-                                        <Loader />
-                                        :
-                                        <p>{venue.manager.firstName}</p>
-                                    }
-                                </>
-                                <h4> <strong> Características de la Sala</strong></h4>
-                                <ul>
-                                    <li> <strong>Capacidad:  </strong>{venue.capacity} personas</li>
-                                    <li><strong>Horario de apertura:  </strong> {venue.openingHours}</li>
-                                    <li><strong>Teléfono de contacto:  </strong> {venue.phone}</li>
-                                    <li><strong>Otros datos de la Sala:  </strong></li>
-                                    <ul>
-                                        {venue.features.map(f => {
-                                            return (
-                                                <li key={f}>
-                                                    {f}
-                                                </li>
-                                            )
-                                        })}
-                                    </ul>
+                                        </ul>
 
-                                </ul>
-                                <hr />
+                                    </Row>
 
-                                <Row>
 
-                                    <Col md={{ span: 4 }}>
-                                        <p>Volver atrás</p>
-                                        <Link to="/salas">
-                                            <Button className="goBack">
-                                                <img className="goBack" src={goBack} alt="goBack" />
-                                            </Button>
-                                        </Link>
-                                    </Col>
+                                    <Row className="description">
+                                        <h4><strong>Descripcion: </strong></h4>
+                                        <ul>
+                                            {venue.description}
 
-                                    <Col md={{ span: 4 }}>
-                                        {
-                                            !userView
-                                                ?
-                                                <Loader />
-                                                :
-                                                userView.venueFavorites.includes(id)
+                                        </ul>
+                                    </Row>
+
+                                    <Row className="contactInfo">
+                                        <h4> <strong>Datos de contacto:</strong></h4>
+                                        <ul>
+                                            <>
+                                                {!venue.manager
                                                     ?
-                                                    <>
-                                                        <p>Eliminar de Favoritos</p>
-                                                        <Form onSubmit={handleSubmitDeleteFavorites}>
-                                                            <Button className="DislikeButton" type="submit">
+                                                    <Loader />
+                                                    :
+                                                    <li> <strong> Manager de la Sala: </strong>{venue.manager.firstName}</li>
+                                                }
+                                            </>
+                                            <li>
+                                                <strong>Dirección: </strong> {venue.address}
+                                            </li>
+                                            <li>
+                                                <strong>Teléfono de contacto:  </strong> {venue.phone}
+                                            </li>
+
+                                        </ul>
+
+                                    </Row>
+                                    <Row className="buttons mb-5">
+
+                                        <Col md={{ span: 4 }}>
+                                            <Link to="/salas">
+                                                <Button className="goBack">
+                                                    <img className="goBack" src={goBack} alt="goBack" />
+                                                </Button>
+                                            </Link>
+                                            <p className="mt-3">Volver atrás</p>
+
+                                        </Col>
+
+                                        <Col md={{ span: 4 }}>
+                                            {
+                                                !userView
+                                                    ?
+                                                    <Loader />
+                                                    :
+                                                    userView?.venueFavorites?.includes(id)
+                                                        ?
+
+                                                        <>
+                                                            <Button onClick={handleSubmitDeleteFavorites} className="DislikeButton" type="submit">
                                                                 <img className="DislikeButton" src={DislikeButton} alt="dislike" />
                                                             </Button>
-                                                        </Form>
-                                                    </>
+                                                            <p className="mt-3">Eliminar de Favoritos</p>
 
+                                                        </>
 
-                                                    :
-                                                    <>
-                                                        {/* TODO: ELIMINAR FORMULARIOS */}
-                                                        <p>Añadir a Favoritos</p>
-                                                        <Form onSubmit={handleSubmitFavorites}>
-                                                            <Button className="likeButton" type="submit">
+                                                        :
+                                                        <>
+                                                            <Button onClick={handleSubmitFavorites} className="likeButton" type="submit">
                                                                 <img className="likeButton" src={likeButton} alt="like" />
                                                             </Button>
-                                                        </Form>
-                                                    </>
+                                                            <p className="mt-3">Añadir a Favoritos</p>
 
-                                        }
+                                                        </>
 
-                                    </Col>
+                                            }
 
-                                    <Col md={{ span: 4 }}>
-                                        <p>Crear evento</p>
-                                        <Link to={`/crear-evento?venue_id=${venue._id}`}>
-                                            <Button className="createEvent" type="submit">
-                                                <img className="createEvent" src={createEvent} alt="createEvent" />
-                                            </Button>
-                                        </Link>
-                                    </Col>
+                                        </Col>
 
-                                </Row>
+                                        <Col md={{ span: 4 }}>
+                                            <Link to={`/crear-evento?venue_id=${venue._id}`}>
+                                                <Button className="createEvent" type="submit">
+                                                    <img className="createEvent" src={createEvent} alt="createEvent" />
+                                                </Button>
+                                            </Link>
+                                            <p className="mt-3">Crear evento</p>
 
-                            </Col>
+                                        </Col>
 
-                            <Col md={{ span: 6 }}>
-                                <Col className="mb-5">
-                                    <img src={venue.venueImg} style={{ width: '75% ' }} />
+                                    </Row>
                                 </Col>
 
-                                <Col>
-                                    <Maps latitud={venue.location.coordinates[0]} longitud={venue.location.coordinates[1]} />
+                                <Col className="graphicInfo">
+
+                                    <Row className="venueImage d-flex justify-content-center align-items-center">
+                                        <img src={venue.venueImg} style={{ width: '100% ' }} />
+                                    </Row>
+
+                                    <Row className="venueMap">
+                                        <Maps latitud={venue.location.coordinates[0]} longitud={venue.location.coordinates[1]} />
+                                    </Row>
 
                                 </Col>
 
-                            </Col>
+                            </Row>
 
-                        </Row>
+
+                        </Container>
 
                     </>
             }
 
-        </Container>
+        </Container >
     )
 
 }

@@ -1,7 +1,8 @@
-.VenuesListPage {
-    background: linear-gradient(#E2B0A5,
-            #461B37,
-            #F2E4ED,
-            #E2B0A5,
-            #4A3459);
+.venuesButton {
+    background: #461B37;
+    height: 5vh;
+    width: 18vh;
+    color: white;
+    border-bottom: white;
+    margin-top: 12px;
 }

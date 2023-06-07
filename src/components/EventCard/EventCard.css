@@ -17,6 +17,7 @@
     width: 130px;
     height: 100vh;
     border-radius: 50%;
+    border: solid #461B37 10px;
 }
 
 .assit-button {
@@ -35,12 +36,47 @@
     margin-bottom: 2px;
 }
 
+.assistant-level {
+    text-align: center;
+    font-style: italic;
+    margin: 0;
+}
+
 .assistant-instrument {
     text-align: center;
     font-style: italic;
+    margin: 0;
 }
 
 .free-place {
     text-align: center;
     font-style: italic;
+}
+
+.titles h2 {
+    font-size: 20px;
+}
+
+.place-item p {
+    font-size: 15px;
+}
+
+.eventDetails p {
+    font-size: 15px;
+
+}
+
+.EventCard {
+    background-color: #F2E4ED;
+}
+
+.buttonEvent {
+    background: #461B37;
+    height: 4vh;
+    width: 16vh;
+    color: white;
+    border-bottom: white;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+
 }

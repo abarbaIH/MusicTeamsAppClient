@@ -1,9 +1,11 @@
 import { useState, useEffect, useContext } from "react"
-import { Form, Button, Row, Col } from "react-bootstrap"
+import { Form, Button, Row, Col, Container } from "react-bootstrap"
 import eventsService from "../../services/event.services"
 import venuesService from './../../services/venues.services'
 import { AuthContext } from './../../contexts/auth.context'
 import FormError from "../FormError/FormError"
+import ShowAlert from './../../components/ShowAlert/ShowAlert';
+import './NewEventForm.css'
 
 const NewEventForm = ({ fireFinalActions, venueId }) => {
 
@@ -20,47 +22,29 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
         venueName: ''
     })
 
-    // const [isUnavailable, setIsUnavailable] = useState()
-    const [newDate, selectNewDate] = useState()
-
     const [errors, setErrors] = useState([])
 
     const [venues, setVenues] = useState([])
 
-    const date =
+    const [result, setResult] = useState('')
 
-        useEffect(() => {
-            loadVenues()
-        }, [])
+    const checkAvailability = (e) => {
 
-    // const loadEventsList = () => {
-    //     venuesService
-    //         .getEventsList()
-    //         .then(({ data }) => setEventsList(data))
-    //         .catch(err => console.log(err))
-    // }
+        if (!eventData.venueEvent) {
+            return
 
-    // const handleInputChange = e => {
-    //     const { eventsList, value } = e.target
-    //     setEventData({ ...eventData, [eventsList]: value })
+        } else {
 
-    //     if (d === 'venueEvent') {
-    //         const currentVenue = eventsList.find(venue => venue._id == value)
-    //         setEventData({ ...eventData, maxPlaces: currentVenue.capacity, venueEvent: value })
-    //     }
-    // }
+            const { value: dateSelected } = e.target
 
+            venuesService
+                .checkAvailability(eventData.venueEvent, dateSelected)
+                .then(({ data }) => setResult(data))
+                .then(setEventData({ ...eventData, eventDate: dateSelected }))
+                .catch(err => console.log(err))
 
-
-    // useEffect(() => {
-    //     loadAvailable()
-    // })
-    // const loadAvailable = () => {
-    //     venuesService
-    //         .checkAvailability(venueEvent, { requested_date: eventDate })
-    //         .then(({ data }) => setIsUnavailable(data))
-    //         .catch(err => console.log(err))
-    // }
+        }
+    }
 
     useEffect(() => {
         loadVenues()
@@ -94,102 +78,111 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
 
     const handleSubmit = e => {
         e.preventDefault()
+        if (result) {
+            return (
+                <ShowAlert message="Por favor, consulta otras fechas para confirmar disponibilidad" title="Lo sentimos, no hay disponibilidad de sala en la fecha seleccionada" />
+            )
 
-        eventsService
-            .newEvent(eventData)
-            .then(() => {
-                fireFinalActions()
-            })
-            .catch(err => setErrors(err.response.data.errorMessages))
+        } else {
+            eventsService
+                .newEvent(eventData)
+                .then(() => {
+                    fireFinalActions()
+                })
+                .catch(err => setErrors(err.response.data.errorMessages))
+        }
+
     }
 
     const { name, musicStyle, requiredExperience, venueEvent, eventDate, assistants, maxPlaces, venueName } = eventData
 
     return (
+        <Container className='newEventForm'>
 
-        <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="name">
-                <Form.Label>Dale un nombre a tu Ensayo</Form.Label>
-                <Form.Control type="text" value={name} onChange={handleInputChange} name="name" />
-            </Form.Group>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="name">
+                    <Form.Label>Dale un nombre a tu Ensayo</Form.Label>
+                    <Form.Control type="text" value={name} onChange={handleInputChange} name="name" />
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="musicStyle">
-                <Form.Label>Estilo de música del ensayo</Form.Label>
-                <Form.Select value={musicStyle} onChange={handleInputChange} name="musicStyle">
-                    <option disabled value="">
-                        Seleccione un estilo musical
-                    </option>
-                    <option value="Rock">Rock</option>
-                    <option value="Blues">Blues</option>
-                    <option value="Flamenco">Flamenco</option>
-                    <option value="Latin">Latin</option>
-                    <option value="Jazz">Jazz</option>
-                    <option value="Pop">Pop</option>
-                </Form.Select>
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="musicStyle">
+                    <Form.Label>Estilo de música del ensayo</Form.Label>
+                    <Form.Select value={musicStyle} onChange={handleInputChange} name="musicStyle">
+                        <option disabled value="">
+                            Seleccione un estilo musical
+                        </option>
+                        <option value="Rock">Rock</option>
+                        <option value="Blues">Blues</option>
+                        <option value="Flamenco">Flamenco</option>
+                        <option value="Latin">Latin</option>
+                        <option value="Jazz">Jazz</option>
+                        <option value="Pop">Pop</option>
+                    </Form.Select>
+                </Form.Group>
 
-            <Row>
-                <Col>
-                    <Form.Group className="mb-3" controlId="requiredExperience">
-                        <Form.Label>Experiencia Requerida</Form.Label>
-                        <Form.Select value={requiredExperience} onChange={handleInputChange} name="requiredExperience">
-                            <option disabled value="">
-                                Seleccione un nivel
-                            </option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </Form.Select>
-                    </Form.Group>
-                </Col>
-
-                <Col>
-
-                    <Form.Group className="mb-3" controlId="venueEvent">
-                        <Form.Label>Sala del Ensayo</Form.Label>
-
-                        {venueId
-                            ?
-                            <Form.Select value={venueEvent} onChange={handleInputChange} name="venueEvent" disabled>
-                                <option key={venueEvent} value={venueEvent}>{venueName}</option>
-                            </Form.Select>
-
-                            :
-
-                            <Form.Select value={venueEvent} onChange={handleInputChange} name="venueEvent">
+                <Row>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="requiredExperience">
+                            <Form.Label>Experiencia Requerida</Form.Label>
+                            <Form.Select value={requiredExperience} onChange={handleInputChange} name="requiredExperience">
                                 <option disabled value="">
-                                    Selecciona Sala de ensayo
+                                    Seleccione un nivel
                                 </option>
-                                {
-                                    venues.map(venue => <option key={venue._id} value={venue._id}>{venue.name}</option>)
-                                }
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
                             </Form.Select>
-                        }
-                    </Form.Group>
+                        </Form.Group>
+                    </Col>
 
-                </Col>
+                    <Col>
 
-                <Col>
-                    <Form.Group className="mb-3" controlId="eventDate">
-                        <Form.Label>Fecha del Evento</Form.Label>
-                        <Form.Control type="date" value={eventDate} onChange={handleInputChange} name="eventDate" />
-                    </Form.Group>
-                </Col>
-                {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
-            </Row>
-            <Form.Group className="mb-3" controlId="maxPlaces" >
-                <Form.Label>Nº Máximo de Participantes</Form.Label>
-                <Form.Control type="text" value={maxPlaces} onChange={handleInputChange} name="maxPlaces" disabled />
-            </Form.Group>
+                        <Form.Group className="mb-3" controlId="venueEvent">
+                            <Form.Label>Sala del Ensayo</Form.Label>
 
-            <div className="d-grid">
-                <Button variant="dark" style={{ marginBottom: '30px' }} type="submit">Crear Evento</Button>
-            </div>
+                            {venueId
+                                ?
+                                <Form.Select value={venueEvent} onChange={handleInputChange} name="venueEvent" disabled>
+                                    <option key={venueEvent} value={venueEvent}>{venueName}</option>
+                                </Form.Select>
 
-        </Form>
+                                :
 
+                                <Form.Select value={venueEvent} onChange={handleInputChange} name="venueEvent">
+                                    <option disabled value="">
+                                        Selecciona Sala de ensayo
+                                    </option>
+                                    {
+                                        venues.map(venue => <option key={venue._id} value={venue._id}>{venue.name}</option>)
+                                    }
+                                </Form.Select>
+                            }
+                        </Form.Group>
+
+                    </Col>
+
+                    <Col>
+                        <Form.Group className="mb-3" controlId="eventDate">
+                            <Form.Label>Fecha del Evento</Form.Label>
+                            <Form.Control type="date" value={eventDate} onChange={checkAvailability} name="eventDate" />
+                        </Form.Group>
+                    </Col>
+                    {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
+                </Row>
+                <Form.Group className="mb-3" controlId="maxPlaces" >
+                    <Form.Label>Nº Máximo de Participantes</Form.Label>
+                    <Form.Control type="text" value={maxPlaces} onChange={handleInputChange} name="maxPlaces" disabled />
+                </Form.Group>
+
+                <div className="d-grid">
+                    {eventData.venueEvent ? null : <ShowAlert message="Si no seleccionas la sala no podemos ver disponibilidad de fechas" title="Por favor, selecciona una sala" />}
+                    <Button variant="dark" style={{ marginBottom: '30px' }} type="submit">Crear Evento</Button>
+                </div>
+
+            </Form>
+        </Container>
     )
 }
 

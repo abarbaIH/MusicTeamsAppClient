@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
-import { Form, Button, Row, Col } from "react-bootstrap"
+import { Form, Button, Row, Col, Container } from "react-bootstrap"
 import venuesService from "./../../services/venues.services"
 import uploadServices from "../../services/upload.services"
 import FormError from "../FormError/FormError"
 import { GoogleMap, LoadScript } from 'react-google-maps';
+import './NewVenueForm.css'
 
 
 const NewVenueForm = ({ fireFinalActions }) => {
@@ -68,92 +69,95 @@ const NewVenueForm = ({ fireFinalActions }) => {
     const { name, address, phone, openingHours, venueImg, features, capacity, description, latitud, longitud } = venueData
 
     return (
-        <Form onSubmit={handleSubmit}>
 
+        <Container className="newEventForm">
+            <Form onSubmit={handleSubmit}>
 
+                <Form.Group className="mb-3" controlId="name">
+                    <Form.Label>Nombre de la Sala</Form.Label>
+                    <Form.Control type="text" value={name} onChange={handleInputChange} name="name" />
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="name">
-                <Form.Label>Nombre de la Sala</Form.Label>
-                <Form.Control type="text" value={name} onChange={handleInputChange} name="name" />
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="address">
+                    <Form.Label>Dirección</Form.Label>
+                    <Form.Control type="text" value={address} onChange={handleInputChange} name="address" />
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="address">
-                <Form.Label>Dirección</Form.Label>
-                <Form.Control type="text" value={address} onChange={handleInputChange} name="address" />
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="latitud">
+                    <Form.Label>Latitud</Form.Label>
+                    <Form.Control type="text" value={latitud} onChange={handleInputChange} name="latitud" />
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="latitud">
-                <Form.Label>Latitud</Form.Label>
-                <Form.Control type="text" value={latitud} onChange={handleInputChange} name="latitud" />
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="longitud">
+                    <Form.Label>Longitud</Form.Label>
+                    <Form.Control type="text" value={longitud} onChange={handleInputChange} name="longitud" />
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="longitud">
-                <Form.Label>Longitud</Form.Label>
-                <Form.Control type="text" value={longitud} onChange={handleInputChange} name="longitud" />
-            </Form.Group>
+                <Row>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="phone">
+                            <Form.Label>Teléfono de Contacto</Form.Label>
+                            <Form.Control type="text" value={phone} onChange={handleInputChange} name="phone" />
+                        </Form.Group>
 
-            <Row>
-                <Col>
-                    <Form.Group className="mb-3" controlId="phone">
-                        <Form.Label>Teléfono de Contacto</Form.Label>
-                        <Form.Control type="text" value={phone} onChange={handleInputChange} name="phone" />
-                    </Form.Group>
+                    </Col>
 
-                </Col>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="openingHours">
+                            <Form.Label>Horario de Apertura</Form.Label>
+                            <Form.Control type="text" value={openingHours} onChange={handleInputChange} name="openingHours" />
+                        </Form.Group>
 
-                <Col>
-                    <Form.Group className="mb-3" controlId="openingHours">
-                        <Form.Label>Horario de Apertura</Form.Label>
-                        <Form.Control type="text" value={openingHours} onChange={handleInputChange} name="openingHours" />
-                    </Form.Group>
+                    </Col>
 
-                </Col>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="capacity">
+                            <Form.Label>Capacidad (nº de personas)</Form.Label>
+                            <Form.Control type="text" value={capacity} onChange={handleInputChange} name="capacity" />
+                        </Form.Group>
+                    </Col>
+                </Row>
 
-                <Col>
-                    <Form.Group className="mb-3" controlId="capacity">
-                        <Form.Label>Capacidad (nº de personas)</Form.Label>
-                        <Form.Control type="text" value={capacity} onChange={handleInputChange} name="capacity" />
-                    </Form.Group>
-                </Col>
-            </Row>
+                <Form.Group className="mb-3" controlId="venueImg">
+                    <Form.Label>Imagen de la Sala</Form.Label>
+                    <Form.Control type="file" onChange={handleFileUpload} />
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="venueImg">
-                <Form.Label>Imagen de la Sala</Form.Label>
-                <Form.Control type="file" onChange={handleFileUpload} />
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="features">
+                    <Form.Label>Características de la Sala</Form.Label>
+                    {/* TODO A FUTURO: CREAR COLECCIÓN SALAS */}
+                    <Form.Select multiple value={features} onChange={handleFeaturesChange} name="features">
+                        <option value="Parking">Parking</option>
+                        <option value="Aire Acondicionado">Aire Acondicionado</option>
+                        <option value="Alquiler de material">Alquiler de material</option>
+                        <option value="Microfonía">Microfonía</option>
+                        <option value="Amplificadores">Amplificadores</option>
+                        <option value="Wifi">Wifi</option>
+                        <option value="Almacén">Almacén</option>
+                        <option value="Cafetería">Cafetería</option>
+                        <option value="Batería">Batería</option>
+                        <option value="Estudio de Grabación">Estudio de Grabación</option>
+                    </Form.Select>
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="features">
-                <Form.Label>Características de la Sala</Form.Label>
-                {/* TODO A FUTURO: CREAR COLECCIÓN SALAS */}
-                <Form.Select multiple value={features} onChange={handleFeaturesChange} name="features">
-                    <option value="Parking">Parking</option>
-                    <option value="Aire Acondicionado">Aire Acondicionado</option>
-                    <option value="Alquiler de material">Alquiler de material</option>
-                    <option value="Microfonía">Microfonía</option>
-                    <option value="Amplificadores">Amplificadores</option>
-                    <option value="Wifi">Wifi</option>
-                    <option value="Almacén">Almacén</option>
-                    <option value="Cafetería">Cafetería</option>
-                    <option value="Batería">Batería</option>
-                    <option value="Estudio de Grabación">Estudio de Grabación</option>
-                </Form.Select>
-            </Form.Group>
+                <Form.Group className="mb-3" controlId="description">
+                    <Form.Label>Descripción</Form.Label>
+                    <Form.Control type="text" value={description} onChange={handleInputChange} name="description" />
+                </Form.Group>
 
-            <Form.Group className="mb-3" controlId="description">
-                <Form.Label>Descripción</Form.Label>
-                <Form.Control type="text" value={description} onChange={handleInputChange} name="description" />
-            </Form.Group>
+                {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 
-            {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
+                <div className="d-grid">
+                    <Button variant="dark" style={{ marginBottom: '30px' }} type="submit" disabled={loadingImage}>
+                        {
+                            loadingImage ? "Cargando Imagen.." : "Crear Sala"
+                        }
+                    </Button>
+                </div>
+            </Form>
 
-            <div className="d-grid">
-                <Button variant="dark" style={{ marginBottom: '30px' }} type="submit" disabled={loadingImage}>
-                    {
-                        loadingImage ? "Cargando Imagen.." : "Crear Sala"
-                    }
-                </Button>
-            </div>
-        </Form>
+        </Container>
+
     )
 }
 

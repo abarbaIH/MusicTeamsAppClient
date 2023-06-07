@@ -18,8 +18,6 @@ const UserDetailsPage = () => {
             .catch(err => console.log(err))
     }, [id])
 
-
-
     return (
         <Container>
             {!user

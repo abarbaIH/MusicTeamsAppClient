@@ -2,14 +2,18 @@ import { Button, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './VenueCard.css'
 
-const VenueCard = ({ _id, venueImg, name, openingHours, description, features }) => {
+const VenueCard = ({ _id, venueImg, name, openingHours, description, eventsList, capacity, features, rating }) => {
     return (
-        <Card className="mb-3 VenueCard" style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={venueImg} />
-            <Card.Body>
-                <Card.Title>{name}</Card.Title>
+        <Card className="mb-3 VenueCard" style={{ borderRadius: "10%" }}>
+            <Link to={`/salas/detalles/${_id}`}>
 
-                <Card.Text>
+                <Card.Img variant="top" src={venueImg} style={{ padding: "20px" }} />
+
+            </Link>
+            <Card.Body>
+                <Card.Title className='venueTitle'>{name}</Card.Title>
+
+                {/* <Card.Text className='features'>
                     {features.map(f => {
                         return (
                             <li key={f}>
@@ -17,13 +21,30 @@ const VenueCard = ({ _id, venueImg, name, openingHours, description, features })
                             </li>
                         )
                     })}
+                </Card.Text> */}
+
+                <Card.Text className='openingHours'>
+                    <ul>
+                        <li>
+                            <strong>Capacidad: </strong> {capacity} personas
+                        </li>
+                        <li>
+                            <strong>Horario de Apertura: </strong>  {openingHours}
+                        </li>
+                        <li>
+                            <strong>Eventos: </strong> {eventsList?.length}
+                        </li>
+                        {/* <li>
+                            <strong>Valoración: </strong> {rating}
+                        </li> */}
+
+                    </ul>
+
+
                 </Card.Text>
-                <Card.Text>
-                    {openingHours}
-                </Card.Text>
-                <Button as="span" variant="dark">
-                    <Link to={`/salas/detalles/${_id}`}>Detalles</Link>
-                </Button>
+
+                <Link className='info' to={`/salas/detalles/${_id}`}>+Info</Link>
+
             </Card.Body>
         </Card>
     )
