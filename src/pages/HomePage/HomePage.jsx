@@ -12,7 +12,7 @@ const HomePage = () => {
                 <Carousel.Item className="carousel">
                     <img
                         className="d-block w-100"
-                        src="../../../assets2/carousel1.jpg"
+                        src="../../../carousel1.jpg"
                         alt="First slide"
                     />
                     <Carousel.Caption>
@@ -22,7 +22,7 @@ const HomePage = () => {
                 <Carousel.Item className="carousel">
                     <img
                         className="d-block w-100"
-                        src="../../../assets2/carousel2.jpg"
+                        src="../../../carousel2.jpg"
                         alt="Second slide"
                     />
                     <Carousel.Caption>
@@ -32,7 +32,7 @@ const HomePage = () => {
                 <Carousel.Item className="carousel">
                     <img
                         className="d-block w-100"
-                        src="../../../assets2/carousel3.jpg"
+                        src="../../../carousel3.jpg"
                         alt="Third slide"
                     />
                     <Carousel.Caption>
