@@ -50,9 +50,9 @@ const VenuesListPage = () => {
     };
 
     return (
-        <Container className="VenuesListPage">
+        <Container className="VenuesListPage mb-4">
 
-            <h1>Listado de Salas</h1>
+            <h1>SALAS DE ENSAYO</h1>
             <Row>
                 <Col>
                     <VenuesSearch filterVenuesByName={filterVenuesByName} />
@@ -70,7 +70,7 @@ const VenuesListPage = () => {
 
 
             {user && (
-                <Button variant="dark" size="sm" onClick={() => setShowModal(true)}>
+                <Button className='venuesButton' variant="dark" onClick={() => setShowModal(true)}>
                     Crear Sala
                 </Button>
             )}

@@ -23,11 +23,11 @@ const Navigation = () => {
                         </Nav.Link>
 
                         <Nav.Link as="span">
-                            <Link to="/usuarios">Lista de usuarios</Link>
+                            <Link to="/usuarios">Músicos</Link>
                         </Nav.Link>
 
                         <Nav.Link as="span">
-                            <Link to="/salas">Lista de salas</Link>
+                            <Link to="/salas">Salas de Ensayo</Link>
                         </Nav.Link>
 
                         <Nav.Link as="span">
@@ -35,11 +35,11 @@ const Navigation = () => {
                         </Nav.Link>
 
                         <Nav.Link as="span">
-                            <Link to="/eventos-abiertos">Eventos Abiertos</Link>
+                            <Link to="/eventos-abiertos">Ensayos Abiertos</Link>
                         </Nav.Link>
 
                         <Nav.Link as="span">
-                            <Link to="/crear-evento">Crear Evento</Link>
+                            <Link to="/crear-evento">Crea tu Ensayo</Link>
                         </Nav.Link>
 
                         {

@@ -26,3 +26,41 @@
 .goBack:hover {
     background-color: transparent;
 }
+
+.venueDetailsPage {
+    height: 100vh;
+}
+
+.venueInfo {
+    background-color: #F2E4ED;
+    padding: 50px;
+}
+
+.venueImage {
+    background-color: #F2E4ED;
+    padding: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.venueMap {
+    background-color: #F2E4ED;
+    padding: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.venueInfo li {
+    margin-left: 60px;
+}
+
+.buttons p {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.buttons img {
+    height: 50px;
+    width: 50px;
+}

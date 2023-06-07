@@ -21,7 +21,7 @@ const UsersListPage = () => {
 
     return (
         <Container>
-            <h1 style={{ marginTop: '20px', color: 'white' }}>TODOS LOS MÚSICOS</h1>
+            <h1>MÚSICOS</h1>
             <hr />
             <Row>
                 {

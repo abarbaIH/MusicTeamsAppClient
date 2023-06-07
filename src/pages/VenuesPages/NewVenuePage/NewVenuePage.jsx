@@ -10,7 +10,7 @@ const NewVenuePage = () => {
 
     return (
         <Container>
-            <h1>Nueva Sala</h1>
+            <h1>NUEVA SALA</h1>
             <hr />
             <NewVenueForm fireFinalActions={redirectUser} />
         </Container>

@@ -1,5 +1,5 @@
 import { Button, Card, Row, Col, Form } from 'react-bootstrap'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './EventCard.css'
 import Loader from '../Loader/Loader'
 import { formatDate } from '../../utils/date-format'
@@ -31,9 +31,18 @@ const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, even
             const avatar = assistant ? assistant.avatar : null;
             places.push(
                 <div key={_id} className="place-item">
+                    {/* 
+                    <Link to={`/usuarios/detalles/${assistants._id}`} >
+                        <img src={avatar} alt={`Asistente ${i + 1}`} className="assistant-avatar" />
+                    </Link> */}
+
+
                     <img src={avatar} alt={`Asistente ${i + 1}`} className="assistant-avatar" />
                     <p className="assistant-name mt-3"> <strong>{assistant.firstName}</strong></p>
                     <p className="assistant-instrument font-italic">{assistant.instrument}</p>
+                    <p className="assistant-level font-italic">Nivel: {assistant.level}</p>
+
+
                 </div>
             );
         }
@@ -64,11 +73,11 @@ const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, even
                         <Loader />
                     ) : (
 
-                        <Row className="justify-content-between">
-                            <Col><p><strong>{name}</strong></p></Col>
-                            <Col><p><strong>{venueEvent.name}</strong></p></Col>
+                        <Row className="titles justify-content-between">
+                            <Col><h2><strong>{name}</strong></h2></Col>
+                            <Col><h2><strong>{venueEvent.name}</strong></h2></Col>
                             <Col>
-                                <Button as="span" variant="dark">
+                                <Button className='buttonEvent' as="span" variant="dark">
                                     <Link to={`/eventos/detalles/${_id}`}>Más detalles</Link>
                                 </Button>
                             </Col>
@@ -83,7 +92,7 @@ const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, even
                     </Col>
                 </Row>
 
-                <Row>
+                <Row className='eventDetails mt-3'>
                     <Col>
                         <Card.Text>
                             <strong>Estilo musical: </strong> <p font-italic>{musicStyle}</p>

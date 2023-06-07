@@ -7,8 +7,9 @@ import Loader from './../../components/Loader/Loader'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import './UserDetails.css'
+// import { drum } from './../../assets/drum.jpg'
 
-const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument, aboutMe, level, friends, venueFavorites, eventsAssisted }) => {
+const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument, eventsCreated, aboutMe, level, friends, venueFavorites, eventsAssisted }) => {
     console.log(friends)
     const { user } = useContext(AuthContext)
     const { id } = useParams()
@@ -80,18 +81,32 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                         </div>
                     </Col>
                     <Col className="userData" md={{ span: 5 }}>
-                        <Card.Title className="mt-4"> Datos personales</Card.Title>
+                        <Card.Title className="mt-4 personal-info"> Datos personales</Card.Title>
                         <ul>
                             <li>Nombre: <strong>{firstName}</strong></li>
                             <li>Apellido: <strong>{lastName}</strong></li>
                             <li>Email: <strong>{email}</strong></li>
-                            <li>Rol: <strong>{role}</strong></li>
                             <li>Instrumento: <strong>{instrument} </strong>Nivel: <strong>{level}</strong></li>
+                            {
+                                !userView ?
+                                    <Loader />
+                                    :
+                                    <>
+                                        <li>Amigos: <strong>{friends?.length}</strong></li>
+                                        <li>Ensayos Creados: <strong>{eventsCreated?.length}</strong></li>
+                                    </>
+
+                            }
+
+                            {
+                                user.role === "ADMIN"
+                                &&
+                                <li>Rol: <strong>{role}</strong></li>
+
+                            }
+
                         </ul>
-                        <Card.Title > Sobre mi: </Card.Title>
-                        <ul>
-                            {aboutMe}
-                        </ul>
+
                     </Col>
                     <Col md={{ span: 3 }}>
                         <div>
@@ -117,7 +132,6 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
 
                                 </>
 
-
                             }
 
                             {
@@ -134,6 +148,17 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                         </div>
 
                     </Col>
+                    <Row>
+                        <Col md={{ offset: 4 }}>
+                            <Card.Title className="personal-info" > Sobre mi: </Card.Title>
+
+                            <ul>
+                                {aboutMe}
+                            </ul>
+                        </Col>
+
+
+                    </Row>
                 </Row>
 
                 <Tabs
@@ -144,7 +169,7 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
 
                 >
 
-                    <Tab className="profileTab" eventKey="friends" title="Amigos????">
+                    <Tab className="profileTab" eventKey="friends" title="Amigos">
                         {!friends ? (
                             <Loader />
                         ) : (
@@ -152,13 +177,17 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                                 {/* TODO: DESCAOPLAR CONTENIDO DE TABS */}
                                 {friends.map((f) => (
                                     <Col className="userImg" md={{ span: 3 }} key={f._id}>
-                                        <div className="avatar-container">
-                                            <Link to={`/usuarios/detalles/${f._id}`}>
-                                                <img className="avatar" src={f.avatar} alt="Avatar" />
-                                            </Link>
+                                        <div className="friend">
+                                            <div className="avatar-container">
+                                                <Link to={`/usuarios/detalles/${f._id}`}>
+                                                    <img className="avatar" src={f.avatar} alt="Avatar" />
+                                                </Link>
+                                            </div>
+                                            <p className="friendsName">{f.firstName}</p>
                                         </div>
                                     </Col>
                                 ))}
+
                             </Row>
                         )}
                     </Tab>
@@ -172,10 +201,13 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                             <Row>
                                 {venueFavorites.map((v) => (
                                     <Col className="userImg" md={{ span: 3 }} key={v._id}>
-                                        <div className="avatar-container">
-                                            <Link to={`/salas/detalles/${v._id}`}>
-                                                <img className="avatar" src={v.venueImg} alt="VenueImage" />
-                                            </Link>
+                                        <div className="friend">
+                                            <div className="avatar-container">
+                                                <Link to={`/salas/detalles/${v._id}`}>
+                                                    <img className="avatar" src={v.venueImg} alt="VenueImage" />
+                                                </Link>
+                                            </div>
+                                            <p className="friendsName">{v.name}</p>
                                         </div>
                                     </Col>
                                 ))}
@@ -195,11 +227,16 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                                     :
                                     eventsAssisted?.map(e => {
                                         return (
-                                            <li key={e._id}>
-                                                <Link to={`/eventos/detalles/${e._id}`}>
-                                                    {e.name}
-                                                </Link>
-                                            </li>
+                                            <Row>
+                                                <Col>
+                                                    <li key={e._id}>
+                                                        <Link to={`/eventos/detalles/${e._id}`}>
+                                                            {e.name}
+                                                        </Link>
+                                                    </li>
+                                                </Col>
+                                                {/* <Col> <img className="imgEvent" src={drum} alt="Avatar" /></Col> */}
+                                            </Row>
                                         )
                                     })
                             }
@@ -208,7 +245,7 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
 
                 </Tabs>
             </Card >
-        </Container>
+        </Container >
     )
 }
 

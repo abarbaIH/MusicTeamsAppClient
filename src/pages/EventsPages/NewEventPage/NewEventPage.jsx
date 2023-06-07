@@ -15,7 +15,7 @@ const NewEventPage = () => {
     return (
 
         <Container>
-            <h1>Nuevo Evento</h1>
+            <h1>CREA TU ENSAYO</h1>
             <hr />
             <NewEventForm fireFinalActions={redirectUser} venueId={venueId} />
         </Container>

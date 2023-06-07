@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react"
-import { Container, Row, Modal, Button } from "react-bootstrap"
+import { Container, Row, Modal, Button, Col } from "react-bootstrap"
 import eventsService from "./../../../services/event.services"
 import EventsList from "../../../components/EventsList/EventsList"
 import NewEventForm from './../../../components/NewEventForm/NewEventForm'
 import Loader from "./../../../components/Loader/Loader"
 import { AuthContext } from "./../../../contexts/auth.context"
+import './OpenEventsListPage.css'
 
 const OpenEventListPage = () => {
 
@@ -25,12 +26,20 @@ const OpenEventListPage = () => {
 
     return (
         <Container>
+            <Row>
 
-            <h1>Listado de Eventos</h1>
+                <Col>
+                    <h1>ENSAYOS ABIERTOS</h1>
 
-            {
-                user && <Button variant="dark" size="sm" onClick={() => setShowModal(true)}>Crear Evento</Button>
-            }
+                </Col>
+
+                <Col>
+                    {
+                        user && <Button className="buttonNewEvent" variant="dark" size="sm" onClick={() => setShowModal(true)}>Crear Ensayo</Button>
+                    }
+                </Col>
+
+            </Row>
 
             <hr />
             <Row>

@@ -1,9 +1,9 @@
-import Maps from "../../components/Maps/Maps"
 import { Carousel } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import '../HomePage/HomePage.css'
-
-
+import carrousel1 from './../../assets/carousel1.jpg'
+import carrousel2 from './../../assets/carousel2.jpg'
+import carrousel3 from './../../assets/carousel3.jpg'
 
 const HomePage = () => {
     return (
@@ -12,7 +12,7 @@ const HomePage = () => {
                 <Carousel.Item className="carousel">
                     <img
                         className="d-block w-100"
-                        src="../../../assets2/carousel1.jpg"
+                        src={carrousel1}
                         alt="First slide"
                     />
                     <Carousel.Caption>
@@ -22,7 +22,7 @@ const HomePage = () => {
                 <Carousel.Item className="carousel">
                     <img
                         className="d-block w-100"
-                        src="../../../assets2/carousel2.jpg"
+                        src={carrousel2}
                         alt="Second slide"
                     />
                     <Carousel.Caption>
@@ -32,7 +32,7 @@ const HomePage = () => {
                 <Carousel.Item className="carousel">
                     <img
                         className="d-block w-100"
-                        src="../../../assets2/carousel3.jpg"
+                        src={carrousel3}
                         alt="Third slide"
                     />
                     <Carousel.Caption>
@@ -41,8 +41,6 @@ const HomePage = () => {
                 </Carousel.Item>
             </Carousel >
         </div >
-
-
 
     )
 }

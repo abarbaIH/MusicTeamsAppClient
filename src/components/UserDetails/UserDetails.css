@@ -6,6 +6,7 @@
     margin-left: 50px;
     margin-bottom: 20px;
     margin-top: 20px;
+    border: solid #461B37 10px;
 }
 
 .UserCard .userImg .avatar-container .avatar {
@@ -26,10 +27,41 @@
     margin-top: 2vh
 }
 
+.personal-info {
+    font-size: 30px;
+    font-weight: bold;
+    color: #461B37;
+}
+
 /* .horizontal-scroll {
    overflow-x: auto;
 } */
 
 .userDetails {
     height: 120vh;
+}
+
+.userData li {
+    font-size: 20px;
+    color: #461B37;
+
+}
+
+.friend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.friendsName {
+    font-size: 20px;
+    color: #461B37;
+    margin-top: 10px;
+    margin-left: 50px;
+}
+
+.profileTab li {
+    font-size: 20px;
+    color: #461B37;
 }

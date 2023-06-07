@@ -45,7 +45,7 @@ const ProfilePage = () => {
                 <Loader />
                 :
                 <>
-                    <h1>¡Holaaaaa, {userView.firstName}!</h1>
+                    <h1>¡HOLA, {userView.firstName}!</h1>
 
                     <hr />
                     <Row>
