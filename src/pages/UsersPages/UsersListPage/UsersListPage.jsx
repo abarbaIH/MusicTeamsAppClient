@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import usersService from '../../../services/users.services'
 import UsersList from '../../../components/UsersList/UsersList'
-
+import './UsersListPage.css'
 
 const UsersListPage = () => {
 
@@ -33,6 +33,7 @@ const UsersListPage = () => {
                 }
             </Row>
         </Container >
+
     )
 }
 

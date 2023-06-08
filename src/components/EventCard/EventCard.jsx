@@ -31,11 +31,6 @@ const EventCard = ({ _id, name, musicStyle, requiredExperience, venueEvent, even
             const avatar = assistant ? assistant.avatar : null;
             places.push(
                 <div key={_id} className="place-item">
-                    {/* 
-                    <Link to={`/usuarios/detalles/${assistants._id}`} >
-                        <img src={avatar} alt={`Asistente ${i + 1}`} className="assistant-avatar" />
-                    </Link> */}
-
 
                     <img src={avatar} alt={`Asistente ${i + 1}`} className="assistant-avatar" />
                     <p className="assistant-name mt-3"> <strong>{assistant.firstName}</strong></p>

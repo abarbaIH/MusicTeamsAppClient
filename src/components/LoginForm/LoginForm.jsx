@@ -48,17 +48,17 @@ const LoginForm = () => {
 
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="email">
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label style={{ color: "white", fontWeight: "bold" }}>Email</Form.Label>
                     <Form.Control type="email" value={email} onChange={handleInputChange} name="email" />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="password">
-                    <Form.Label>Contraseña</Form.Label>
+                    <Form.Label style={{ color: "white", fontWeight: "bold" }}>Contraseña</Form.Label>
                     <Form.Control type="password" value={password} onChange={handleInputChange} name="password" />
                 </Form.Group>
 
                 <div className="d-grid">
-                    <Button variant="dark" type="submit">Acceder</Button>
+                    <Button style={{ color: "white", background: '#461B37', fontWeight: "bold" }} variant="dark" type="submit">Acceder</Button>
                 </div>
                 {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
             </Form>

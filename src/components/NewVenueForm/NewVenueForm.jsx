@@ -70,33 +70,33 @@ const NewVenueForm = ({ fireFinalActions }) => {
 
     return (
 
-        <Container className="newEventForm">
-            <Form onSubmit={handleSubmit}>
+        <Container className="newVenueForm" >
+            <Form onSubmit={handleSubmit} >
 
                 <Form.Group className="mb-3" controlId="name">
-                    <Form.Label>Nombre de la Sala</Form.Label>
+                    <Form.Label style={{ color: 'white' }}  >Nombre de la Sala</Form.Label>
                     <Form.Control type="text" value={name} onChange={handleInputChange} name="name" />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="address">
-                    <Form.Label>Dirección</Form.Label>
+                    <Form.Label style={{ color: 'white' }} >Dirección</Form.Label>
                     <Form.Control type="text" value={address} onChange={handleInputChange} name="address" />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="latitud">
-                    <Form.Label>Latitud</Form.Label>
+                    <Form.Label style={{ color: 'white' }} >Latitud</Form.Label>
                     <Form.Control type="text" value={latitud} onChange={handleInputChange} name="latitud" />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="longitud">
-                    <Form.Label>Longitud</Form.Label>
+                    <Form.Label style={{ color: 'white' }} >Longitud</Form.Label>
                     <Form.Control type="text" value={longitud} onChange={handleInputChange} name="longitud" />
                 </Form.Group>
 
                 <Row>
                     <Col>
                         <Form.Group className="mb-3" controlId="phone">
-                            <Form.Label>Teléfono de Contacto</Form.Label>
+                            <Form.Label style={{ color: 'white' }} >Teléfono de Contacto</Form.Label>
                             <Form.Control type="text" value={phone} onChange={handleInputChange} name="phone" />
                         </Form.Group>
 
@@ -104,7 +104,7 @@ const NewVenueForm = ({ fireFinalActions }) => {
 
                     <Col>
                         <Form.Group className="mb-3" controlId="openingHours">
-                            <Form.Label>Horario de Apertura</Form.Label>
+                            <Form.Label style={{ color: 'white' }} >Horario de Apertura</Form.Label>
                             <Form.Control type="text" value={openingHours} onChange={handleInputChange} name="openingHours" />
                         </Form.Group>
 
@@ -112,19 +112,19 @@ const NewVenueForm = ({ fireFinalActions }) => {
 
                     <Col>
                         <Form.Group className="mb-3" controlId="capacity">
-                            <Form.Label>Capacidad (nº de personas)</Form.Label>
+                            <Form.Label style={{ color: 'white' }} >Capacidad (nº de personas)</Form.Label>
                             <Form.Control type="text" value={capacity} onChange={handleInputChange} name="capacity" />
                         </Form.Group>
                     </Col>
                 </Row>
 
                 <Form.Group className="mb-3" controlId="venueImg">
-                    <Form.Label>Imagen de la Sala</Form.Label>
+                    <Form.Label style={{ color: 'white' }} >Imagen de la Sala</Form.Label>
                     <Form.Control type="file" onChange={handleFileUpload} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="features">
-                    <Form.Label>Características de la Sala</Form.Label>
+                    <Form.Label style={{ color: 'white' }} >Características de la Sala</Form.Label>
                     {/* TODO A FUTURO: CREAR COLECCIÓN SALAS */}
                     <Form.Select multiple value={features} onChange={handleFeaturesChange} name="features">
                         <option value="Parking">Parking</option>
@@ -141,14 +141,14 @@ const NewVenueForm = ({ fireFinalActions }) => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="description">
-                    <Form.Label>Descripción</Form.Label>
+                    <Form.Label style={{ color: 'white' }} > Descripción</Form.Label>
                     <Form.Control type="text" value={description} onChange={handleInputChange} name="description" />
                 </Form.Group>
 
                 {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 
                 <div className="d-grid">
-                    <Button variant="dark" style={{ marginBottom: '30px' }} type="submit" disabled={loadingImage}>
+                    <Button className='buttonCreate' variant="dark" style={{ marginBottom: '30px' }} type="submit" disabled={loadingImage}>
                         {
                             loadingImage ? "Cargando Imagen.." : "Crear Sala"
                         }

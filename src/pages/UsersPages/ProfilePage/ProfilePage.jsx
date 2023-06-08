@@ -8,6 +8,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Loader from "../../../components/Loader/Loader";
 
+
 const ProfilePage = () => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate()
@@ -65,14 +66,14 @@ const ProfilePage = () => {
                                     <Row>
                                         <Col>
 
-                                            <li>Nombre: <strong>{userView.firstName}</strong></li>
-                                            <li>Apellido: <strong>{userView.lastName}</strong></li>
-                                            <li>Email: <strong>{userView.email}</strong></li>
-                                            <li>Instrumento: <strong>{userView.instrument}</strong>               Nivel: <strong>{userView.level}</strong></li>
-                                            <li>Rol: <strong>{userView.role}</strong></li>
+                                            <li><strong>Nombre:</strong> {userView.firstName}</li>
+                                            <li><strong>Apellido: </strong>{userView.lastName}</li>
+                                            <li><strong>Email:</strong> {userView.email}</li>
+                                            <li><strong>Instrumento: </strong>{userView.instrument}          <strong>Nivel:</strong> {userView.level}</li>
+                                            <li><strong>Rol: </strong> {userView.role}</li>
 
                                             <Row>
-                                                <li>Sobre mi<strong>{userView.aboutMe}</strong></li>
+                                                <li><strong>Sobre mi: </strong>{userView.aboutMe}</li>
                                             </Row>
                                         </Col>
                                     </Row>
@@ -87,10 +88,6 @@ const ProfilePage = () => {
                                             :
                                             userView.friends?.map(f => {
                                                 return (
-                                                    // <li key={f._id}>
-                                                    //     {f.firstName}
-                                                    // </li>
-
                                                     <Row className="profileCard">
                                                         <Col className="detailsImg" md={{ span: 4 }} key={f._id}>
                                                             <div className="friends">
@@ -118,11 +115,21 @@ const ProfilePage = () => {
                                             ?
                                             <Loader />
                                             :
-                                            userView.venueFavorites?.map(v => {
+                                            userView.venueFavorites?.map((v) => {
                                                 return (
-                                                    <li key={v._id}>
-                                                        {v.name}
-                                                    </li>
+                                                    <Row className="profileCard">
+                                                        <Col className="detailsImg" md={{ span: 4 }} key={v._id}>
+                                                            <div className="friends">
+                                                                <div className="avatar-container">
+                                                                    <Link to={`/usuarios/detalles/${v._id}`}>
+                                                                        <img className="avatar-friends" src={v.venueImg} alt="Avatar" />
+                                                                    </Link>
+                                                                </div>
+                                                                <p className="friendsName">{v.name}</p>
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
+
                                                 )
                                             })
                                     }
@@ -140,9 +147,15 @@ const ProfilePage = () => {
                                                 :
                                                 userView.eventsAssisted?.map(e => {
                                                     return (
-                                                        <li key={e._id}>
-                                                            {e.name}
-                                                        </li>
+                                                        <Row className="profileCard">
+                                                            <Col md={{ span: 4 }} key={e._id}>
+                                                                <li>
+                                                                    <Link to={`/eventos/detalles/${e._id}`}>
+                                                                        {e.name}
+                                                                    </Link>
+                                                                </li>
+                                                            </Col>
+                                                        </Row>
                                                     )
                                                 })
                                         }
@@ -157,30 +170,38 @@ const ProfilePage = () => {
             <hr />
 
             <Row xs={4} md={12}>
-                <Col md={{ span: 2 }}>
+                {/* <Col md={{ span: 2 }}>
                     <Link to="/salas">
                         <Button className="profileButton" variant="dark">Cambiar rol</Button>
                     </Link>
-                </Col>
-                <Col md={{ span: 2 }}>
+                </Col> */}
+                <Col md={{ span: 2, offset: 2 }}>
                     <Form onSubmit={handleSubmit}>
                         <Button className="profileButton" variant="dark">Eliminar perfil</Button>
                     </Form>
                 </Col>
                 <Col md={{ span: 2 }}>
-                    <Link to={`/perfil-editar/${user.id}`}>
+                    <Link to={`/perfil-editar/${user._id}`}>
                         <Form onSubmit={handleSubmit}>
                             <Button className="profileButton" variant="dark">Editar perfil</Button>
                         </Form>
                     </Link>
                 </Col>
-                <Col md={{ span: 2 }}>
-                    <Link to="/crear-sala">
-                        <Button className="profileButton" variant="dark" type="submit">
-                            Crear Sala
-                        </Button>
-                    </Link>
-                </Col>
+
+                {
+                    !user ? <></> : user.role === "MANAGER" ?
+                        <Col md={{ span: 2 }}>
+                            <Link to="/crear-sala">
+                                <Button className="profileButton" variant="dark" type="submit">
+                                    Crear Sala
+                                </Button>
+                            </Link>
+                        </Col>
+                        :
+                        <></>
+
+                }
+
                 <Col md={{ span: 2 }}>
                     <Link to="/crear-evento">
                         <Button className="profileButton" variant="dark" style={{ marginBottom: "30px" }} type="submit">

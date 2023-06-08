@@ -1,16 +1,14 @@
-.newVenueForm {
+.editEventForm {
     height: 105vh;
+    color: white;
     font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-.buttonCreate {
+.buttonEditEvent {
     background: #461B37;
     color: white;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 
-}
-
-.newVenueForm Form {
-    color: white;
 }

@@ -5,7 +5,7 @@ import venuesService from "./../../../services/venues.services"
 import Loader from "./../../../components/Loader/Loader"
 import usersService from './../../../services/users.services'
 import { AuthContext } from "../../../contexts/auth.context"
-import Maps from "../../../components/Maps/Maps"
+import MapContainer from "./../../../components/Maps/Maps"
 import './VenueDetailsPage.css'
 import likeButton from './../../../assets/LikeButton.png'
 import DislikeButton from './../../../assets/DislikeButton.png'
@@ -20,9 +20,12 @@ const VenueDetailsPage = () => {
     const { user } = useContext(AuthContext)
     const [userView, setUserView] = useState()
 
+
     useEffect(() => {
         loadUserView()
+
     }, [user])
+
 
     const loadUserView = () => {
         usersService
@@ -107,7 +110,6 @@ const VenueDetailsPage = () => {
 
                                     </Row>
 
-
                                     <Row className="description">
                                         <h4><strong>Descripcion: </strong></h4>
                                         <ul>
@@ -146,7 +148,6 @@ const VenueDetailsPage = () => {
                                                 </Button>
                                             </Link>
                                             <p className="mt-3">Volver atrás</p>
-
                                         </Col>
 
                                         <Col md={{ span: 4 }}>
@@ -155,7 +156,8 @@ const VenueDetailsPage = () => {
                                                     ?
                                                     <Loader />
                                                     :
-                                                    userView?.venueFavorites?.includes(id)
+
+                                                    userView?.venueFavorites.includes(id)
                                                         ?
 
                                                         <>
@@ -185,11 +187,48 @@ const VenueDetailsPage = () => {
                                                     <img className="createEvent" src={createEvent} alt="createEvent" />
                                                 </Button>
                                             </Link>
-                                            <p className="mt-3">Crear evento</p>
+                                            <p className="mt-3">Crear ensayo</p>
 
                                         </Col>
 
                                     </Row>
+                                    <>
+
+                                        {!user ?
+                                            <Loader />
+
+                                            :
+
+                                            user._id == venue.manager._id
+
+                                                ?
+
+                                                <>
+
+                                                    <Row>
+                                                        <Col>
+                                                            <Button className="editVenue" as="span" variant="dark" type="submit">
+                                                                <Link to={`/editar-sala/${venue._id}`}>Editar Sala</Link>
+                                                            </Button>
+                                                        </Col>
+
+                                                        <Col>
+                                                            <Form onSubmit={handleSubmit}>
+                                                                <Button className="deleteVenue" variant="dark" type="submit">Eliminar sala</Button>
+                                                            </Form>
+                                                        </Col>
+                                                    </Row>
+
+                                                </>
+                                                :
+                                                <> </>
+
+                                        }
+
+                                    </>
+
+
+
                                 </Col>
 
                                 <Col className="graphicInfo">
@@ -199,7 +238,7 @@ const VenueDetailsPage = () => {
                                     </Row>
 
                                     <Row className="venueMap">
-                                        <Maps latitud={venue.location.coordinates[0]} longitud={venue.location.coordinates[1]} />
+                                        <MapContainer latitud={venue.location.coordinates[0]} longitud={venue.location.coordinates[1]} />
                                     </Row>
 
                                 </Col>
@@ -216,5 +255,4 @@ const VenueDetailsPage = () => {
     )
 
 }
-
 export default VenueDetailsPage

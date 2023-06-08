@@ -52,7 +52,7 @@ const OpenEventListPage = () => {
                 }
             </Row>
 
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
+            <Modal className="modal-form" show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Nuevo Evento</Modal.Title>
                 </Modal.Header>

@@ -5,4 +5,29 @@
     color: white;
     border-bottom: white;
     margin-top: 12px;
+    margin-bottom: 20px;
+}
+
+.venuesFilter {
+    padding: 30px;
+}
+
+.modal-body {
+    background-color: rgb(110, 82, 107);
+    ;
+
+}
+
+/* .form-label {
+    color: #461B37;
+} */
+
+.modal-header {
+    color: #461B37;
+    font-weight: bold;
+}
+
+.modal-header button {
+    color: #461B37;
+    font-weight: bold;
 }

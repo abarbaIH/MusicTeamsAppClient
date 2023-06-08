@@ -101,12 +101,12 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
 
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="name">
-                    <Form.Label>Dale un nombre a tu Ensayo</Form.Label>
+                    <Form.Label style={{ color: "white", fontWeight: "bold" }}>Dale un nombre a tu Ensayo</Form.Label>
                     <Form.Control type="text" value={name} onChange={handleInputChange} name="name" />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="musicStyle">
-                    <Form.Label>Estilo de música del ensayo</Form.Label>
+                    <Form.Label style={{ color: "white", fontWeight: "bold" }}>Estilo de música del ensayo</Form.Label>
                     <Form.Select value={musicStyle} onChange={handleInputChange} name="musicStyle">
                         <option disabled value="">
                             Seleccione un estilo musical
@@ -123,7 +123,7 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
                 <Row>
                     <Col>
                         <Form.Group className="mb-3" controlId="requiredExperience">
-                            <Form.Label>Experiencia Requerida</Form.Label>
+                            <Form.Label style={{ color: "white", fontWeight: "bold" }}>Experiencia Requerida</Form.Label>
                             <Form.Select value={requiredExperience} onChange={handleInputChange} name="requiredExperience">
                                 <option disabled value="">
                                     Seleccione un nivel
@@ -140,7 +140,7 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
                     <Col>
 
                         <Form.Group className="mb-3" controlId="venueEvent">
-                            <Form.Label>Sala del Ensayo</Form.Label>
+                            <Form.Label style={{ color: "white", fontWeight: "bold" }}>Sala del Ensayo</Form.Label>
 
                             {venueId
                                 ?
@@ -165,20 +165,20 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
 
                     <Col>
                         <Form.Group className="mb-3" controlId="eventDate">
-                            <Form.Label>Fecha del Evento</Form.Label>
+                            <Form.Label style={{ color: "white", fontWeight: "bold" }}>Fecha del Evento</Form.Label>
                             <Form.Control type="date" value={eventDate} onChange={checkAvailability} name="eventDate" />
                         </Form.Group>
                     </Col>
                     {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
                 </Row>
                 <Form.Group className="mb-3" controlId="maxPlaces" >
-                    <Form.Label>Nº Máximo de Participantes</Form.Label>
+                    <Form.Label style={{ color: "white", fontWeight: "bold" }}>Nº Máximo de Participantes</Form.Label>
                     <Form.Control type="text" value={maxPlaces} onChange={handleInputChange} name="maxPlaces" disabled />
                 </Form.Group>
 
                 <div className="d-grid">
-                    {eventData.venueEvent ? null : <ShowAlert message="Si no seleccionas la sala no podemos ver disponibilidad de fechas" title="Por favor, selecciona una sala" />}
-                    <Button variant="dark" style={{ marginBottom: '30px' }} type="submit">Crear Evento</Button>
+                    {eventData.venueEvent ? null : <ShowAlert message="Debes seleccionar una sala para comprobar la disponibilidad" title="Por favor, selecciona una sala" />}
+                    <Button variant="dark" style={{ marginBottom: '30px', background: '#461B37', fontWeight: "bold" }} type="submit">Crear Evento</Button>
                 </div>
 
             </Form>

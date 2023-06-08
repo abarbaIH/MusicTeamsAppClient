@@ -4,24 +4,14 @@ import './VenueCard.css'
 
 const VenueCard = ({ _id, venueImg, name, openingHours, description, eventsList, capacity, features, rating }) => {
     return (
-        <Card className="mb-3 VenueCard" style={{ borderRadius: "10%" }}>
+        <Card className="mb-3 VenueCard">
             <Link to={`/salas/detalles/${_id}`}>
 
-                <Card.Img variant="top" src={venueImg} style={{ padding: "20px" }} />
+                <Card.Img variant="top" src={venueImg} style={{ padding: "30px", borderRadius: "5%" }} />
 
             </Link>
             <Card.Body>
                 <Card.Title className='venueTitle'>{name}</Card.Title>
-
-                {/* <Card.Text className='features'>
-                    {features.map(f => {
-                        return (
-                            <li key={f}>
-                                {f}
-                            </li>
-                        )
-                    })}
-                </Card.Text> */}
 
                 <Card.Text className='openingHours'>
                     <ul>
@@ -34,12 +24,8 @@ const VenueCard = ({ _id, venueImg, name, openingHours, description, eventsList,
                         <li>
                             <strong>Eventos: </strong> {eventsList?.length}
                         </li>
-                        {/* <li>
-                            <strong>Valoración: </strong> {rating}
-                        </li> */}
 
                     </ul>
-
 
                 </Card.Text>
 

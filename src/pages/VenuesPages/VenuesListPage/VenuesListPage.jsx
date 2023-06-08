@@ -53,29 +53,39 @@ const VenuesListPage = () => {
         <Container className="VenuesListPage mb-4">
 
             <h1>SALAS DE ENSAYO</h1>
-            <Row>
-                <Col>
+            <hr />
+
+            <Row className="venuesFilter">
+                <Col md={{ span: 4 }}>
                     <VenuesSearch filterVenuesByName={filterVenuesByName} />
 
                 </Col>
-                <Col>
+                <Col md={{ span: 4 }}>
                     <VenuesCapacitySearch filterVenuesByCapacity={filterVenuesByCapacity} />
 
                 </Col>
-                <Col>
+                <Col md={{ span: 4 }}>
                     <VenuesFeatureSearch filterVenuesByFeature={filterVenuesByFeature} />
 
                 </Col>
             </Row>
 
 
-            {user && (
+            {/* {user && (
                 <Button className='venuesButton' variant="dark" onClick={() => setShowModal(true)}>
                     Crear Sala
                 </Button>
-            )}
+            )} */}
 
-            <hr />
+            {
+                !user ? <></> : user.role === "MANAGER" ?
+                    <Button className='venuesButton' variant="dark" onClick={() => setShowModal(true)}>
+                        Crear Sala
+                    </Button>
+                    :
+                    <></>
+            }
+
             <Row>
                 {venues.length === 0 ? (
                     <Loader />
@@ -84,7 +94,7 @@ const VenuesListPage = () => {
                 )}
             </Row>
 
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
+            <Modal className='modal-form' show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Nueva Sala</Modal.Title>
                 </Modal.Header>

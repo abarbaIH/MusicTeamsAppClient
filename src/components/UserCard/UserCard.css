@@ -37,9 +37,10 @@
 }
 
 .custom-row {
-    background-color: #F2E4ED;
+    background-color: #e7c9db;
+    backdrop-filter: blur(20px);
     padding: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     height: 500px;

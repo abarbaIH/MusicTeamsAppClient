@@ -16,7 +16,6 @@
     object-position: center center;
 }
 
-
 .profileButton {
     background: #461B37;
     height: 6vh;
@@ -33,12 +32,9 @@
     color: #461B37;
 }
 
-/* .horizontal-scroll {
-   overflow-x: auto;
-} */
-
 .userDetails {
     height: 120vh;
+
 }
 
 .userData li {
@@ -59,9 +55,33 @@
     color: #461B37;
     margin-top: 10px;
     margin-left: 50px;
+    font-weight: bold;
 }
 
 .profileTab li {
     font-size: 20px;
     color: #461B37;
+
+}
+
+.UserCard {
+    background-color: #e7c9db;
+}
+
+
+#profile-tab-eventsAssisted {
+    color: #461B37
+}
+
+#profile-tab-venueFavorites {
+    color: #461B37
+}
+
+#profile-tab-friends {
+    color: #461B37
+}
+
+li.nav-item {
+    background-color: #c19db2;
+    font-weight: bold;
 }

@@ -8,8 +8,8 @@ const ShowAlert = ({ message, title }) => {
     if (show) {
         return (
             <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-                <Alert.Heading>{title}</Alert.Heading>
-                <p>
+                <Alert.Heading style={{ color: "red", fontSize: "30px" }}>{title}</Alert.Heading>
+                <p style={{ color: "red", fontSize: "20px" }}>
                     {message}
                 </p>
             </Alert>

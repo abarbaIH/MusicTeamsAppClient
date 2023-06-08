@@ -9,8 +9,6 @@
     text-align: right;
 }
 
-
-
 .features {
     font-size: 15px;
 }
@@ -25,5 +23,7 @@
 }
 
 .VenueCard {
-    background-color: #F2E4ED;
+    background-color: #e7c9db;
+    border-radius: 5%;
+    color: #461B37;
 }

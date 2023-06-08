@@ -18,8 +18,6 @@
     cursor: pointer;
 }
 
-
-
 .likeButton:hover,
 .DislikeButton:hover,
 .createEvent:hover,
@@ -32,19 +30,21 @@
 }
 
 .venueInfo {
-    background-color: #F2E4ED;
+    background-color: #e7c9db;
     padding: 50px;
+    color: #461B37;
 }
 
 .venueImage {
-    background-color: #F2E4ED;
+    background-color: #e7c9db;
+    ;
     padding: 20px;
     margin-left: 20px;
     margin-bottom: 20px;
 }
 
 .venueMap {
-    background-color: #F2E4ED;
+
     padding: 20px;
     margin-left: 20px;
     margin-bottom: 20px;
@@ -63,4 +63,16 @@
 .buttons img {
     height: 50px;
     width: 50px;
+}
+
+.editVenue {
+    background: #461B37;
+    color: white;
+    font-weight: bold;
+}
+
+.deleteVenue {
+    background: #461B37;
+    color: white;
+    font-weight: bold;
 }

@@ -1,0 +1,54 @@
+.eventButton {
+    background: #461B37;
+    height: 6vh;
+    width: 14vh;
+    color: white;
+    border-bottom: white;
+}
+
+.bg {
+    height: 100vh;
+    color: #461B37;
+
+}
+
+
+
+.bg2 p {
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.eventInf {
+    background-color: #e7c9db;
+    padding: 30px
+}
+
+.venueInf {
+    background-color: #e7c9db;
+    padding: 30px;
+}
+
+.venueInf li {
+    font-size: 20px;
+}
+
+.eventDetailsRow {
+    height: 100px;
+}
+
+.eventAssistants {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    border: solid #461B37 10px;
+    object-fit: cover
+}
+
+.venueImg {
+    width: 100%;
+}
+
+.eventDetailsBG p {
+    font-size: 20px;
+}

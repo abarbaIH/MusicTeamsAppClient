@@ -12,7 +12,7 @@ const VenuesSearch = ({ filterVenuesByName }) => {
 
     return (
         <form className="VenueSearch">
-            <input type="text" placeholder="Filtra por nombre..." value={nameQuery} onChange={handleQueryChange} />
+            <input type="text" placeholder="Filtra por nombre..." value={nameQuery} onChange={handleQueryChange} style={{ padding: "10px", width: "90%" }} />
         </form>
     )
 }

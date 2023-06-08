@@ -73,9 +73,9 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
     return (
 
         <Container className="userDetails">
-            <Card className=" mt-5 UserCard" md={{ span: 12 }} >
+            <Card className=" mt-5 UserCard" >
                 <Row>
-                    <Col className="userImg" md={{ span: 3, offset: 1 }}  >
+                    <Col className="userImg" md={{ span: 3, offset: 1 }} >
                         <div className="avatar-container">
                             <img className="avatar" src={avatar} alt="Avatar" />
                         </div>
@@ -83,17 +83,17 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                     <Col className="userData" md={{ span: 5 }}>
                         <Card.Title className="mt-4 personal-info"> Datos personales</Card.Title>
                         <ul>
-                            <li>Nombre: <strong>{firstName}</strong></li>
-                            <li>Apellido: <strong>{lastName}</strong></li>
-                            <li>Email: <strong>{email}</strong></li>
-                            <li>Instrumento: <strong>{instrument} </strong>Nivel: <strong>{level}</strong></li>
+                            <li><strong>Nombre: </strong>{firstName}</li>
+                            <li><strong>Apellido: </strong>{lastName}</li>
+                            <li><strong>Email: </strong>{email}</li>
+                            <li><strong>Instrumento: </strong>{instrument}  <strong>Nivel: </strong>{level}</li>
                             {
                                 !userView ?
                                     <Loader />
                                     :
                                     <>
-                                        <li>Amigos: <strong>{friends?.length}</strong></li>
-                                        <li>Ensayos Creados: <strong>{eventsCreated?.length}</strong></li>
+                                        <li> <strong>Amigos:  </strong>{friends?.length}</li>
+                                        <li> <strong>Ensayos Creados:  </strong>{eventsCreated?.length} </li>
                                     </>
 
                             }
@@ -101,7 +101,7 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                             {
                                 user.role === "ADMIN"
                                 &&
-                                <li>Rol: <strong>{role}</strong></li>
+                                <li> <strong>Rol: </strong>{role}</li>
 
                             }
 
@@ -174,9 +174,8 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                             <Loader />
                         ) : (
                             <Row>
-                                {/* TODO: DESCAOPLAR CONTENIDO DE TABS */}
                                 {friends.map((f) => (
-                                    <Col className="userImg" md={{ span: 3 }} key={f._id}>
+                                    <Col className="userImg" md={{ span: 4 }} lg={{ span: 3 }} key={f._id}>
                                         <div className="friend">
                                             <div className="avatar-container">
                                                 <Link to={`/usuarios/detalles/${f._id}`}>
@@ -193,7 +192,7 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                     </Tab>
 
 
-                    <Tab className="profileTab  horizontal-scroll" eventKey="venueFavorites" title="Salas">
+                    <Tab className="profileTab" eventKey="venueFavorites" title="Salas">
                         {!venueFavorites ? (
                             <Loader />
                         ) : (
@@ -235,7 +234,6 @@ const UserDetails = ({ _id, avatar, firstName, lastName, email, role, instrument
                                                         </Link>
                                                     </li>
                                                 </Col>
-                                                {/* <Col> <img className="imgEvent" src={drum} alt="Avatar" /></Col> */}
                                             </Row>
                                         )
                                     })

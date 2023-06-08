@@ -80,37 +80,37 @@ const EditVenueForm = () => {
 
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="name">
-                <Form.Label>Nombre de la Sala</Form.Label>
+                <Form.Label style={{ color: 'white', fontWeight: "bold" }}>Nombre de la Sala</Form.Label>
                 <Form.Control type="text" value={name} onChange={handleInputChange} name="name" />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="address">
-                <Form.Label>Direccion</Form.Label>
+                <Form.Label style={{ color: 'white', fontWeight: "bold" }}>Direccion</Form.Label>
                 <Form.Control type="text" value={address} onChange={handleInputChange} name="address" />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="phone">
-                <Form.Label>Teléfono de contacto</Form.Label>
+                <Form.Label style={{ color: 'white', fontWeight: "bold" }}>Teléfono de contacto</Form.Label>
                 <Form.Control type="text" value={phone} onChange={handleInputChange} name="phone" />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="openingHours">
-                <Form.Label>Horario de Apertura</Form.Label>
+                <Form.Label style={{ color: 'white', fontWeight: "bold" }}>Horario de Apertura</Form.Label>
                 <Form.Control type="text" value={openingHours} onChange={handleInputChange} name="openingHours" />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="venueImg">
-                <Form.Label>Imagen de la Sala</Form.Label>
+                <Form.Label style={{ color: 'white', fontWeight: "bold" }}>Imagen de la Sala</Form.Label>
                 <Form.Control type="file" onChange={handleFileUpload} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="capacity">
-                <Form.Label>Capacidad de la Sala</Form.Label>
+                <Form.Label style={{ color: 'white', fontWeight: "bold" }}>Capacidad de la Sala</Form.Label>
                 <Form.Control type="text" value={capacity} onChange={handleInputChange} name="capacity" />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="features">
-                <Form.Label>Características de la Sala</Form.Label>
+                <Form.Label style={{ color: 'white', fontWeight: "bold" }}>Características de la Sala</Form.Label>
                 <Form.Select multiple value={features} onChange={handleInputChange} name="features">
                     <option value="Parking">Parking</option>
                     <option value="Aire Acondicionado">Aire Acondicionado</option>
@@ -126,7 +126,7 @@ const EditVenueForm = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="description">
-                <Form.Label>Descripción</Form.Label>
+                <Form.Label style={{ color: 'white', fontWeight: "bold" }}>Descripción</Form.Label>
                 <Form.Control type="text" value={description} onChange={handleInputChange} name="description" />
             </Form.Group>
 
@@ -134,7 +134,7 @@ const EditVenueForm = () => {
             {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
 
             <div className="d-grid">
-                <Button variant="dark" style={{ marginBottom: '30px' }} disabled={loadingImage} type="submit">
+                <Button variant="dark" style={{ background: '#461B37', marginBottom: '30px' }} disabled={loadingImage} type="submit">
 
                     {
                         loadingImage ? "Cargando Imagen.." : "Guardar cambios"

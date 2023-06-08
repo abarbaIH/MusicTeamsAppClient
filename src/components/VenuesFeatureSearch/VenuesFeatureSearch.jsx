@@ -11,8 +11,8 @@ const VenuesFeatureSearch = ({ filterVenuesByFeature }) => {
     }
 
     return (
-        <form className="VenuesFeatureSearch">
-            <select value={selectedFeature} onChange={handleFeatureChange}>
+        <form className="VenuesFeatureSearch " >
+            <select value={selectedFeature} onChange={handleFeatureChange} style={{ padding: "13px", width: "90%" }} >
                 <option value="">Seleccione una característica</option>
                 <option value="Parking">Parking</option>
                 <option value="Aire Acondicionado">Aire Acondicionado</option>

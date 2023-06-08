@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../contexts/auth.context'
 import logo from './../../assets/MusicTeamsAppLogo.png'
 import './Navigation.css'
+import Loader from '../Loader/Loader'
 
 const Navigation = () => {
     const { user, logout } = useContext(AuthContext)
@@ -12,7 +13,7 @@ const Navigation = () => {
         < Navbar className='navbar' expand="lg"  >
             <Container>
                 <Navbar.Brand className='nav-text' href="/">
-                    <img src={logo} style={{ width: "40px", borderRadius: "50%", marginRight: "20px" }} alt="" />
+                    <img src={logo} style={{ width: "80px", marginRight: "20px" }} alt="" />
 
                     MusicTeamsApp</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -30,9 +31,24 @@ const Navigation = () => {
                             <Link to="/salas">Salas de Ensayo</Link>
                         </Nav.Link>
 
-                        <Nav.Link as="span">
-                            <Link to="/crear-sala">Crear Sala</Link>
-                        </Nav.Link>
+                        {!user
+                            ?
+                            <></>
+
+                            :
+                            user.role === "MANAGER"
+                                ?
+                                <Nav.Link as="span">
+                                    <Link to="/crear-sala">Crear Sala</Link>
+                                </Nav.Link>
+                                :
+                                <></>
+
+                        }
+
+
+
+
 
                         <Nav.Link as="span">
                             <Link to="/eventos-abiertos">Ensayos Abiertos</Link>
@@ -58,8 +74,9 @@ const Navigation = () => {
                                             <Link to="/perfil">Perfil</Link>
                                         </NavDropdown.Item>
                                         <NavDropdown.Item as="span" className='nav-dropdown'>
-                                            <Link to="/perfil-editar/:id">Editar Perfil</Link>
+                                            <Link to={`/perfil-editar/${user._id}`}>Editar Perfil</Link>
                                         </NavDropdown.Item>
+
 
                                         <NavDropdown.Divider className='nav-dropdown-divider' />
 
