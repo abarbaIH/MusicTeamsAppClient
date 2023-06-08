@@ -62,28 +62,19 @@ const ProfilePage = () => {
                                 fill>
 
                                 <Tab className="profileTab" eventKey="profile" title="Mis datos">
-                                    <Row><Col> <h4><strong>Nombre</strong></h4>
-                                        <p>{userView.firstName}</p>
-                                        <h4><strong>Apellido</strong></h4>
-                                        <p>{userView.lastName}</p>
-                                        <h4><strong>Email</strong></h4>
-                                        <p>{userView.email}</p>
-                                        <Row>
-                                            <Col>
-                                                <h4><strong>Rol</strong></h4>
-                                                <p>{userView.role}</p>
-                                            </Col>
-                                            <Col> <h4><strong>Instrumento</strong></h4>
-                                                <p>{userView.instrument}</p>
-                                            </Col>
-                                            <Col>
-                                                <h4><strong>Nivel</strong></h4>
-                                                <p>{userView.level}</p>
-                                            </Col>
-                                            <h4><strong>Sobre mi</strong></h4>
-                                            <p>{userView.aboutMe}</p>
-                                        </Row>
-                                    </Col>
+                                    <Row>
+                                        <Col>
+
+                                            <li>Nombre: <strong>{userView.firstName}</strong></li>
+                                            <li>Apellido: <strong>{userView.lastName}</strong></li>
+                                            <li>Email: <strong>{userView.email}</strong></li>
+                                            <li>Instrumento: <strong>{userView.instrument}</strong>               Nivel: <strong>{userView.level}</strong></li>
+                                            <li>Rol: <strong>{userView.role}</strong></li>
+
+                                            <Row>
+                                                <li>Sobre mi<strong>{userView.aboutMe}</strong></li>
+                                            </Row>
+                                        </Col>
                                     </Row>
                                 </Tab>
 
@@ -96,9 +87,23 @@ const ProfilePage = () => {
                                             :
                                             userView.friends?.map(f => {
                                                 return (
-                                                    <li key={f._id}>
-                                                        {f.firstName}
-                                                    </li>
+                                                    // <li key={f._id}>
+                                                    //     {f.firstName}
+                                                    // </li>
+
+                                                    <Row className="profileCard">
+                                                        <Col className="detailsImg" md={{ span: 4 }} key={f._id}>
+                                                            <div className="friends">
+                                                                <div className="avatar-container">
+                                                                    <Link to={`/usuarios/detalles/${f._id}`}>
+                                                                        <img className="avatar-friends" src={f.avatar} alt="Avatar" />
+                                                                    </Link>
+                                                                </div>
+                                                                <p className="friendsName">{f.firstName}</p>
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
+
                                                 )
                                             })
                                     }

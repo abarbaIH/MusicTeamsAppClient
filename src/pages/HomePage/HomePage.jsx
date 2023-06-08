@@ -12,11 +12,7 @@ const HomePage = () => {
                 <Carousel.Item className="carousel">
                     <img
                         className="d-block w-100"
-<<<<<<< HEAD
-                        src="../../../carousel1.jpg"
-=======
                         src={carrousel1}
->>>>>>> d0989644accdf8c9d90a47a63e6b3afd8e0ca111
                         alt="First slide"
                     />
                     <Carousel.Caption>
@@ -26,11 +22,7 @@ const HomePage = () => {
                 <Carousel.Item className="carousel">
                     <img
                         className="d-block w-100"
-<<<<<<< HEAD
-                        src="../../../carousel2.jpg"
-=======
                         src={carrousel2}
->>>>>>> d0989644accdf8c9d90a47a63e6b3afd8e0ca111
                         alt="Second slide"
                     />
                     <Carousel.Caption>
@@ -40,11 +32,7 @@ const HomePage = () => {
                 <Carousel.Item className="carousel">
                     <img
                         className="d-block w-100"
-<<<<<<< HEAD
-                        src="../../../carousel3.jpg"
-=======
                         src={carrousel3}
->>>>>>> d0989644accdf8c9d90a47a63e6b3afd8e0ca111
                         alt="Third slide"
                     />
                     <Carousel.Caption>
