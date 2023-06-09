@@ -26,7 +26,7 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
 
     const [venues, setVenues] = useState([])
 
-    const [result, setResult] = useState('')
+    const [isUnavailable, setIsUnavailable] = useState(false)
 
     const checkAvailability = (e) => {
 
@@ -39,7 +39,7 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
 
             venuesService
                 .checkAvailability(eventData.venueEvent, dateSelected)
-                .then(({ data }) => setResult(data))
+                .then(({ data }) => setIsUnavailable(data))
                 .then(setEventData({ ...eventData, eventDate: dateSelected }))
                 .catch(err => console.log(err))
 
@@ -78,9 +78,10 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        if (result) {
+        if (isUnavailable) {
             return (
-                <ShowAlert message="Por favor, consulta otras fechas para confirmar disponibilidad" title="Lo sentimos, no hay disponibilidad de sala en la fecha seleccionada" />
+                alert('Por favor, consulta otras fechas para confirmar disponibilidad')
+                // <ShowAlert message="Por favor, consulta otras fechas para confirmar disponibilidad" title="Lo sentimos, no hay disponibilidad de sala en la fecha seleccionada" />
             )
 
         } else {
@@ -167,6 +168,7 @@ const NewEventForm = ({ fireFinalActions, venueId }) => {
                         <Form.Group className="mb-3" controlId="eventDate">
                             <Form.Label style={{ color: "white", fontWeight: "bold" }}>Fecha del Evento</Form.Label>
                             <Form.Control type="date" value={eventDate} onChange={checkAvailability} name="eventDate" />
+                            {isUnavailable && <Form.Text style={{ color: 'white', backgroundColor: 'red', fontSize: '25px' }}>Fecha no disponible. Elige otra</Form.Text>}
                         </Form.Group>
                     </Col>
                     {errors.length > 0 && <FormError>{errors.map(elm => <p>{elm}</p>)}</FormError>}
