@@ -1,9 +1,9 @@
 ## CLIENT ROUTES
 #### Index Route
 
-| URL | Description     | Protected                |
-| :-------- | :------- | :------------------------- |
-| /| Index page |  |
+| URL | Description         | Protected                  |
+| :-------- | :------------ | :------------------------- |
+| /         | Index page    |                            |
 | *| 404 page |  |
 
 #### User Routes
